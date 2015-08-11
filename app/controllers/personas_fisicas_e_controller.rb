@@ -7,7 +7,6 @@ class PersonasFisicasEController < ApplicationController
 
   def buscar_persona_por_cuil_cuit
     @formulario = Formulario.find_by_id(params[:formulario_id])
-    @buscado = nil
     @buscado = IntegranteDeElencoEnGira.where(cuil_cuit: params[:numero_cuil_cuit])[0]
     if @buscado.nil?
       @buscado = PersonaFisicaN.where(cuil_cuit: params[:numero_cuil_cuit])[0]
