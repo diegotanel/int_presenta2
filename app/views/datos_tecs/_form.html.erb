@@ -1,0 +1,94 @@
+#encoding: utf-8
+  <%= form_for([@formulario, @datos_tec], html: { multipart: true }) do |f| %>
+  	<%= render 'shared/error_messages', :object => f.object %>
+
+    <p>Los campos marcados con * son obligatorios</p>
+
+    <div class="field">
+    	<%= f.label :duracion_montaje, "Duración del montaje (en minutos) *" %>
+      <%= f.text_field :duracion_montaje %>
+    </div>
+
+    <div class="field">
+    	<%= f.label :duracion_desmontaje, "Duración del desmontaje (en minutos) *" %>
+      <%= f.text_field :duracion_desmontaje %>
+    </div>
+
+    <div class="field">
+      <br/><%= label_tag :esps_esp, "Tipo de Espacio *" %><p>(Tildar al menos uno)</p>
+       <%= hidden_field_tag "datos_tec[esps_esp_ids][]", nil %>
+      <% EspsEsp.all.each do |esps_esp| %>
+        <tr>
+          <td><%= check_box_tag "datos_tec[esps_esp_ids][]", esps_esp.id, @datos_tec.esps_esp_ids.include?(esps_esp.id), :id => dom_id(esps_esp) %></td>
+          <td><%= esps_esp.detalle %></td>
+        </tr>
+      <% end %>
+    </div></br>
+
+    <div class="field">
+      <%= f.label :descripcion_espacio, "Descripción del espacio *" %><p>(no mas de 500 caracteres, los espacios cuentan como caracteres)</p>
+      <%= f.text_area :descripcion_espacio %>
+    </div>
+
+    <div class="field">
+      <%= f.label :ancho, "Ancho (en Mts.) *" %>
+      <%= f.text_field :ancho, :value => @datos_tec.ancho ? number_with_delimiter(f.object.ancho) : '' %>
+    </div>
+
+    <div class="field">
+      <%= f.label :alto, "Alto (en Mts.) *" %>
+      <%= f.text_field :alto, :value => @datos_tec.alto ? number_with_delimiter(f.object.alto) : '' %>
+    </div>
+
+    <div class="field">
+      <%= f.label :profundidad, "Profundidad (en Mts.) *" %>
+      <%= f.text_field :profundidad, :value => @datos_tec.profundidad ? number_with_delimiter(f.object.profundidad) : ''%>
+    </div>
+
+    <div class="field">
+      <%= f.label :listado_artefactos_luminicos, "Listado de artefactos lumínicos *" %><p>(no mas de 500 caracteres, los espacios cuentan como caracteres)</p>
+      <%= f.text_area :listado_artefactos_luminicos %>
+    </div>
+
+    <div class="field">
+      <%= f.label :listado_sonido, "Sonido: Listado de equipamiento necesario *" %><p>(no mas de 500 caracteres, los espacios cuentan como caracteres)</p>
+      <%= f.text_area :listado_sonido %>
+    </div>
+
+    <div class="field">
+      <%= f.label :otros_equipamientos, "Otros equipamientos" %><p>(no mas de 500 caracteres, los espacios cuentan como caracteres)</p>
+      <%= f.text_area :otros_equipamientos %>
+    </div>
+
+    <p>Carga:</p>
+
+    <div class="field">
+      <%= f.label :peso_total, "Peso total aprox. (en Kg) *" %>
+      <%= f.text_field :peso_total %>
+    </div>
+
+    <div class="field">
+      <%= f.label :volumen_total, "Volumen total aprox. (en m3) *" %>
+      <%= f.text_field :volumen_total %>
+    </div>
+
+    <div class="field">
+      <%= f.label :otras_necesidades, "Otras necesidades" %><p>(no mas de 500 caracteres, los espacios cuentan como caracteres)</p>
+      <%= f.text_area :otras_necesidades %>
+    </div>
+
+    <div class="field">
+      <%= f.label :imagen, "Adjuntar planta de luces (archivos jpg / png / pdf - tamaño máximo 1 mb)" %>
+      <%= f.file_field :imagen %>
+    </div>
+
+    <div class="field">
+    <% if @datos_tec.imagen %>
+      <%= image_tag @datos_tec.imagen.url(:medium) %>
+    <% end %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Guardar Datos", class: "btn btn-large btn-primary" %>
+    </div>
+  <% end %>

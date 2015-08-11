@@ -1,0 +1,76 @@
+#encoding: utf-8
+<% provide(:title, 'Busqueda de persona') %>
+<h2>Datos del integrante encontrado</h2>
+<p>
+  <b>Nombre:</b>
+  <%= @buscado.nombre if @buscado.nombre%>
+</p>
+
+<p>
+  <b>Apellido:</b>
+  <%= @buscado.apellido if @buscado.apellido%>
+</p>
+
+<p>
+  <b>CUIL / CUIT:</b>
+  <%= @buscado.cuil_cuit if @buscado.cuil_cuit%>
+</p>
+
+<p>
+  <b>Fecha de nacimiento:</b>
+  <%= @buscado.fecha_de_nacimiento if @buscado.fecha_de_nacimiento %>
+</p>
+
+<p>
+  <b>Calle:</b>
+  <%= @buscado.calle if @buscado.calle %>
+</p>
+
+<p>
+  <b>Numero de calle:</b>
+  <%= @buscado.altura_calle if @buscado.altura_calle%>
+</p>
+
+<p>
+  <b>Piso:</b>
+  <%= @buscado.piso if @buscado.altura_calle%>
+</p>
+
+<p>
+  <b>Departamento:</b>
+  <%= @buscado.depto if @buscado.depto%>
+</p>
+
+<p>
+  <b>Provincia:</b>
+  <%= @buscado.provincia.detalle %>
+</p>
+
+<p>
+  <b>Localidad:</b>
+  <%= @buscado.localidad.detalle %>
+</p>
+
+<p>
+  <b>Código postal:</b>
+  <%= @buscado.codigo_postal if @buscado.codigo_postal %>
+</p>
+
+<p>
+  <b>Teléfono particular:</b>
+  <%= @buscado.tel_particular if @buscado.tel_particular%>
+</p>
+
+<p>
+  <b>Teléfono celular:</b>
+  <%= @buscado.tel_celular if @buscado.tel_celular%>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @buscado.email if @buscado.email %>
+</p>
+</br>
+<p>Es la persona que buscaba?</p>
+<%= link_to "Si", formulario_personas_fisicas_e_int_path(@formulario, :buscado_id => @buscado.id), method: :post, class: "btn btn-large btn-medium" %>
+<%= link_to "No", new_formulario_persona_fisica_e_path(@formulario), class: "btn btn-large btn-medium" %>

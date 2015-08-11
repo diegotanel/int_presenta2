@@ -1,0 +1,322 @@
+#encoding: utf-8
+<% provide(:title, 'Editar formulario') %>
+
+<% if (@formulario.principal) %>
+  </br>
+  <h1> Formulario <%=  @formulario.principal.nombre %></h1></br>
+<% else %>
+  </br>
+  <h1>Formulario</h1></br>
+<% end %>
+
+<h3>Campos de datos</h3><p>(Los campos de datos se pueden completar parcialmente y serán guardados en un borrador. Así mismo, se puede comenzar por cualquiera de ellos.)</p>
+
+<table class="table table-striped">
+
+  <tr>
+    <td>Datos Principales</td>
+
+      <% unless (@formulario.principal) %>
+        <td><font color="red">Campo Incompleto</font></td>
+      <% end %>
+
+      <% if (@formulario.principal) %>
+        <% unless (@formulario.principal.valid?) %>
+          <td><%= link_to 'Campo Incompleto', errores_formulario_principal_path(@formulario, @formulario.principal), style: 'color:#FF0000'  %></td>
+        <% end %>
+      <% end %>
+
+       <% if (@formulario.principal) && (@formulario.principal.valid?) %>
+        <td><font color="green">Campo Completo</font></td>
+      <% end %>
+
+    <% if (@formulario.principal) %>
+
+    	<td><%= link_to t("scaffoldi18n.ver"), formulario_principal_path(@formulario, @formulario.principal)  %></td>
+      <td><%= link_to t("scaffoldi18n.edit"), edit_formulario_principal_path(@formulario, @formulario.principal)  %></td>
+      <td></td>
+    <% else %>
+      <td><%= link_to t("scaffoldi18n.new"), new_formulario_principal_path(@formulario) %></td>
+      <td></td>
+      <td></td>
+    <% end %>
+  </tr>
+
+  <tr>
+    <td>Datos generales del espectáculo</td>
+
+      <% unless (@formulario.datos_esp) %>
+        <td><font color="red">Campo Incompleto</font></td>
+      <% end %>
+
+      <% if (@formulario.datos_esp) %>
+        <% unless (@formulario.datos_esp.valid?) %>
+          <td><%= link_to 'Campo Incompleto', errores_formulario_datos_esp_path(@formulario, @formulario.datos_esp), style: 'color:#FF0000'  %></td>
+        <% end %>
+      <% end %>
+
+      <% if (@formulario.datos_esp) && (@formulario.datos_esp.valid?) %>
+        <% if (@formulario.datos_esp.ficha_artisticas.count > 0) %>
+          <% @formulario.datos_esp.ficha_artisticas.each do |ficha| %>
+              <%  unless ficha.valid? %>
+                <% @es_invali = true 
+                  break %>
+              <% end %>
+            <% end %>
+        <% else %>
+          <% @es_invali = true %>
+        <% end %>
+
+        <% if (@es_invali) %>
+          <td><%= link_to 'Campo Incompleto', errores_formulario_datos_esp_path(@formulario, @formulario.datos_esp), style: 'color:#FF0000'  %></td>
+        <% else %>
+          <td><font color="green">Campo Completo</font></td>
+        <% end %>
+      <% end %>
+
+    <% if (@formulario.datos_esp) %>
+
+    	<td><%= link_to t("scaffoldi18n.ver"), formulario_datos_esp_path(@formulario, @formulario.datos_esp)  %></td>
+      <td><%= link_to t("scaffoldi18n.edit"), edit_formulario_datos_esp_path(@formulario, @formulario.datos_esp)  %></td>
+      <td></td>
+    <% else %>
+      <td><%= link_to t("scaffoldi18n.new"), new_formulario_datos_esp_path(@formulario) %></td>
+      <td></td>
+      <td></td>
+    <% end %>
+  </tr>
+
+  <tr>
+    <td>Datos técnicos del espectáculo</td>
+
+      <% unless (@formulario.datos_tec) %>
+        <td><font color="red">Campo Incompleto</font></td>
+      <% end %>
+
+      <% if (@formulario.datos_tec) %>
+        <% unless (@formulario.datos_tec.valid?) %>
+          <td><%= link_to 'Campo Incompleto', errores_formulario_datos_tec_path(@formulario, @formulario.datos_tec), style: 'color:#FF0000'  %></td>
+        <% end %>
+      <% end %>
+
+       <% if (@formulario.datos_tec) && (@formulario.datos_tec.valid?) %>
+        <td><font color="green">Campo Completo</font></td>
+      <% end %>
+
+    <% if (@formulario.datos_tec) %>
+
+    	<td><%= link_to t("scaffoldi18n.ver"), formulario_datos_tec_path(@formulario, @formulario.datos_tec)  %></td>
+      <td><%= link_to t("scaffoldi18n.edit"), edit_formulario_datos_tec_path(@formulario, @formulario.datos_tec)  %></td>
+      <td></td>
+    <% else %>
+      <td><%= link_to t("scaffoldi18n.new"), new_formulario_datos_tec_path(@formulario) %></td>
+      <td></td>
+      <td></td>
+    <% end %>
+
+  </tr>
+
+  <tr>
+  <td>Datos del elenco en gira</td>
+
+      <% unless (@formulario.elenco_en_gira) %>
+        <td><font color="red">Campo Incompleto</font></td>
+      <% end %>
+
+      <% if (@formulario.elenco_en_gira) %>
+
+        <% if (@es_invalido) %>
+          <td><font color="red">Campo Incompleto</font></td>
+        <% else %>
+          <td><font color="green">Campo Completo</font></td>
+        <% end %>
+      <% end %>
+
+  <% if (@formulario.elenco_en_gira) %>
+    <td><%= link_to t("scaffoldi18n.ver"), formulario_elenco_en_gira_path(@formulario, @formulario.elenco_en_gira)  %></td>
+    <td><%= link_to t("scaffoldi18n.edit"), formulario_elencos_en_gira_path(@formulario) %></td>
+  	<td></td>
+  <% else %>
+  	<td><%= link_to t("scaffoldi18n.new"), formulario_elencos_en_gira_path(@formulario, @formulario.elenco_en_gira)  %></td>
+  	<td></td>
+    <td></td>
+  <% end %>
+
+  <% if (@formulario.principal) %>
+    <% if (@formulario.principal.grupo.codigo == "a" ) %>
+      <tr>
+        <td>Datos del grupo</td>
+
+      <% unless (@formulario.datos_grupo) %>
+        <td><font color="red">Campo Incompleto</font></td>
+      <% end %>
+
+        <% if (@formulario.datos_grupo) %>
+          <% unless (@formulario.datos_grupo.valid?) %>
+            <td><%= link_to 'Campo Incompleto', errores_formulario_datos_grupo_path(@formulario, @formulario.datos_grupo), style: 'color:#FF0000'  %></td>
+          <% end %>
+        <% end %>
+
+        <% if (@formulario.datos_grupo) && (@formulario.datos_grupo.valid?) %>
+          <td><font color="green">Campo Completo</font></td>
+        <% end %>
+
+        <% if (@formulario.datos_grupo) %>
+
+        	<td><%= link_to t("scaffoldi18n.ver"), formulario_datos_grupo_path(@formulario, @formulario.datos_grupo)  %></td>
+          <td><%= link_to t("scaffoldi18n.edit"), edit_formulario_datos_grupo_path(@formulario, @formulario.datos_grupo)  %></td>
+          <td></td>
+        <% else %>
+          <td><%= link_to t("scaffoldi18n.new"), new_formulario_datos_grupo_path(@formulario) %></td>
+        	<td></td>
+          <td></td>
+        <% end %>
+      </tr>
+    <% end %>
+  <% end %>
+
+  <tr>
+    <td>Datos del responsable</td>
+    <% unless (@formulario.responsable) %>
+      <td><font color="red">Campo Incompleto</font></td>
+    <% end %>
+    <% if (@formulario.responsable) %>
+      <% unless (@formulario.responsable.valid?) %>
+        <td><font color="red">Campo Incompleto</font></td>
+      <% end %>
+    <% end %>
+    <% if (@formulario.responsable) %>
+      <% if (@formulario.responsable.valid?) %>
+        <% if (@formulario.responsable.responsabilidad_type == "PersonaFisicaN") %>
+          <% if (@formulario.responsable.responsabilidad.valid?) %>
+            <td><font color="green">Campo Completo</font></td>
+          <% else %>
+            <td><font color="red">Campo Incompleto</font></td>
+          <% end %>
+        <% elsif (@formulario.responsable.responsabilidad_type == "PersonaFisicaEInt") %>
+          <% if (@formulario.responsable.responsabilidad.valid?) %>
+            <td><font color="green">Campo Completo</font></td>
+          <% else %>
+            <td><font color="red">Campo Incompleto</font></td>
+          <% end %>
+        <% elsif (@formulario.responsable.responsabilidad_type == "PersonaFisicaENue") %>
+          <% if (@formulario.responsable.responsabilidad.valid?) %>
+            <td><font color="green">Campo Completo</font></td>
+          <% else %>
+            <td><font color="red">Campo Incompleto</font></td>
+          <% end %>
+        <% elsif (@formulario.responsable.responsabilidad_type == "PersonaJuridica") %>
+          <% if (@formulario.responsable.responsabilidad.valid?) %>
+            <% @es_invalid = nil %>
+
+            <% if (@formulario.responsable.responsabilidad.integrantes_comision_directiva.count > 0) %>
+                <% @formulario.responsable.responsabilidad.integrantes_comision_directiva.each do |integrant| %>
+                  <%  unless integrant.valid? %>
+                    <% @es_invalid = true 
+                      break %>
+                  <% end %>
+                <% end %>
+            <% else %>
+              <% @es_invalid = true %>
+            <% end %>
+
+            <% if (@es_invalid) %>
+              <td><font color="red">Campo Incompleto</font></td>
+            <% else %>
+              <td><font color="green">Campo Completo</font></td>
+            <% end %>
+          <% end %>
+        <% else %>
+          <% if (@formulario.responsable.responsabilidad.valid?) %>
+            <% @es_invalid = nil %>
+            <% @persona_juridica = PersonaJuridica.find_by_id(@formulario.responsable.responsabilidad.persona_juridica_id) %>
+            <% if (@persona_juridica.integrantes_comision_directiva.count > 0) %>
+                <% @persona_juridica.integrantes_comision_directiva.each do |integrant| %>
+                  <%  unless integrant.valid? %>
+                    <% @es_invalid = true 
+                      break %>
+                  <% end %>
+                <% end %>
+            <% else %>
+              <% @es_invalid = true %>
+            <% end %>
+
+            <% if (@es_invalid) %>
+              <td><font color="red">Campo Incompleto</font></td>
+            <% else %>
+              <td><font color="green">Campo Completo</font></td>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+    <% if (@formulario.responsable) %>
+      <% if (@formulario.responsable.responsabilidad_type == "PersonaJuridica") %>
+        <td><%= link_to t("scaffoldi18n.ver"), formulario_persona_juridica_path(@formulario, @formulario.responsable.responsabilidad) %></td>
+        <td><%= link_to t("scaffoldi18n.edit"), edit_formulario_persona_juridica_path(@formulario, @formulario.responsable.responsabilidad) %></td>
+        <td><%= link_to t("scaffoldi18n.destroy"), formulario_responsable_path(@formulario, @formulario.responsable), :data => {confirm: t("scaffoldi18n.are_you_sure?")}, method: :delete %></td>
+      <% elsif (@formulario.responsable.responsabilidad_type == "PersonaJuridicaE") %>
+        <td><%= link_to t("scaffoldi18n.ver"), vista_formulario_persona_juridica_e_path(@formulario, @formulario.responsable.responsabilidad) %></td>
+        <td><%= link_to t("scaffoldi18n.destroy"), formulario_responsable_path(@formulario, @formulario.responsable), :data => {confirm: t("scaffoldi18n.are_you_sure?")}, method: :delete %></td>
+        <td></td>
+      <% elsif (@formulario.responsable.responsabilidad_type == "PersonaFisicaEInt") %>
+        <td><%= link_to t("scaffoldi18n.ver"), vista_formulario_persona_fisica_e_int_path(@formulario, @formulario.responsable.responsabilidad) %></td>
+        <td><%= link_to t("scaffoldi18n.destroy"), formulario_responsable_path(@formulario, @formulario.responsable), :data => {confirm: t("scaffoldi18n.are_you_sure?")}, method: :delete %></td>
+        <td></td>
+        <% elsif (@formulario.responsable.responsabilidad_type == "PersonaFisicaN") %>
+        <td><%= link_to t("scaffoldi18n.ver"), formulario_persona_fisica_n_path(@formulario, @formulario.responsable.responsabilidad) %></td>
+        <td><%= link_to t("scaffoldi18n.edit"), edit_formulario_persona_fisica_n_path(@formulario, @formulario.responsable.responsabilidad) %></td>
+        <td><%= link_to t("scaffoldi18n.destroy"), formulario_responsable_path(@formulario, @formulario.responsable), :data => {confirm: t("scaffoldi18n.are_you_sure?")}, method: :delete %></td>
+      <% else %>
+        <td><%= link_to t("scaffoldi18n.ver"), vista_formulario_persona_fisica_e_nue_path(@formulario, @formulario.responsable.responsabilidad) %></td>
+        <td><%= link_to t("scaffoldi18n.destroy"), formulario_responsable_path(@formulario, @formulario.responsable), :data => {confirm: t("scaffoldi18n.are_you_sure?")}, method: :delete %></td>
+        <td></td>
+      <% end %>
+    <% else %>
+      <td><%= link_to t("scaffoldi18n.new"), formulario_responsables_path(@formulario) %></td>
+      <td></td>
+      <td></td>
+    <% end %>
+  </tr>
+
+</table>
+
+
+<% @completo = false %>
+
+<% if (@formulario.principal) && (@formulario.principal.valid?) %>
+  <% @completo = true %>
+<% end %>
+
+<% if @completo && (@formulario.datos_esp) && (@formulario.datos_esp.valid?) %>
+  <% @completo = true %>
+<% else %>
+  <% @completo = false %>
+<% end %>
+
+<% if @completo && (@formulario.datos_tec) && (@formulario.datos_tec.valid?) %>
+  <% @completo = true %>
+<% else %>
+  <% @completo = false %>
+<% end %>
+
+<% if @completo && (@formulario.elenco_en_gira) && (@formulario.elenco_en_gira.valid?) %>
+  <% @completo = true %>
+<% else %>
+  <% @completo = false %>
+<% end %>
+
+<% if @completo && @formulario.principal && @formulario.principal.grupo.codigo == 'a' %>
+  <% if (@formulario.datos_grupo) && (@formulario.datos_grupo.valid?) %>
+    <% @completo = true %>
+  <% else %>
+    <% @completo = false %>
+  <% end %>
+<% end %>
+
+  <% if @completo %>
+   <%= link_to "Enviar Formulario", formulario_formularios_terminados_path(@formulario), :data => {confirm: t("scaffoldi18n.are_you_sure?")}, class: "btn btn-medium btn-primary" %>
+  <% end %></br>
+  </br>
+
+<%= link_to "Volver a los formularios", formularios_path %>

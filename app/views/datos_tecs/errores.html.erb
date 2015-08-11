@@ -1,0 +1,13 @@
+#encoding: utf-8
+<% provide(:title, 'Errores datos tecnicos del espectaculo') %>
+<h2>Errores datos técnicos del espectáculo</h2>
+<% if (@datos_tec.valid?) %>
+	<p>No hay errores en el formulario datos técnicos del espectáculo</p>
+<% else %>
+	<p>
+		<b>Cantidad de errores:</b>
+		<%= @datos_tec.errors.count %>
+	</p>
+	<%= @datos_tec.errors.each do |attribute, error| %></br>
+	<% end %>
+<% end %>

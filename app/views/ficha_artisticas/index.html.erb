@@ -1,0 +1,39 @@
+#encoding: utf-8
+<% provide(:title, 'Fichas de Artistas') %>
+<h1>Ficha Artística *</h1>
+
+
+<div id="artistas">
+<table class="table table-striped">
+  <tr>
+
+    <th>Nombre</th>
+    <th>Apellido</th>
+    <th>Rol</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <%= content_tag_for(:tr, @fichas) do |ficha| %>
+
+    <td><%= ficha.nombre_artista %></td>
+    <td><%= ficha.apellido_artista %></td>
+    <td><%= ficha.rol_artista %></td>
+
+    <td><%= link_to "Ver", formulario_ficha_artistica_path(@formulario, ficha) %></td>
+
+    <td><%= link_to "Modificar", edit_formulario_ficha_artistica_path(@formulario, ficha) %></td>
+
+    <td><%= link_to t("scaffoldi18n.destroy"), formulario_ficha_artistica_path(@formulario, ficha), :data => {confirm: t("scaffoldi18n.are_you_sure?")}, method: :delete %></td>
+    
+  <% end %>
+</table>
+<%= link_to "Nuevo Artista", new_formulario_ficha_artistica_path(@formulario), class: "btn btn-medium btn-primary" %>
+<%= link_to "Finalizar ficha artística", edit_formulario_path(@formulario), class: "btn btn-medium btn-primary" %>
+
+<br />
+</br>
+<%= link_to t('Volver a campos de datos'), edit_formulario_path(@formulario) %>
+
+</div>

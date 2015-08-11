@@ -1,0 +1,9 @@
+#encoding: utf-8
+<% provide(:title, 'Formulario Finalizado') %>
+<h2>Formulario Finalizado</h2>
+<p>Usted debe imprimir el remito del formulario</p>
+<%= link_to "Imprimir remito", imprimir_remito_formulario_path(@formulario), class: "btn btn-medium btn-primary" %></br>
+</br>
+<p>Para poder visualizarlo necesita tener instalado Adobe Reader. Si no lo tiene, nosotros le facilitamos el link de descarga: <%= link_to "Adobe Reader", "http://get.adobe.com/es/reader/otherversions/", :target => "_blank" %></p>
+</br>
+<%= link_to "Volver a los formularios", formularios_path, class: "btn btn-medium btn-primary" %>

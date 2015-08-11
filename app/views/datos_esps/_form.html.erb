@@ -1,0 +1,132 @@
+#encoding: utf-8
+  <%= form_for([@formulario, @datos_esp], html: { multipart: true }) do |f| %>
+  	<%= render 'shared/error_messages', :object => f.object %>
+
+  	<p>Los campos marcados con * son obligatorios</p>
+
+  	<div class="field">
+	  	<%= f.label :fecha_de_estreno, "Fecha de estreno *" %>
+	    <%= f.date_select :fecha_de_estreno, start_year: 1950, end_year: 2014 ,order: [:day, :month, :year], :include_blank => true %>
+	  </div>
+
+	  <div class="field">
+	  	<%= f.label :nombre_autor, "Nombre del autor *" %>
+	    <%= f.text_field :nombre_autor %>
+	  </div>
+
+	  <div class="field">
+	    <%= f.label :nacionalidad_autor, "Nacionalidad del autor *" %>
+	    <%= f.text_field :nacionalidad_autor %>
+	  </div>
+
+	  <div class="field">
+	    <%= f.label :duracion_espectaculo, "Duración del espectáculo (en minutos) *" %>
+	    <%= f.text_field :duracion_espectaculo %>
+	  </div>
+
+	  <div class="field">
+	    <%= f.label :sinopsis_obra, "Sinopsis del espectáculo *" %><p>(no mas de 700 caracteres, los espacios cuentan como caracteres)</p>
+	    <%= f.text_area :sinopsis_obra %>
+	  </div>
+
+	  <div class="field">
+  		<br/><%= label_tag :gen_esp, "Géneros del espectáculo *" %><p>(Tildar al menos uno)</p>
+    	<%= hidden_field_tag "datos_esp[gen_esp_ids][]", nil %>
+      <% GenEsp.all.each do |gen_esp| %>
+    		<tr>
+      		<td><%= check_box_tag "datos_esp[gen_esp_ids][]", gen_esp.id, @datos_esp.gen_esp_ids.include?(gen_esp.id), :id => dom_id(gen_esp) %></td>
+      		<td><%= gen_esp.detalle %></td>
+    		</tr>
+    	<% end %>
+  	</div>
+
+	  <div class="field">
+  		<br/><%= label_tag :publ_exp, "Públicos por experiencia *" %><p>(Tildar al menos uno)</p>
+    	<%= hidden_field_tag "datos_esp[publ_exp_ids][]", nil %>
+      <% PublExp.all.each do |publ_exp| %>
+    		<tr>
+      		<td><%= check_box_tag "datos_esp[publ_exp_ids][]", publ_exp.id, @datos_esp.publ_exp_ids.include?(publ_exp.id), :id => dom_id(publ_exp) %></td>
+      		<td><%= publ_exp.detalle %></td>
+    		</tr>
+    	<% end %>
+  	</div>
+
+	  <div class="field">
+  		<br/><%= label_tag :publ_edad, "Públicos por edad *" %><p>(Tildar al menos uno)</p>
+    	<%= hidden_field_tag "datos_esp[publ_edad_ids][]", nil %>
+      <% PublEdad.all.each do |publ_edad| %>
+    		<tr>
+      		<td><%= check_box_tag "datos_esp[publ_edad_ids][]", publ_edad.id, @datos_esp.publ_edad_ids.include?(publ_edad.id), :id => dom_id(publ_edad) %></td>
+      		<td><%= publ_edad.detalle %></td>
+    		</tr>
+    	<% end %>
+  	</div>
+
+  	<div class="field">
+  		<br/><%= label_tag :formato, "Formato del espectáculo *" %><p>(Tildar al menos uno)</p>
+    	<%= hidden_field_tag "datos_esp[formato_ids][]", nil %>
+      <% Formato.all.each do |formato| %>
+    		<tr>
+      		<td><%= check_box_tag "datos_esp[formato_ids][]", formato.id, @datos_esp.formato_ids.include?(formato.id), :id => dom_id(formato) %></td>
+      		<td><%= formato.detalle %></td>
+    		</tr>
+    	<% end %>
+  	</div></br>
+
+    <div class="field">
+      <%= f.label :autorizacion_del_autor, "Adjuntar autorización del autor * (archivos jpg / png / pdf - tamaño máximo 1 mb)" %>
+      <%= f.file_field :autorizacion_del_autor %>
+    </div>
+
+    <div class="field">
+    <% if @datos_esp.autorizacion_del_autor %>
+      <%= image_tag @datos_esp.autorizacion_del_autor.url(:medium) %>
+    <% end %>
+    </div>
+
+
+     <div class="field">
+      <%= f.label :imagen, "Adjuntar foto * (archivos jpg / png / pdf - tamaño máximo 1 mb)" %>
+      <%= f.file_field :imagen %>
+    </div>
+
+    <div class="field">
+    <% if @datos_esp.imagen %>
+      <%= image_tag @datos_esp.imagen.url(:medium) %>
+    <% end %>
+    </div>
+
+
+    <p>Sitios Web:</p>
+    <p>(Copiar el link)</p>
+	  <div class="field">
+	    <%= f.label :pagina_web, "Pagina Web" %>
+	    <%= f.text_field :pagina_web %>
+	  </div>
+
+	  <div class="field">
+	    <%= f.label :facebook, "Facebook" %>
+	    <%= f.text_field :facebook %>
+	  </div>
+
+	  <div class="field">
+	    <%= f.label :twitter, "Twitter" %>
+	    <%= f.text_field :twitter %>
+	  </div>
+
+	  <div class="field">
+	    <%= f.label :blog, "Blog" %>
+	    <%= f.text_field :blog %>
+	  </div>
+
+	  <div class="field">
+	    <%= f.label :youtube, "Link del espectáculo en Youtube/Vimeo" %>
+	    <%= f.text_field :youtube %>
+	  </div>
+
+    <div class="actions">
+    	<%= f.submit "Guardar datos y abrir ficha artística", class: "btn btn-large btn-primary" %>
+  	</div>
+  <% end %>
+
+

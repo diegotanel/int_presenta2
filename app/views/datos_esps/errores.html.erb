@@ -1,0 +1,14 @@
+#encoding: utf-8
+<% provide(:title, 'Errores datos del espectaculo') %>
+<h2>Errores datos del espectáculo</h2>
+<% @artistas = @formulario.datos_esp.ficha_artisticas.all %>
+<% if (@datos_esp.valid?) %>
+	<p>No hay errores en el formulario datos del espectáculo</p>
+<% else %>
+	<p>
+		<b>Cantidad de errores:</b>
+		<%= @datos_esp.errors.count %>
+	</p>
+	<%= @datos_esp.errors.each do |attribute, error| %>
+	<% end %>
+<% end %>

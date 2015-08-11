@@ -1,0 +1,71 @@
+#encoding: utf-8
+  <%= form_for([@formulario, @persona_juridica]) do |f| %>
+  <%= render 'shared/error_messages', :object => f.object %>
+
+  <p>Los campos marcados con * son obligatorios</p>
+  
+  <div class="field">
+    <%= f.label :nombre_per_juridica, "Nombre *" %>
+    <%= f.text_field :nombre_per_juridica %>
+  </div>
+
+  <div class="field">
+    <%= f.label :num_cuit, "Número de cuit * (sin guiones ni puntos)" %>
+    <%= f.text_field :num_cuit %>
+  </div>
+
+  <div class="field">
+    <%= f.label :num_per_juridica, "Número de personería jurídica * " %>
+    <%= f.text_field :num_per_juridica %>
+  </div>
+
+  <div class="field">
+    <%= f.label :calle, "Calle *" %>
+    <%= f.text_field :calle %>
+  </div>
+
+  <div class="field">
+    <%= f.label :altura_calle, "Número *" %>
+    <%= f.text_field :altura_calle %>
+  </div>
+
+  <div class="field">
+    <%= f.label :piso, "Piso" %>
+    <%= f.text_field :piso %>
+  </div>
+
+  <div class="field">
+    <%= f.label :depto, "Depto" %>
+    <%= f.text_field :depto %>
+  </div>
+
+  <div class="field">
+    <br/><%= f.label :provincia, "Provincia *" %>
+    <%= collection_select(:p, "provincia_id", @provincias, "id", "detalle", :include_blank => "Seleccione una provincia...", :selected => selected(@persona_juridica.localidad)) %>
+  </div>
+
+  <div class="field">
+    <%= f.label :localidad, "Localidad *" %>
+    <%= f.grouped_collection_select("localidad_id", @provincias, "localidades", "detalle", "id", "detalle", :include_blank => "Seleccione una localidad...") %>
+  </div>
+
+  <div class="field">
+    <%= f.label :codigo_postal, "Código Postal *" %>
+    <%= f.text_field :codigo_postal %>
+  </div>
+
+  <div class="field">
+    <%= f.label :tel_entidad, "Teléfono de la entidad *" %>
+    <%= f.text_field :tel_entidad %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email_entidad, "Email de la entidad *" %>
+    <%= f.text_field :email_entidad %>
+  </div>
+
+
+  <div class="actions">
+    <%= f.submit "Guardar Datos y abrir comisión directiva", class: "btn btn-large btn-primary" %>
+  </div>
+<% end %>

@@ -1,0 +1,73 @@
+#encoding: utf-8
+<% provide(:title, 'Datos tecnicos del espectaculo') %>
+<h1>Datos técnicos del espectáculo</h1>
+
+</br>
+<p>
+  <b>Duración montaje:</b>
+  <%= @datos_tec.duracion_montaje %>
+</p>
+
+<p>
+  <b>Duración desmontaje:</b>
+  <%= @datos_tec.duracion_desmontaje %>
+</p>
+
+<p>
+  <b>Tipo de espacio:</b>
+  <%= @datos_tec.esps_esps.map { |e| e.detalle }.join(", ") %>
+</p>
+
+<p>
+  <b>Descripción espacio:</b>
+  <%= @datos_tec.descripcion_espacio %>
+</p>
+
+<p>
+  <b>Ancho:</b>
+  <%= @datos_tec.ancho %>
+</p>
+
+<p>
+  <b>Alto:</b>
+  <%= @datos_tec.alto %>
+</p>
+
+<p>
+  <b>Profundidad:</b>
+  <%= @datos_tec.profundidad %>
+</p>
+
+<p>
+  <b>Listado de artefactos lumínicos:</b>
+  <%= @datos_tec.listado_artefactos_luminicos %>
+</p>
+
+<p>
+  <b>Listado sonido:</b>
+  <%= @datos_tec.listado_sonido %>
+</p>
+
+<p>
+  <b>Otros equipamientos:</b>
+  <%= @datos_tec.otros_equipamientos %>
+</p>
+
+<p>
+  <b>Peso total:</b>
+  <%= @datos_tec.peso_total %>
+</p>
+
+<p>
+  <b>Volumen total:</b>
+  <%= @datos_tec.volumen_total %>
+</p>
+
+<p>
+  <b>Otras necesidades:</b>
+  <%= @datos_tec.otras_necesidades %>
+</p></br>
+
+</br>
+
+<%= link_to t('Volver a campos de datos'), edit_formulario_path(@formulario) %>

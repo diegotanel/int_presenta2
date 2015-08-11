@@ -1,0 +1,86 @@
+#encoding: utf-8
+  <%= form_for([@formulario, @integrante]) do |f| %>
+    <%= render 'shared/error_messages', :object => f.object %>
+
+    <p>Los campos marcados con * son obligatorios</p>
+
+    <div class="field">
+    <%= f.label :cargo, "Cargo *" %>
+    <%= f.text_field :cargo %>
+    </div>
+
+    <div class="field">
+    <%= f.label :nombre, "Nombre *" %>
+    <%= f.text_field :nombre %>
+    </div>
+
+    <div class="field">
+    <%= f.label :apellido, "Apellido *" %>
+    <%= f.text_field :apellido %>
+    </div>
+
+    <div class="field">
+    <%= f.label :cuil_cuit, "Número de cuil / cuit * (sin guiones ni puntos)" %>
+    <%= f.text_field :cuil_cuit %>
+    </div>
+
+    <div class="field">
+    <%= f.label :fecha_de_nacimiento, "Fecha de nacimiento *" %>
+    <%= f.date_select :fecha_de_nacimiento, start_year: 1900, end_year: 2014, order: [:day, :month, :year], :include_blank => true %>
+    </div>
+
+    <div class="field">
+    <%= f.label :calle, "Calle *" %>
+    <%= f.text_field :calle %>
+    </div>
+
+    <div class="field">
+    <%= f.label :altura_calle, "Número *" %>
+    <%= f.text_field :altura_calle %>
+    </div>
+
+    <div class="field">
+    <%= f.label :piso, "Piso" %>
+    <%= f.text_field :piso %>
+    </div>
+
+    <div class="field">
+    <%= f.label :depto, "Depto" %>
+    <%= f.text_field :depto %>
+    </div>
+
+    <div class="field">
+        <br/><%= f.label :provincia, "Provincia *" %>
+        <%= collection_select(:ideec, "provincia_id", @provincias, "id", "detalle", :include_blank => "Seleccione una provincia...", :selected => selected(@integrante.localidad)) %>
+    </div>
+
+    <div class="field">
+    <%= f.label :localidad, "Localidad *" %><br />
+    <%= f.grouped_collection_select("localidad_id", @provincias, "localidades", "detalle", "id", "detalle", :include_blank => "Seleccione una localidad...") %>
+    </div>
+
+    <div class="field">
+    <%= f.label :codigo_postal, "Código Postal *" %>
+    <%= f.text_field :codigo_postal %>
+    </div>
+
+    <p>Se debe completar al menos un teléfono</p>
+    <div class="field">
+    <%= f.label :tel_particular, "Teléfono Particular (sin guiones ni puntos)" %>
+    <%= f.text_field :tel_particular %>
+    </div>
+
+    <div class="field">
+    <%= f.label :tel_celular, "Teléfono Celular (sin guiones ni puntos y sin el 15 adelante)" %>
+    <%= f.text_field :tel_celular %>
+    </div>
+
+    <div class="field">
+    <%= f.label :email, "Email *" %>
+    <%= f.text_field :email %>
+    </div>
+
+  <div class="actions">
+    <%= f.submit "Guardar Datos", class: "btn btn-large btn-primary" %>
+  </div>
+<% end %>

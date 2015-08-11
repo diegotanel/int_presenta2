@@ -1,0 +1,90 @@
+#encoding: utf-8
+<% provide(:title, 'Datos del integrante') %>
+<h1>Datos de la persona jurídica</h1>
+</br>
+<p>
+  <b>Nombre:</b>
+  <%= @persona_juridica.nombre_per_juridica %>
+</p>
+
+<p>
+  <b>CUIT:</b>
+  <%= @persona_juridica.num_cuit %>
+</p>
+
+<p>
+  <b>Numero persona jurídica:</b>
+  <%= @persona_juridica.num_per_juridica %>
+</p>
+
+<p>
+  <b>Calle:</b>
+  <%= @persona_juridica.calle %>
+</p>
+
+<p>
+  <b>Numero de calle:</b>
+  <%= @persona_juridica.altura_calle %>
+</p>
+
+<p>
+  <b>Piso:</b>
+  <%= @persona_juridica.piso %>
+</p>
+
+<p>
+  <b>Departamento:</b>
+  <%= @persona_juridica.depto %>
+</p>
+
+<p>
+  <b>Provincia:</b>
+  <%= @persona_juridica.provincia.detalle %>
+</p>
+
+<p>
+  <b>Localidad:</b>
+  <%= @persona_juridica.localidad.detalle %>
+</p>
+
+<p>
+  <b>Código postal:</b>
+  <%= @persona_juridica.codigo_postal %>
+</p>
+
+<p>
+  <b>Teléfono entidad:</b>
+  <%= @persona_juridica.tel_entidad %>
+</p>
+
+<p>
+  <b>Email entidad:</b>
+  <%= @persona_juridica.email_entidad %>
+</p></br>
+
+<h3>Comisión Directiva</h3>
+  <h4>Directivos</h4>
+  <% @integrantes = @formulario.responsable.responsabilidad.integrantes_comision_directiva.all %>
+  <table class="table table-striped">
+  <tr>
+
+    <th>Cargo</th>
+    <th>Nombre</th>
+    <th>Apellido</th>
+    <th>CUIL / CUIT</th>
+    <th>Email</th>
+    <th>Fecha de Nacimiento</th>
+  </tr>
+
+  <%= content_tag_for(:tr, @integrantes) do |integrante| %>
+
+    <td><%= integrante.cargo %></td>
+    <td><%= integrante.nombre %></td>
+    <td><%= integrante.apellido %></td>
+    <td><%= integrante.cuil_cuit %></td>
+    <td><%= integrante.email %></td>
+    <td><%= I18n.l(integrante.fecha_de_nacimiento) %></td>
+  <% end %>
+  </table>
+</br>
+<%= link_to t('Volver a campos de datos'), edit_formulario_path(@formulario) %>

@@ -1,0 +1,34 @@
+#encoding: utf-8
+<% provide(:title, 'Solicitudes para soporte') %>
+<h1>Lista de solicitudes para asistencia/soporte en borrador</h1></br>
+
+<%= search_form_for @q, url: { :action=>"index" } do |f| %>
+
+  <div class="actions">
+    <%= f.submit "Buscar"%>
+  </div>
+<% end %>
+
+
+<% if @q.result %>
+  <table class="table table-striped">
+    <tr>
+      <th><%= sort_link @q, :created_at, "Fecha de creación" %></th>
+      <th>Nombre del espectáculo</th>
+      <th></th>
+    </tr>
+
+    <%= content_tag_for(:tr, @q.result) do |formulario| %>
+      <% if formulario.estado = 2 %>
+        <td><%= I18n.l(formulario.created_at) %></td>
+        <% if formulario.principal %>
+          <td><%= formulario.principal.nombre%></td>
+        <% end%>
+        <td></td>
+        <td><%= link_to "Ver", formulario_super_vistas_path(formulario) %></td>
+      <% end %>
+    <% end %>
+  </table>
+
+<p>Cantidad de registros: <%="#{@q.result.count}" %></p>
+<% end %>

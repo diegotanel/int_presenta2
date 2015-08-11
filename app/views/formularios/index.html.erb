@@ -1,0 +1,39 @@
+#encoding: utf-8
+<% provide(:title, 'Formularios de Confirmacion del usuario') %>
+<h1>Formularios</h1></br>
+
+<table class="table table-striped">
+  <tr>
+    <th>Fecha</th>
+    <th>Nombre del Espectáculo</th>
+    <th>Estado</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <%= content_tag_for(:tr, @formularios) do |formulario| %>
+    <td><%= I18n.l(formulario.created_at) %></td>
+    <td><%= formulario.principal.nombre if formulario.principal%></td>
+    <td><%= Formulario::ESTADOS.key(formulario.estado) %></td>
+
+    <td><%= link_to t("Vista previa"), formulario_super_vistas_path(formulario) %></td>
+    <% if formulario.estado == 1 %>
+      <td><%= link_to "Imprimir remito", imprimir_remito_formulario_path(formulario) %></td>
+      <td></td>
+    <% else %>
+      <td><%= link_to t("scaffoldi18n.edit"), edit_formulario_path(formulario) %></td>
+      <td><%= link_to t("scaffoldi18n.destroy"), formulario_path(formulario), :data => {confirm: t("scaffoldi18n.are_you_sure?")}, method: :delete %></td>    
+    <% end %>
+  <% end %>
+</table>
+<% if not current_user.jurado? %>
+  <%= link_to t('Nuevo formulario'), new_formulario_path, class: "btn btn-large btn-small" %>
+<%end%>
+</br>
+</br>
+
+  <% if current_user.admin? or current_user.jurado?%>
+    <%= link_to t('Ver formularios terminados'), soportes_enviado_index_path, class: "btn btn-large btn-primary" %>
+  <% end %>
+<br />

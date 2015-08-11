@@ -1,0 +1,624 @@
+#encoding: utf-8
+<% provide(:title, 'Vista general del formulario') %>
+<h1>Vista general del formulario</h1>
+</br>
+<h3>Datos Principales</h3>
+<% if (@formulario.principal) %>
+	<p>
+		<b>Provincia:</b>
+		<%= @formulario.principal.provincia.detalle %>
+	</p>
+
+	<p>
+		<b>Localidad:</b>
+		<%= @formulario.principal.localidad.detalle %>
+	</p>
+
+	<p>
+		<b>Grupo o Espectáculo Concertado:</b>
+		<%= @formulario.principal.grupo.detalle %>
+	</p>
+
+	<p>
+		<b>Nombre del espectáculo:</b>
+		<%= @formulario.principal.nombre %>
+	</p>
+<% end %>
+<h3>Datos generales del espectáculo</h3>
+<% if (@formulario.datos_esp) %>
+	<p>
+  	<b>Fecha de Estreno:</b>
+  	<%= @formulario.datos_esp.fecha_de_estreno %>
+	</p>
+
+	<p>
+	  <b>Nombre del autor:</b>
+	  <%= @formulario.datos_esp.nombre_autor %>
+	</p>
+
+	<p>
+	  <b>Nacionalidad del autor:</b>
+	  <%= @formulario.datos_esp.nacionalidad_autor %>
+	</p>
+
+	<p>
+	  <b>Duración del espectáculo:</b>
+	  <%= @formulario.datos_esp.duracion_espectaculo %>
+	</p>
+
+	<p>
+	  <b>Sinopsis del espectáculo:</b>
+	  <%= @formulario.datos_esp.sinopsis_obra %>
+	</p>
+
+	<p>
+	  <b>Géneros del espectáculo:</b>
+	  <%= @formulario.datos_esp.gen_esps.map { |e| e.detalle }.join(", ") %>
+	</p>
+
+	<p>
+	  <b>Públicos por experiencia:</b>
+	  <%= @formulario.datos_esp.publs_exp.map { |e| e.detalle }.join(", ") %>
+	</p>
+
+	<p>
+	  <b>Públicos por edad:</b>
+	  <%= @formulario.datos_esp.publs_edad.map { |e| e.detalle }.join(", ") %>
+	</p>
+
+	<p>
+	  <b>Imagen:</b>
+	  <%= link_to "Download", @formulario.datos_esp.imagen.url(:original, false), :target => "_blank" %>
+	</p>
+
+	<p>
+	  <b>Autorización del autor:</b>
+	  <%= link_to "Download", @formulario.datos_esp.autorizacion_del_autor.url(:original, false), :target => "_blank" %>
+	</p>
+
+	<p>
+	  <b>Formatos:</b>
+	  <%= @formulario.datos_esp.formatos.map { |e| e.detalle }.join(", ") %>
+	</p>
+<% end %>
+<% if (@formulario.datos_esp) %>
+	<h3>Ficha Artística</h3>
+	<h4>Artístas</h4>
+	<% @artistas = @formulario.datos_esp.ficha_artisticas.all %>
+	<table class="table table-striped">
+  <tr>
+
+    <th>Nombre</th>
+    <th>Apellido</th>
+    <th>Rol</th>
+  </tr>
+
+  <%= content_tag_for(:tr, @artistas) do |artista| %>
+
+    <td><%= artista.nombre_artista %></td>
+    <td><%= artista.apellido_artista %></td>
+    <td><%= artista.rol_artista %></td>
+  <% end %>
+	</table>
+<% end %>
+<h3>Datos técnicos del espectáculo</h3>
+<% if (@formulario.datos_tec) %>
+	<p>
+  	<b>Duración montaje:</b>
+  	<%= @formulario.datos_tec.duracion_montaje %>
+	</p>
+
+	<p>
+	  <b>Duración desmontaje:</b>
+	  <%= @formulario.datos_tec.duracion_desmontaje %>
+	</p>
+
+	<p>
+	  <b>Tipo de espacio:</b>
+	  <%= @formulario.datos_tec.esps_esps.map { |e| e.detalle }.join(", ") %>
+	</p>
+
+	<p>
+	  <b>Descripción espacio:</b>
+	  <%= @formulario.datos_tec.descripcion_espacio %>
+	</p>
+
+	<p>
+	  <b>Ancho:</b>
+	  <%= @formulario.datos_tec.ancho %>
+	</p>
+
+	<p>
+	  <b>Alto:</b>
+	  <%= @formulario.datos_tec.alto %>
+	</p>
+
+	<p>
+	  <b>Profundidad:</b>
+	  <%= @formulario.datos_tec.profundidad %>
+	</p>
+
+	<p>
+	  <b>Listado de artefactos lumínicos:</b>
+	  <%= @formulario.datos_tec.listado_artefactos_luminicos %>
+	</p>
+
+	<p>
+	  <b>Listado sonido:</b>
+	  <%= @formulario.datos_tec.listado_sonido %>
+	</p>
+
+	<p>
+	  <b>Otros equipamientos:</b>
+	  <%= @formulario.datos_tec.otros_equipamientos %>
+	</p>
+
+	<p>
+	  <b>Peso total:</b>
+	  <%= @formulario.datos_tec.peso_total %>
+	</p>
+
+	<p>
+	  <b>Volumen total:</b>
+	  <%= @formulario.datos_tec.volumen_total %>
+	</p>
+
+	<p>
+	  <b>Otras necesidades:</b>
+	  <%= @formulario.datos_tec.otras_necesidades %>
+	</p>
+
+	<p>
+	  <b>Imagen:</b>
+	  <%= link_to "Download", @formulario.datos_tec.imagen.url(:original, false), :target => "_blank" %>
+	</p>
+
+<% end %>
+
+<% if (@formulario.elenco_en_gira) %>
+	<h3>Datos del elenco en gira</h3>
+	<% @elenco = @formulario.elenco_en_gira.integrantes_de_elenco_en_gira.all %>
+	<table class="table table-striped">
+  <tr>
+
+    <th>Nombre</th>
+    <th>Apellido</th>
+    <th>CUIL / CUIT</th>
+    <th>Email</th>
+    <th>Fecha de Nacimiento</th>
+    <th></th>
+  </tr>
+
+  <%= content_tag_for(:tr, @elenco) do |integrante| %>
+
+    <td><%= integrante.nombre %></td>
+    <td><%= integrante.apellido %></td>
+    <td><%= integrante.cuil_cuit %></td>
+    <td><%= integrante.email %></td>
+    <td><%= I18n.l(integrante.fecha_de_nacimiento) if integrante.fecha_de_nacimiento %></td>
+    <th></th>
+  <% end %>
+	</table>
+<% end %>
+
+<% if (@formulario.principal) %>
+  <% if (@formulario.principal.grupo.codigo == "a" ) %>
+		<h3>Datos del grupo</h3>
+		<% if (@formulario.datos_grupo) %>
+			<p>
+	  		<b>Nombre del grupo:</b>
+	  		<%= @formulario.datos_grupo.nombre_grupo %>
+			</p>
+
+			<p>
+	  		<b>Historia del grupo:</b>
+	  		<%= @formulario.datos_grupo.historia %>
+			</p>
+		<% end %>
+	<% end %>
+<% end %>
+
+<h3>Datos del responsable</h3>
+<% if (@formulario.responsable) %>
+	<% if (@formulario.responsable.responsabilidad) %>
+		<% if (@formulario.responsable.responsabilidad == "PersonaFisicaEInt") %>
+			<% @id_persona = @formulario.responsable.responsabilidad.integrante_de_elenco_en_gira_id %>
+			<% @persona = IntegranteDeElencoEnGira.find_by_id(@id_persona) %>
+			<p>
+			 	<b>Nombre:</b>
+			  <%= @persona.nombre %>
+			</p>
+
+			<p>
+			  <b>Apellido:</b>
+			  <%= @persona.apellido %>
+			</p>
+
+			<p>
+				<b>CUIL / CUIT:</b>
+				<%= @persona.cuil_cuit %>
+			</p>
+
+			<p>
+				<b>Fecha de nacimiento:</b>
+				<%= I18n.l(@persona.fecha_de_nacimiento) %>
+			</p>
+
+			<p>
+				<b>Calle:</b>
+				<%= @persona.calle %>
+			</p>
+
+			<p>
+				<b>Numero de calle:</b>
+				<%= @persona.altura_calle %>
+			</p>
+
+			<p>
+			  <b>Piso:</b>
+			  <%= @persona.piso %>
+			</p>
+
+			<p>
+			  <b>Departamento:</b>
+			  <%= @persona.depto %>
+			</p>
+
+			<p>
+			 	<b>Provincia:</b>
+			 	<%= @persona.provincia.detalle %>
+			</p>
+
+			<p>
+			  <b>Localidad:</b>
+			  <%= @persona.localidad.detalle %>
+			</p>
+
+			<p>
+			  <b>Código postal:</b>
+			  <%= @persona.codigo_postal %>
+			</p>
+
+			<p>
+			  <b>Teléfono particular:</b>
+			  <%= @persona.tel_particular %>
+			</p>
+
+			<p>
+			 	<b>Teléfono celular:</b>
+			  <%= @persona.tel_celular %>
+			</p>
+
+			<p>
+			  <b>Email:</b>
+			  <%= @persona.email %>
+			</p>
+		<% end %>
+
+		<% if (@formulario.responsable.responsabilidad == "PersonaFisicaN") %>
+			<p>
+			  <b>Nombre:</b>
+			  <%= @formulario.responsable.responsabilidad.nombre %>
+			</p>
+
+			<p>
+			  <b>Apellido:</b>
+			  <%= @formulario.responsable.responsabilidad.apellido %>
+			</p>
+
+			<p>
+			  <b>CUIL / CUIT:</b>
+			  <%= @formulario.responsable.responsabilidad.cuil_cuit %>
+			</p>
+
+			<p>
+			  <b>Fecha de nacimiento:</b>
+			  <%= I18n.l(@formulario.responsable.responsabilidad.fecha_de_nacimiento) %>
+			</p>
+
+			<p>
+			  <b>Calle:</b>
+			  <%= @formulario.responsable.responsabilidad.calle %>
+			</p>
+
+			<p>
+			  <b>Numero de calle:</b>
+			  <%= @formulario.responsable.responsabilidad.altura_calle %>
+			</p>
+
+			<p>
+			  <b>Piso:</b>
+			  <%= @formulario.responsable.responsabilidad.piso %>
+			</p>
+
+			<p>
+			  <b>Departamento:</b>
+			  <%= @formulario.responsable.responsabilidad.depto %>
+			</p>
+
+			<p>
+			  <b>Provincia:</b>
+			  <%= @formulario.responsable.responsabilidad.provincia.detalle %>
+			</p>
+
+			<p>
+			  <b>Localidad:</b>
+			  <%= @formulario.responsable.responsabilidad.localidad.detalle %>
+			</p>
+
+			<p>
+			  <b>Código postal:</b>
+			  <%= @formulario.responsable.responsabilidad.codigo_postal %>
+			</p>
+
+			<p>
+			  <b>Teléfono particular:</b>
+			  <%= @formulario.responsable.responsabilidad.tel_particular %>
+			</p>
+
+			<p>
+			  <b>Teléfono celular:</b>
+			  <%= @formulario.responsable.responsabilidad.tel_celular %>
+			</p>
+
+			<p>
+			  <b>Email:</b>
+			  <%= @formulario.responsable.responsabilidad.email %>
+			</p>
+		<% end %>
+
+		<% if (@formulario.responsable.responsabilidad == "PersonaJuridica") %>
+			<h4>Datos persona juridica</h4>
+			<p>
+			  <b>Nombre:</b>
+			  <%= @formulario.responsable.responsabilidad.nombre_per_juridica %>
+			</p>
+
+			<p>
+			  <b>CUIT:</b>
+			  <%= @formulario.responsable.responsabilidad.num_cuit %>
+			</p>
+
+			<p>
+			  <b>Numero persona jurídica:</b>
+			  <%= @formulario.responsable.responsabilidad.num_per_juridica %>
+			</p>
+
+			<p>
+			  <b>Calle:</b>
+			  <%= @formulario.responsable.responsabilidad.calle %>
+			</p>
+
+			<p>
+			  <b>Numero de calle:</b>
+			  <%= @formulario.responsable.responsabilidad.altura_calle %>
+			</p>
+
+			<p>
+			  <b>Piso:</b>
+			  <%= @formulario.responsable.responsabilidad.piso %>
+			</p>
+
+			<p>
+			  <b>Departamento:</b>
+			  <%= @formulario.responsable.responsabilidad.depto %>
+			</p>
+
+			<p>
+			  <b>Provincia:</b>
+			  <%= @formulario.responsable.responsabilidad.provincia.detalle %>
+			</p>
+
+			<p>
+			  <b>Localidad:</b>
+			  <%= @formulario.responsable.responsabilidad.localidad.detalle %>
+			</p>
+
+			<p>
+			  <b>Código postal:</b>
+			  <%= @formulario.responsable.responsabilidad.codigo_postal %>
+			</p>
+
+			<p>
+			  <b>Teléfono entidad:</b>
+			  <%= @formulario.responsable.responsabilidad.tel_entidad %>
+			</p>
+
+			<p>
+			  <b>Email entidad:</b>
+			  <%= @formulario.responsable.responsabilidad.email_entidad %>
+			</p></br>
+
+			<h4>Comisión Directiva</h4>
+			<h4>Directivos</h4>
+			<% @integrantes = @formulario.responsable.responsabilidad.integrantes_comision_directiva.all %>
+			<table class="table table-striped">
+			<tr>
+
+				<th>Cargo</th>
+			  <th>Nombre</th>
+			  <th>Apellido</th>
+			  <th>CUIL / CUIT</th>
+			  <th>Email</th>
+			  <th>Fecha de Nacimiento</th>
+			</tr>
+
+			<%= content_tag_for(:tr, @integrantes) do |integrante| %>
+
+			  <td><%= integrante.cargo %></td>
+			  <td><%= integrante.nombre %></td>
+			  <td><%= integrante.apellido %></td>
+			  <td><%= integrante.cuil_cuit %></td>
+			  <td><%= integrante.email %></td>
+			  <td><%= I18n.l(integrante.fecha_de_nacimiento) %></td>
+			<% end %>
+			</table>
+		<% end %>
+
+		<% if (@formulario.responsable.responsabilidad == "PersonaFisicaENue") %>
+			<% @id_persona = @formulario.responsable.responsabilidad.persona_fisica_n_id %>
+			<% @persona = PersonaFisicaN.find_by_id(@id_persona) %>
+			<p>
+				<b>Nombre:</b>
+				<%= @persona.nombre %>
+			</p>
+
+			<p>
+				<b>Apellido:</b>
+				<%= @persona.apellido %>
+			</p>
+
+			<p>
+				<b>CUIL / CUIT:</b>
+				<%= @persona.cuil_cuit %>
+			</p>
+
+			<p>
+				<b>Fecha de nacimiento:</b>
+				<%= I18n.l(@persona.fecha_de_nacimiento) %>
+			</p>
+
+			<p>
+				<b>Calle:</b>
+				<%= @persona.calle %>
+			</p>
+
+			<p>
+				<b>Numero de calle:</b>
+				<%= @persona.altura_calle %>
+			</p>
+
+			<p>
+				<b>Piso:</b>
+				<%= @persona.piso %>
+			</p>
+
+			<p>
+				<b>Departamento:</b>
+				<%= @persona.depto %>
+			</p>
+
+			<p>
+				<b>Provincia:</b>
+				<%= @persona.provincia.detalle %>
+			</p>
+
+			<p>
+				<b>Localidad:</b>
+				<%= @persona.localidad.detalle %>
+			</p>
+
+			<p>
+				<b>Código postal:</b>
+				<%= @persona.codigo_postal %>
+			</p>
+
+			<p>
+				<b>Teléfono particular:</b>
+				<%= @persona.tel_particular %>
+			</p>
+
+			<p>
+				<b>Teléfono celular:</b>
+				<%= @persona.tel_celular %>
+			</p>
+
+			<p>
+				<b>Email:</b>
+				<%= @persona.email %>
+			</p>
+		<% end %>
+
+		<% if (@formulario.responsable.responsabilidad == "PersonaJuridicaE") %>
+			<% @id_juridica = @formulario.responsable.responsabilidad.persona_juridica_id %>
+			<% @persona_juridica = PersonaJuridica.find_by_id(@id_juridica) %>
+			<h4>Datos persona juridica</h4>
+			<p>
+				<b>Nombre:</b>
+				<%= @persona_juridica.nombre_per_juridica %>
+			</p>
+
+			<p>
+				<b>CUIT:</b>
+				<%= @persona_juridica.num_cuit %>
+			</p>
+
+			<p>
+				<b>Numero persona jurídica:</b>
+				<%= @persona_juridica.num_per_juridica %>
+			</p>
+
+			<p>
+				<b>Calle:</b>
+				<%= @persona_juridica.calle %>
+			</p>
+
+			<p>
+				<b>Numero de calle:</b>
+				<%= @persona_juridica.altura_calle %>
+			</p>
+
+			<p>
+				<b>Piso:</b>
+				<%= @persona_juridica.piso %>
+			</p>
+
+			<p>
+				<b>Departamento:</b>
+				<%= @persona_juridica.depto %>
+			</p>
+
+			<p>
+				<b>Provincia:</b>
+				<%= @persona_juridica.provincia.detalle %>
+			</p>
+
+			<p>
+				<b>Localidad:</b>
+				<%= @persona_juridica.localidad.detalle %>
+			</p>
+
+			<p>
+				<b>Código postal:</b>
+				<%= @persona_juridica.codigo_postal %>
+			</p>
+
+			<p>
+				<b>Teléfono entidad:</b>
+				<%= @persona_juridica.tel_entidad %>
+			</p>
+
+			<p>
+				<b>Email entidad:</b>
+				<%= @persona_juridica.email_entidad %>
+			</p></br>
+
+			<h4>Comisión Directiva</h4>
+			<h4>Directivos</h4>
+			<% @integrantes = @persona_juridica.integrantes_comision_directiva.all %>
+			<table class="table table-striped">
+			<tr>
+
+				<th>Cargo</th>
+				<th>Nombre</th>
+				<th>Apellido</th>
+				<th>CUIL / CUIT</th>
+				<th>Email</th>
+				<th>Fecha de Nacimiento</th>
+			</tr>
+
+			<%= content_tag_for(:tr, @integrantes) do |integrante| %>
+
+				<td><%= integrante.cargo %></td>
+				<td><%= integrante.nombre %></td>
+				<td><%= integrante.apellido %></td>
+				<td><%= integrante.cuil_cuit %></td>
+				<td><%= integrante.email %></td>
+				<td><%= I18n.l(integrante.fecha_de_nacimiento) %></td>
+			<% end %>
+			</table>
+		<% end %>
+	<% end %>
+<% end %>
+</br>
+<%= link_to t('Volver a formularios'), formularios_path %>

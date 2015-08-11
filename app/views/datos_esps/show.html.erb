@@ -1,0 +1,71 @@
+#encoding: utf-8
+<% provide(:title, 'Datos generales del espectaculo') %>
+<h1>Datos generales del espectáculo</h1>
+
+</br>
+<p>
+  <b>Fecha de Estreno:</b>
+  <%= I18n.l(@datos_esp.fecha_de_estreno) %>
+</p>
+
+<p>
+  <b>Nombre del autor:</b>
+  <%= @datos_esp.nombre_autor %>
+</p>
+
+<p>
+  <b>Nacionalidad del autor:</b>
+  <%= @datos_esp.nacionalidad_autor %>
+</p>
+
+<p>
+  <b>Duración del espectáculo:</b>
+  <%= @datos_esp.duracion_espectaculo %>
+</p>
+
+<p>
+  <b>Sinopsis del espectáculo:</b>
+  <%= @datos_esp.sinopsis_obra %>
+</p>
+
+<p>
+  <b>Géneros del espectáculo:</b>
+  <%= @datos_esp.gen_esps.map { |e| e.detalle }.join(", ") %>
+</p>
+
+<p>
+  <b>Públicos por experiencia:</b>
+  <%= @datos_esp.publs_exp.map { |e| e.detalle }.join(", ") %>
+</p>
+
+<p>
+  <b>Públicos por edad:</b>
+  <%= @datos_esp.publs_edad.map { |e| e.detalle }.join(", ") %>
+</p>
+
+<p>
+  <b>Formatos:</b>
+  <%= @datos_esp.formatos.map { |e| e.detalle }.join(", ") %>
+</p>
+
+<h3>Ficha Artística</h3>
+  <h4>Artístas</h4>
+  <% @artistas = @formulario.datos_esp.ficha_artisticas.all %>
+  <table class="table table-striped">
+  <tr>
+
+    <th>Nombre</th>
+    <th>Apellido</th>
+    <th>Rol</th>
+  </tr>
+
+  <%= content_tag_for(:tr, @artistas) do |artista| %>
+
+    <td><%= artista.nombre_artista %></td>
+    <td><%= artista.apellido_artista %></td>
+    <td><%= artista.rol_artista %></td>
+  <% end %>
+  </table>
+</br>
+
+<%= link_to t('Volver a campos de datos'), edit_formulario_path(@formulario) %>

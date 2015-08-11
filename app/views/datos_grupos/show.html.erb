@@ -1,0 +1,23 @@
+<% provide(:title, @datos_grupo.nombre_grupo) %>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <h2>Datos del grupo</h2>
+
+			</br>
+				<p>
+	  			<b>Nombre del grupo:</b>
+	  			<%= @datos_grupo.nombre_grupo %>
+				</p>
+
+				<p>
+	  			<b>Historia del grupo:</b>
+	  			<%= @datos_grupo.historia %>
+				</p></br>
+
+			</br>   
+
+      <%= link_to t('Volver a campos de datos'), edit_formulario_path(@formulario) %>
+    </section>
+  </aside>
+</div>

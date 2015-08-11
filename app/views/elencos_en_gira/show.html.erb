@@ -1,0 +1,25 @@
+<h3>Integrantes del Elenco en Gira</h3>
+	<table class="table table-striped">
+  <tr>
+    <th>Nombre</th>
+    <th>Apellido</th>
+    <th>CUIL / CUIT</th>
+    <th>Email</th>
+    <th>Fecha de Nacimiento</th>
+    <th>Roles</th>
+  </tr>
+
+  <%= content_tag_for(:tr, @integrantes) do |integrante| %>
+
+    <td><%= integrante.nombre %></td>
+    <td><%= integrante.apellido %></td>
+    <td><%= integrante.cuil_cuit %></td>
+    <td><%= integrante.email %></td>
+    <td><%= I18n.l(integrante.fecha_de_nacimiento) if integrante.fecha_de_nacimiento %></td>
+    <td><%= integrante.integrante_roles.map { |e| e.detalle }.join(", ") %></td>
+    <th></th>
+  <% end %>
+	</table>
+
+</br>
+  <%= link_to t('Volver a campos de datos'), edit_formulario_path(@formulario) %>

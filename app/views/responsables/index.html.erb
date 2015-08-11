@@ -1,0 +1,15 @@
+#encoding: utf-8
+<% provide(:title, 'Datos del responsable') %>
+<h1>Datos del responsable</h1>
+</br>
+<%= link_to "Persona Física existente", new_formulario_persona_fisica_e_path(params[:formulario_id]), class: "btn btn-large btn-primary" %></br>
+</br>
+<%= link_to "Persona Física nueva", new_formulario_persona_fisica_n_path(params[:formulario_id]), class: "btn btn-large btn-primary" %></br>
+</br>
+<%= link_to "Persona Jurídica nueva", new_formulario_persona_juridica_path(params[:formulario_id]), class: "btn btn-large btn-primary" %>
+</br>
+</br>
+<%= link_to "Persona Jurídica existente", new_formulario_persona_juridica_e_path(params[:formulario_id]), class: "btn btn-large btn-primary" %></br>
+</br>
+</br>
+<%= link_to t('Volver a campos de datos'), edit_formulario_path(params[:formulario_id]) %>

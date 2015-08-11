@@ -1,0 +1,35 @@
+#encoding: utf-8
+  <%= form_for([@formulario, @principal]) do |f| %>
+  <%= render 'shared/error_messages', :object => f.object %>
+
+  <p>Los campos marcados con * son obligatorios</p>
+  
+    <div class="field">
+        <br/><%= f.label :provincia, "Provincia *" %>
+        <%= collection_select(:p, "provincia_id", @provincias, "id", "detalle", :include_blank => "Seleccione una provincia...", :selected => selected(@principal.localidad)) %>
+    </div>
+
+    <div class="field">
+    <%= f.label :localidad, "Localidad *" %>
+    <%= f.grouped_collection_select("localidad_id", @provincias, "localidades", "detalle", "id", "detalle", :include_blank => "Seleccione una localidad...") %>
+    </div>
+
+  <div class="field">
+    <br/><%= label_tag :region, "Región" %>
+    <%= text_field_tag :region, nil, disabled: true %>
+  </div>
+
+  <div class="field">
+    <br/><%= f.label :grupo, "Grupo o espectáculo concertado *" %>
+    <%= f.collection_select("grupo_id", @grupos, "id", "detalle", :include_blank => "Seleccione si es grupo o espectáculo concertado...") %>
+  </div>
+
+  <div class="field">
+    <br/><%= f.label :nombre, "Nombre del espectáculo *" %>
+    <%= f.text_field :nombre %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Guardar Datos", class: "btn btn-large btn-primary" %>
+  </div>
+<% end %>

@@ -1,0 +1,11 @@
+#encoding: utf-8
+<% provide(:title, 'Formulario de persona juridica') %>
+<h1>Persona jurídica</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= render 'form' %>
+  </div>
+</div>
+</br>
+<%= link_to t('Volver a campos de datos'), edit_formulario_path(@formulario) %>

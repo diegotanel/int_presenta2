@@ -1,0 +1,22 @@
+#encoding: utf-8
+<% provide(:title, 'Datos del grupo') %>
+<h1>Datos del grupo</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for([@formulario, @datos_grupo]) do |f| %>
+      <%= render 'shared/error_messages', :object => f.object %>
+      <p>Los campos marcados con * son obligatorios</p>
+      <%= f.label :nombre_grupo, "Nombre del grupo *" %>
+      <%= f.text_field :nombre_grupo %>
+
+      <%= f.label :historia, "Breve historia del grupo *" %>
+      <%= f.text_area :historia %><p>(no mas de 700 caracteres, los espacios cuentan como caracteres)</p>
+
+      <%= f.submit "Guardar Datos", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>
+</br>
+</br>
+<%= link_to t('Volver a campos de datos'), edit_formulario_path(@formulario) %>

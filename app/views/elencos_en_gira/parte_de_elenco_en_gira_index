@@ -1,0 +1,9 @@
+<% if (@directores.count + @tecnicos.count) > 3 %>
+  <font color="red", size=4>ATENCION!! Esta rompiendo el reglamento con la relación que tiene que existir entre directores y técnicos</font>
+<% end %>
+<% if @directores.count > 3 %>
+  <font color="red", size=4>ATENCION!! Sobrepaso el limite de directores que puede agregar</font>
+<% end %>
+<% if @tecnicos.count > 2 %>
+  <font color="red", size=4>ATENCION!! Sobrepaso el limite de técnicos que puede agregar</font>
+<% end %>

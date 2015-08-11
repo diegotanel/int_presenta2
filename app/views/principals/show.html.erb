@@ -1,0 +1,30 @@
+<% provide(:title, 'Sus datos principales') %>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <p>
+				<b>Provincia:</b>
+				<%= @principal.provincia.detalle %>
+			</p>
+
+			<p>
+				<b>Localidad:</b>
+				<%= @principal.localidad.detalle %>
+			</p>
+
+			<p>
+				<b>Grupo o Espectáculo Concertado:</b>
+				<%= @principal.grupo.detalle %>
+			</p>
+
+			<p>
+				<b>Nombre del espectáculo:</b>
+				<%= @principal.nombre %>
+			</p>
+			</br>
+			
+			<%= link_to t('Volver a campos de datos'), edit_formulario_path(@formulario) %>
+
+    </section>
+  </aside>
+</div>

@@ -1,0 +1,75 @@
+#encoding: utf-8
+<% provide(:title, 'Datos del responsable') %>
+<h3>Datos de la persona física existente</h3>
+</br>
+<p>
+ 	<b>Nombre:</b>
+  <%= @persona_fisica_e_nue.nombre %>
+</p>
+
+<p>
+  <b>Apellido:</b>
+  <%= @persona_fisica_e_nue.apellido %>
+</p>
+
+<p>
+	<b>CUIL / CUIT:</b>
+	<%= @persona_fisica_e_nue.cuil_cuit %>
+</p>
+
+<p>
+	<b>Fecha de nacimiento:</b>
+	<%= I18n.l(@persona_fisica_e_nue.fecha_de_nacimiento) %>
+</p>
+
+<p>
+	<b>Calle:</b>
+	<%= @persona_fisica_e_nue.calle %>
+</p>
+
+<p>
+	<b>Numero de calle:</b>
+	<%= @persona_fisica_e_nue.altura_calle %>
+</p>
+
+<p>
+  <b>Piso:</b>
+  <%= @persona_fisica_e_nue.piso %>
+</p>
+
+<p>
+  <b>Departamento:</b>
+  <%= @persona_fisica_e_nue.depto %>
+</p>
+
+<p>
+ 	<b>Provincia:</b>
+ 	<%= @persona_fisica_e_nue.provincia.detalle %>
+</p>
+
+<p>
+  <b>Localidad:</b>
+  <%= @persona_fisica_e_nue.localidad.detalle %>
+</p>
+
+<p>
+  <b>Código postal:</b>
+  <%= @persona_fisica_e_nue.codigo_postal %>
+</p>
+
+<p>
+  <b>Teléfono particular:</b>
+  <%= @persona_fisica_e_nue.tel_particular %>
+</p>
+
+<p>
+ 	<b>Teléfono celular:</b>
+  <%= @persona_fisica_e_nue.tel_celular %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @persona_fisica_e_nue.email %>
+</p>
+</br>
+<%= link_to t('Volver a campos de datos'), edit_formulario_path(@formulario) %>

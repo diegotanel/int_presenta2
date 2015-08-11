@@ -1,0 +1,34 @@
+es-AR:
+  scaffoldi18n:
+    edit: Editar
+    show: Mostrar
+    destroy: Eliminar
+    new: Alta
+    back: Atrás
+    are_you_sure?: "¿Esta seguro?"
+  time:
+    formats:
+      default: ! '%d/%m/%Y %H:%M'
+      short: ! '%d/%m/%Y'
+      con_seg: ! '%d/%m/%Y %H:%M:%S'
+  activerecord:
+    attributes:
+        user: Usuario
+        created_at: Fecha de creación
+        deleted_at: Fecha de baja
+        datos_tec:
+          esps_esps: "Tipo de espacio"
+        datos_esp:
+          gen_esps: "Géneros del espectáculo"
+          publs_edad: "Públicos por edad"
+          publs_exp: "Públicos por experiencia"
+        persona_juridica:
+          num_cuit: "Número de CUIT"
+          num_per_juridica: "Número de personería jurídica"
+          nombre_per_juridica: "Nombre de persona jurídica"
+    errors:
+        models:
+          esps_esp: "Espacios del espéctaculo"
+          gen_esp: "Generos del espéctaculo"
+          publ_edad: "Públicos por edad"
+          publ_exp: "Públicos por experiencia"

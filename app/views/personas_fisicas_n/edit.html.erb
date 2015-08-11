@@ -1,0 +1,24 @@
+#encoding: utf-8
+<% provide(:title, 'Formulario Persona Fisica nueva') %>
+<h1>Persona fisica nueva</h1>
+</br>
+<h3>Errores datos de la persona física</h3>
+<% if (@formulario.responsable.responsabilidad.valid?) %>
+  <p>No hay errores en el formulario datos de la persona física</p>
+<% else %>
+  <p>
+    <b>Cantidad de errores:</b>
+    <%= @formulario.responsable.responsabilidad.errors.count %>
+  </p>
+  <%= @formulario.responsable.responsabilidad.errors.each do |attribute, error| %>
+  <% end %>
+<% end %>
+</br>
+<div class="row">
+  <div class="span6 offset3">
+    <%= render 'form' %>
+  </div>
+</div>
+</br>
+</br>
+<%= link_to t('Volver a campos de datos'), edit_formulario_path(@formulario) %>

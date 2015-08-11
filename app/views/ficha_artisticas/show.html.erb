@@ -1,0 +1,23 @@
+#encoding: utf-8
+<% provide(:title, 'Datos del artista') %>
+<h1>Datos del artista</h1>
+
+</br>
+<p>
+  <b>Nombre:</b>
+  <%= @ficha.nombre_artista %>
+</p>
+
+<p>
+  <b>Apellido:</b>
+  <%= @ficha.apellido_artista %>
+</p>
+
+<p>
+  <b>Rol:</b>
+  <%= @ficha.rol_artista %>
+</p>
+
+</br>
+
+<%= link_to t('Volver a campos de datos'), formulario_ficha_artisticas_path %>

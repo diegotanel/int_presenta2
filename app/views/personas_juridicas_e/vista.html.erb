@@ -1,0 +1,90 @@
+#encoding: utf-8
+<% provide(:title, 'Datos del responsable') %>
+<h3>Datos de la persona jurídica existente</h3>
+</br>
+<p>
+  <b>Nombre:</b>
+  <%= @persona_juridica_e.nombre_per_juridica if @persona_juridica_e.nombre_per_juridica%>
+</p>
+
+<p>
+  <b>CUIT:</b>
+  <%= @persona_juridica_e.num_cuit if @persona_juridica_e.num_cuit%>
+</p>
+
+<p>
+  <b>Numero de personeria jurídica:</b>
+  <%= @persona_juridica_e.num_per_juridica if @persona_juridica_e.num_per_juridica%>
+</p>
+
+<p>
+  <b>Calle:</b>
+  <%= @persona_juridica_e.calle if @persona_juridica_e.calle %>
+</p>
+
+<p>
+  <b>Numero de calle:</b>
+  <%= @persona_juridica_e.altura_calle if @persona_juridica_e.altura_calle%>
+</p>
+
+<p>
+  <b>Piso:</b>
+  <%= @persona_juridica_e.piso if @persona_juridica_e.altura_calle%>
+</p>
+
+<p>
+  <b>Departamento:</b>
+  <%= @persona_juridica_e.depto if @persona_juridica_e.depto%>
+<p>
+<p>
+  <b>Provincia:</b>
+  <%= @persona_juridica_e.provincia.detalle %>
+</p>
+
+<p>
+  <b>Localidad:</b>
+  <%= @persona_juridica_e.localidad.detalle %>
+</p>
+
+<p>
+  <b>Código postal:</b>
+  <%= @persona_juridica_e.codigo_postal if @persona_juridica_e.codigo_postal %>
+</p>
+
+<p>
+  <b>Teléfono entidad:</b>
+  <%= @persona_juridica_e.tel_entidad if @persona_juridica_e.tel_entidad%>
+</p>
+
+<p>
+  <b>Email entidad:</b>
+  <%= @persona_juridica_e.email_entidad if @persona_juridica_e.email_entidad %>
+</p>
+</br>
+
+<h3>Comisión Directiva</h3>
+  <h4>Directivos</h4>
+  <% @integrantes = @persona_juridica_e.integrantes_comision_directiva.all %>
+  <table class="table table-striped">
+  <tr>
+
+    <th>Cargo</th>
+    <th>Nombre</th>
+    <th>Apellido</th>
+    <th>CUIL / CUIT</th>
+    <th>Email</th>
+    <th>Fecha de Nacimiento</th>
+  </tr>
+
+  <%= content_tag_for(:tr, @integrantes) do |integrante| %>
+
+    <td><%= integrante.cargo %></td>
+    <td><%= integrante.nombre %></td>
+    <td><%= integrante.apellido %></td>
+    <td><%= integrante.cuil_cuit %></td>
+    <td><%= integrante.email %></td>
+    <td><%= I18n.l(integrante.fecha_de_nacimiento) %></td>
+  <% end %>
+  </table>
+</br>
+<%= link_to t('Volver a campos de datos'), edit_formulario_path(@formulario) %>

@@ -1,0 +1,12 @@
+#encoding: utf-8
+<% provide(:title, 'Errores elenco en gira') %>
+<h2>Errores integrantes elencos en gira</h2></br>
+<% @integrantes = @elenco_en_gira.integrantes_de_elenco_en_gira.all %>
+<% @integrantes.each do |integrante| %>
+	<% if (integrante.valid?) %>
+  	<p>El integrante de nombre:<%= integrante.nombre %> no tiene errores</p>
+ 	<% else %>
+		<%= integrante.errors.each do |attribute, error| %>
+		<% end %>
+	<% end %>
+<% end %>

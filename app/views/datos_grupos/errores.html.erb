@@ -1,0 +1,13 @@
+#encoding: utf-8
+<% provide(:title, 'Errores datos del grupo') %>
+<h2>Errores datos del grupo</h2>
+<% if (@datos_grupo.valid?) %>
+	<p>No hay errores en el formulario datos del grupo</p>
+<% else %>
+	<p>
+		<b>Cantidad de errores:</b>
+		<%= @datos_grupo.errors.count %>
+	</p>
+	<%= @datos_grupo.errors.each do |attribute, error| %></br>
+	<% end %>
+<% end %>

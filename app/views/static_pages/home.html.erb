@@ -1,0 +1,20 @@
+#encoding: utf-8
+<% provide(:title, 'Convocatoria INT Presenta 2016') %>
+<div class="center hero-unit">
+
+  <% if signed_in? %>
+		<%= link_to "Formulario convocatoria INT Presenta 2016", formularios_path, class: "btn btn-large btn-medium" %></br>
+		</br>
+		<%= link_to "Configuración de la cuenta", edit_user_path(current_user), class: "btn btn-large btn-medium" %></br>
+		</br>
+		<%= link_to "Cerrar Sesión", signout_path, method: "delete", class: "btn btn-large btn-medium" %></br>
+		</br>
+  <% else %>
+  	<%= link_to "Registrarse!", signup_path, class: "btn btn-large btn-medium" %></br>
+  	</br>
+  	<%= link_to "Iniciar Sesión", signin_path, class: "btn btn-large btn-medium" %>
+	<% end %>
+</div>
+
+
+

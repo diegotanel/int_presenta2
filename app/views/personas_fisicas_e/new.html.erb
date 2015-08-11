@@ -1,0 +1,17 @@
+#encoding: utf-8
+<% provide(:title, 'Busqueda de persona') %>
+<h2>Buscar persona física</h2>
+
+<div class="row">
+  <div class="span6 offset3">
+		<%= form_tag(buscar_persona_por_cuil_cuit_formulario_persona_fisica_e_path(@formulario, 1), method: 'post')  do %>
+			<p>Ingrese el numero de Cuil/Cuit de la persona que quiere buscar (sin guiones ni puntos)</p>
+			<%= text_field_tag :numero_cuil_cuit %>
+			</br>
+			<%= submit_tag "Iniciar busqueda", class: "btn btn-large btn-medium" %>
+		<% end %>
+  </div>
+</div>
+</br>
+</br>
+<%= link_to t('Volver a campos de datos'), edit_formulario_path(@formulario) %>

@@ -1,0 +1,25 @@
+#encoding: utf-8
+<% provide(:title, 'Editar Datos del artista') %>
+<h1>Editar Datos del artista</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for([@formulario, @ficha]) do |f| %>
+      <%= render 'shared/error_messages', :object => f.object %>
+      <p>Los campos marcados con * son obligatorios</p>
+      <%= f.label :nombre_artista, "Nombre *" %>
+      <%= f.text_field :nombre_artista %>
+
+      <%= f.label :apellido_artista, "Apellido *" %>
+      <%= f.text_field :apellido_artista %>
+
+      <%= f.label :rol_artista, "Rol *" %>
+      <%= f.text_field :rol_artista %>
+
+      <%= f.submit "Salvar Cambios", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>
+</br>
+</br>
+<%= link_to t('Volver a campos de datos'), edit_formulario_path(@formulario) %>	

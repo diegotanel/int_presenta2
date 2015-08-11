@@ -1,0 +1,89 @@
+<% @es_invalido = nil %>
+
+        <% if (@formulario.elenco_en_gira.integrantes_de_elenco_en_gira.count > 0) && (@formulario.elenco_en_gira.integrantes_de_elenco_en_gira.where(type: 'Director').count < 4) && (@formulario.elenco_en_gira.integrantes_de_elenco_en_gira.where(type: 'Tecnico').count < 3) && ((@formulario.elenco_en_gira.integrantes_de_elenco_en_gira.where(type: 'Director').count + @formulario.elenco_en_gira.integrantes_de_elenco_en_gira.where(type: 'Tecnico').count) < 4) %>
+            <% @formulario.elenco_en_gira.integrantes_de_elenco_en_gira.each do |integrante| %>
+              <%  unless integrante.valid? %>
+                <% @es_invalido = true 
+                  break %>
+              <% end %>
+            <% end %>
+        <% else %>
+          <% @es_invalido = true %>
+        <% end %>
+
+
+<% if (@formulario.responsable) %>
+      <% unless (@formulario.responsable.valid?) %>
+        <td><font color="red">Campo Incompleto</font></td>
+      <% end %>
+    <% end %>
+    <% if (@formulario.responsable) %>
+      <% if (@formulario.responsable.valid?) %>
+        <% if (@formulario.responsable.persona_fisica_e) %>
+          <% if (@formulario.responsable.persona_fisica_e.valid?) %>
+            <td><font color="green">Campo Completo</font></td>
+          <% else %>
+            <td><font color="red">Campo Incompleto</font></td>
+          <% end %>
+        <% end %>
+        <% if (@formulario.responsable.persona_fisica_n) %>
+          <% if (@formulario.responsable.persona_fisica_n.valid?) %>
+            <td><font color="green">Campo Completo</font></td>
+          <% else %>
+            <td><font color="red">Campo Incompleto</font></td>
+          <% end %>
+        <% end %>
+        <% if (@formulario.responsable.persona_juridica) %>
+          <% if (@formulario.responsable.persona_juridica.valid?) %>
+            <% @es_invalid = nil %>
+
+            <% if (@formulario.responsable.persona_juridica.integrantes_comision_directiva.count > 0) %>
+                <% @formulario.responsable.persona_juridica.integrantes_comision_directiva.each do |integrant| %>
+                  <%  unless integrant.valid? %>
+                    <% @es_invalid = true 
+                      break %>
+                  <% end %>
+                <% end %>
+            <% else %>
+              <% @es_invalid = true %>
+            <% end %>
+
+            <% if (@es_invalid) %>
+              <td><font color="red">Campo Incompleto</font></td>
+            <% else %>
+              <td><font color="green">Campo Completo</font></td>
+            <% end %>
+          <% else %>
+            <td><font color="red">Campo Incompleto</font></td>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+    <% if (@formulario.responsable) %>
+      <% if (@formulario.responsable.persona_fisica_e) %>
+      <td><%= link_to t("scaffoldi18n.ver"), vista_formulario_persona_fisica_e_path(@formulario, @formulario.responsable.persona_fisica_e) %></td>
+      <td><%= link_to t("scaffoldi18n.edit"), new_formulario_persona_fisica_e_path(@formulario) %></td>
+      <td><%= link_to t("scaffoldi18n.destroy"), formulario_responsable_path(@formulario, @formulario.responsable), :data => {confirm: t("scaffoldi18n.are_you_sure?")}, method: :delete %></td>
+      <% end %>
+      <% if (@formulario.responsable.persona_fisica_n) %>
+      <td><%= link_to t("scaffoldi18n.ver"), formulario_persona_fisica_n_path(@formulario, @formulario.responsable.persona_fisica_n) %></td>
+      <td><%= link_to t("scaffoldi18n.edit"), edit_formulario_persona_fisica_n_path(@formulario, @formulario.responsable.persona_fisica_n) %></td>
+      <td><%= link_to t("scaffoldi18n.destroy"), formulario_responsable_path(@formulario, @formulario.responsable), :data => {confirm: t("scaffoldi18n.are_you_sure?")}, method: :delete %></td>
+      <% end %>
+      <% if (@formulario.responsable.persona_juridica) %>
+      <td><%= link_to t("scaffoldi18n.ver"), formulario_persona_juridica_path(@formulario, @formulario.responsable.persona_juridica) %></td>
+      <td><%= link_to t("scaffoldi18n.edit"), edit_formulario_persona_juridica_path(@formulario, @formulario.responsable.persona_juridica) %></td>
+      <td><%= link_to t("scaffoldi18n.destroy"), formulario_responsable_path(@formulario, @formulario.responsable), :data => {confirm: t("scaffoldi18n.are_you_sure?")}, method: :delete %></td>
+      <% end %>
+    <% else %>
+      <td><%= link_to t("scaffoldi18n.new"), formulario_responsables_path(@formulario) %></td>
+      <td></td>
+      <td></td>
+    <% end %>
+  </tr>
+
+  <% if @completo && (@formulario.responsable) && (@formulario.responsable.valid?) %>
+  <% @completo = true %>
+<% else %>
+  <% @completo = false %>
+<% end %>

@@ -1,0 +1,13 @@
+#encoding: utf-8
+<% provide(:title, 'Errores datos principales') %>
+<h2>Errores datos principales</h2>
+<% if (@principal.valid?) %>
+	<p>No hay errores en el formulario datos principales</p>
+<% else %>
+	<p>
+		<b>Cantidad de errores:</b>
+		<%= @principal.errors.count %>
+	</p>
+	<%= @principal.errors.each do |attribute, error| %></br>
+	<% end %>
+<% end %>
