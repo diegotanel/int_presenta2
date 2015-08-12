@@ -59,5 +59,6 @@ class DatosEspsController < ApplicationController
     @publs_exp = PublExp.all
     @publs_edad = PublEdad.all
     @formatos = Formato.all
+    @nacionalidades = Nacionalidad.all
   end
 end

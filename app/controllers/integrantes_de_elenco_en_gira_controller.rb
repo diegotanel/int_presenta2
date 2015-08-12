@@ -73,6 +73,7 @@ class IntegrantesDeElencoEnGiraController < ApplicationController
     @region = Region.all
     @localidades = Localidad.all
     @integrante_roles = IntegranteRol.all
+    @nacionalidades = Nacionalidad.all
   end
 
 end

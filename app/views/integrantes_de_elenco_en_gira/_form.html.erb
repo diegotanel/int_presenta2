@@ -17,6 +17,11 @@
     </div>
 
     <div class="field">
+      <%= f.label :nacionalidad, "Nacionalidad del autor *" %>
+      <%= collection_select(:n, "nacionalidad_id", @nacionalidades, "id", "detalle", :include_blank => "Seleccione una nacionalidad...", :selected => selected(@integrante.nacionalidad)) %>
+    </div>
+
+    <div class="field">
     <%= f.label :cuil_cuit, "Número de cuil / cuit * (sin guiones ni puntos)" %>
     <%= f.text_field :cuil_cuit %>
     </div>
@@ -52,7 +57,7 @@
     </div>
 
     <div class="field">
-    <%= f.label :localidad, "Localidad *" %><br />
+    <%= f.label :localidad, "Localidad *" %>
     <%= f.grouped_collection_select("localidad_id", @provincias, "localidades", "detalle", "id", "detalle", :include_blank => "Seleccione una localidad...") %>
     </div>
 

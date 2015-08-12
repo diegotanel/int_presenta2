@@ -14,11 +14,11 @@
 	    <%= f.text_field :nombre_autor %>
 	  </div>
 
-	  <div class="field">
-	    <%= f.label :nacionalidad_autor, "Nacionalidad del autor *" %>
-	    <%= f.text_field :nacionalidad_autor %>
-	  </div>
-
+    <div class="field">
+        <%= f.label :nacionalidad, "Nacionalidad del autor *" %>
+        <%= collection_select(:n, "nacionalidad_id", @nacionalidades, "id", "detalle", :include_blank => "Seleccione una nacionalidad...", :selected => selected(@datos_esp.nacionalidad)) %>
+    </div>
+    
 	  <div class="field">
 	    <%= f.label :duracion_espectaculo, "Duración del espectáculo (en minutos) *" %>
 	    <%= f.text_field :duracion_espectaculo %>
@@ -72,7 +72,7 @@
     		</tr>
     	<% end %>
   	</div></br>
-
+    
     <div class="field">
       <%= f.label :autorizacion_del_autor, "Adjuntar autorización del autor * (archivos jpg / png / pdf - tamaño máximo 1 mb)" %>
       <%= f.file_field :autorizacion_del_autor %>
@@ -84,7 +84,7 @@
     <% end %>
     </div>
 
-
+    <br/>
      <div class="field">
       <%= f.label :imagen, "Adjuntar foto * (archivos jpg / png / pdf - tamaño máximo 1 mb)" %>
       <%= f.file_field :imagen %>
@@ -96,7 +96,7 @@
     <% end %>
     </div>
 
-
+    <br/>
     <p>Sitios Web:</p>
     <p>(Copiar el link)</p>
 	  <div class="field">

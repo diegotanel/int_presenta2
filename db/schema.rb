@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 20150730191119) do
     t.integer  "formulario_id",                       null: false
     t.date     "fecha_de_estreno"
     t.string   "nombre_autor",                        null: false
-    t.string   "nacionalidad_autor",                  null: false
+    t.integer  "nacionalidad_id",                     null: false
     t.string   "duracion_espectaculo",                null: false
     t.text     "sinopsis_obra",                       null: false
     t.text     "pagina_web"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20150730191119) do
   end
 
   add_index "datos_esps", ["formulario_id"], name: "index_datos_esps_on_formulario_id"
+  add_index "datos_esps", ["nacionalidad_id"], name: "index_datos_esps_on_nacionalidad_id"
 
   create_table "datos_esps_formatos", id: false, force: :cascade do |t|
     t.integer "formato_id",   null: false
@@ -203,6 +204,7 @@ ActiveRecord::Schema.define(version: 20150730191119) do
     t.string   "apellido",            null: false
     t.string   "cuil_cuit",           null: false
     t.date     "fecha_de_nacimiento"
+    t.integer  "nacionalidad_id",     null: false
     t.string   "calle",               null: false
     t.string   "altura_calle",        null: false
     t.string   "piso"
@@ -219,6 +221,7 @@ ActiveRecord::Schema.define(version: 20150730191119) do
 
   add_index "integrantes_de_elenco_en_gira", ["elenco_en_gira_id"], name: "index_integrantes_de_elenco_en_gira_on_elenco_en_gira_id"
   add_index "integrantes_de_elenco_en_gira", ["localidad_id"], name: "index_integrantes_de_elenco_en_gira_on_localidad_id"
+  add_index "integrantes_de_elenco_en_gira", ["nacionalidad_id"], name: "index_integrantes_de_elenco_en_gira_on_nacionalidad_id"
 
   create_table "localidades", force: :cascade do |t|
     t.string   "codigo",       null: false

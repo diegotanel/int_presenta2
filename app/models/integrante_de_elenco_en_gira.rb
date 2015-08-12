@@ -9,6 +9,7 @@ class IntegranteDeElencoEnGira < ActiveRecord::Base
 
   belongs_to :localidad
   belongs_to :elenco_en_gira
+  belongs_to :nacionalidad
 
 
   before_save { self.email = email.downcase }
@@ -31,6 +32,7 @@ class IntegranteDeElencoEnGira < ActiveRecord::Base
   validates :codigo_postal, presence: true, unless: :saltear_validaciones_de_presencia
   validates :email, presence: true, unless: :saltear_validaciones_de_presencia
   validates :email, format: {with: VALID_EMAIL_REGEX}
+  validates :nacionalidad, presence: true
   validates :elenco_en_gira, presence: true
   validates :integrante_roles, presence: true, unless: :saltear_validaciones_de_presencia
   validates :tel_particular, numericality: { only_integer: true }, allow_blank: true

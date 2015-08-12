@@ -9,6 +9,7 @@ class DatosEsp < ActiveRecord::Base
 	has_and_belongs_to_many :publs_exp, class_name: 'PublExp'
 	has_and_belongs_to_many :publs_edad, class_name: 'PublEdad'
 	has_and_belongs_to_many :formatos, class_name: 'Formato'
+	belongs_to :nacionalidad
 
 	validate :validacion_fecha_de_estreno_debe_ser_inferior_al_dia_actual
 
@@ -16,12 +17,11 @@ class DatosEsp < ActiveRecord::Base
 	validates :fecha_de_estreno, presence: true, unless: :saltear_validaciones_de_presencia
 	validates :nombre_autor, presence: true, unless: :saltear_validaciones_de_presencia
 	validates :nombre_autor, length: {maximum: 100}
-	validates :nacionalidad_autor, presence: true, unless: :saltear_validaciones_de_presencia
-	validates :nacionalidad_autor, length: {maximum: 50}
 	validates :duracion_espectaculo, presence: true, unless: :saltear_validaciones_de_presencia
 	validates :duracion_espectaculo, numericality: { only_integer: true }, allow_blank: true
 	validates :sinopsis_obra, presence: true, unless: :saltear_validaciones_de_presencia
 	validates :sinopsis_obra, length: {maximum: 700}
+	validates :nacionalidad, presence: true
 	validates :gen_esps, presence: true, unless: :saltear_validaciones_de_presencia
 	validates :publs_edad, presence: true, unless: :saltear_validaciones_de_presencia
 	validates :publs_exp, presence: true, unless: :saltear_validaciones_de_presencia
