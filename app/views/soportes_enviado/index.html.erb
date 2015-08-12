@@ -34,9 +34,6 @@
 	  <%= f.date_select :datos_esp_fecha_de_estreno_lteq, start_year: 1950, end_year: 2014 ,order: [:day, :month, :year], include_blank: true %>
 	</div>
 
-  <%= f.label :datos_esp_nacionalidad_autor_eq, "Nacionalidad del autor"%>
-  <%= f.select :datos_esp_nacionalidad_autor_eq, Formulario.where(estado: 1).map {|n| n.datos_esp.nacionalidad_autor.strip }.uniq.sort, include_blank: true %>
-
   <div class="actions">
   	<%= f.submit "Buscar"%>
   </div>
@@ -52,8 +49,7 @@
       <th>Nacionalidad del autor</th>
       <th>Grupo o Espectáculo concertado</th>
 	    <th>Cantidad de integrantes de elenco en gira</th>
-      <th><%= sort_link @q, :datos_esp_duracion_espectaculo, "Duración del espectáculo" %></th>
-      <th>Nacionalidad del autor</th>
+      <th><%= sort_link @p, :datos_esp_duracion_espectaculo, "Duración del espectáculo" %></th>
       <th>Fecha de estreno</th>
       <th></th>
       <th></th>
@@ -70,7 +66,6 @@
     	<td><%= formulario.principal.grupo.detalle %></td>
     	<td><%= formulario.elenco_en_gira.cantidad_integrantes_en_gira %></td>
     	<td><%= formulario.datos_esp.duracion_espectaculo.to_i %></td>
-    	<td><%= formulario.datos_esp.nacionalidad_autor %></td>
     	<td><%= I18n.l(formulario.datos_esp.fecha_de_estreno) %></td>
     	<td><%= link_to "Vista previa", formulario_super_vistas_path(formulario) %></td>
       <td><%= link_to "Imprimir formulario interno", imprimir_formulario_interno_formulario_path(formulario) %></td>

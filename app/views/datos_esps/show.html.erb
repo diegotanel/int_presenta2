@@ -15,7 +15,7 @@
 
 <p>
   <b>Nacionalidad del autor:</b>
-  <%= @datos_esp.nacionalidad_autor %>
+  <%= @datos_esp.nacionalidad.detalle %>
 </p>
 
 <p>
@@ -46,6 +46,16 @@
 <p>
   <b>Formatos:</b>
   <%= @datos_esp.formatos.map { |e| e.detalle }.join(", ") %>
+</p>
+
+<p>
+  <b>Imagen:</b>
+  <%= link_to "Download", @datos_esp.imagen.url(:original, false), :target => "_blank" %>
+</p>
+
+<p>
+  <b>Autorización del autor:</b>
+  <%= link_to "Download", @datos_esp.autorizacion_del_autor.url(:original, false), :target => "_blank" %>
 </p>
 
 <h3>Ficha Artística</h3>

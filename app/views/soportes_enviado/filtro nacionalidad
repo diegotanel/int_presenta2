@@ -1,0 +1,2 @@
+  <%= f.label :datos_esp_nacionalidad_autor_eq, "Nacionalidad del autor"%>
+  <%= f.select :datos_esp_nacionalidad_autor_eq, Formulario.where(estado: 1).map {|n| n.datos_esp.nacionalidad_autor.strip }.uniq.sort, include_blank: true %>

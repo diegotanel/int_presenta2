@@ -119,18 +119,17 @@
   <tr>
   <td>Datos del elenco en gira</td>
 
-      <% unless (@formulario.elenco_en_gira) %>
+    <% unless (@formulario.elenco_en_gira) %>
+      <td><font color="red">Campo Incompleto</font></td>
+    <% end %>
+
+    <% if (@formulario.elenco_en_gira) %>
+      <% if (@formulario.elenco_en_gira.integrantes_de_elenco_en_gira.count < 1) %>
         <td><font color="red">Campo Incompleto</font></td>
+      <% else %>
+        <td><font color="green">Campo Completo</font></td>
       <% end %>
-
-      <% if (@formulario.elenco_en_gira) %>
-
-        <% if (@es_invalido) %>
-          <td><font color="red">Campo Incompleto</font></td>
-        <% else %>
-          <td><font color="green">Campo Completo</font></td>
-        <% end %>
-      <% end %>
+    <% end %>
 
   <% if (@formulario.elenco_en_gira) %>
     <td><%= link_to t("scaffoldi18n.ver"), formulario_elenco_en_gira_path(@formulario, @formulario.elenco_en_gira)  %></td>

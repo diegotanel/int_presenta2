@@ -38,7 +38,7 @@
 
 	<p>
 	  <b>Nacionalidad del autor:</b>
-	  <%= @formulario.datos_esp.nacionalidad_autor %>
+	  <%= @formulario.datos_esp.nacionalidad.detalle %>
 	</p>
 
 	<p>
@@ -221,7 +221,7 @@
 <h3>Datos del responsable</h3>
 <% if (@formulario.responsable) %>
 	<% if (@formulario.responsable.responsabilidad) %>
-		<% if (@formulario.responsable.responsabilidad == "PersonaFisicaEInt") %>
+		<% if (@formulario.responsable.responsabilidad_type == "PersonaFisicaEInt") %>
 			<% @id_persona = @formulario.responsable.responsabilidad.integrante_de_elenco_en_gira_id %>
 			<% @persona = IntegranteDeElencoEnGira.find_by_id(@id_persona) %>
 			<p>
@@ -295,7 +295,7 @@
 			</p>
 		<% end %>
 
-		<% if (@formulario.responsable.responsabilidad == "PersonaFisicaN") %>
+		<% if (@formulario.responsable.responsabilidad_type == "PersonaFisicaN") %>
 			<p>
 			  <b>Nombre:</b>
 			  <%= @formulario.responsable.responsabilidad.nombre %>
@@ -367,7 +367,7 @@
 			</p>
 		<% end %>
 
-		<% if (@formulario.responsable.responsabilidad == "PersonaJuridica") %>
+		<% if (@formulario.responsable.responsabilidad_type == "PersonaJuridica") %>
 			<h4>Datos persona juridica</h4>
 			<p>
 			  <b>Nombre:</b>
@@ -455,7 +455,7 @@
 			</table>
 		<% end %>
 
-		<% if (@formulario.responsable.responsabilidad == "PersonaFisicaENue") %>
+		<% if (@formulario.responsable.responsabilidad_type == "PersonaFisicaENue") %>
 			<% @id_persona = @formulario.responsable.responsabilidad.persona_fisica_n_id %>
 			<% @persona = PersonaFisicaN.find_by_id(@id_persona) %>
 			<p>
@@ -529,7 +529,7 @@
 			</p>
 		<% end %>
 
-		<% if (@formulario.responsable.responsabilidad == "PersonaJuridicaE") %>
+		<% if (@formulario.responsable.responsabilidad_type == "PersonaJuridicaE") %>
 			<% @id_juridica = @formulario.responsable.responsabilidad.persona_juridica_id %>
 			<% @persona_juridica = PersonaJuridica.find_by_id(@id_juridica) %>
 			<h4>Datos persona juridica</h4>

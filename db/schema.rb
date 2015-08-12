@@ -234,7 +234,6 @@ ActiveRecord::Schema.define(version: 20150730191119) do
   add_index "localidades", ["provincia_id"], name: "index_localidades_on_provincia_id"
 
   create_table "nacionalidades", force: :cascade do |t|
-    t.string   "codigo",     null: false
     t.string   "detalle",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

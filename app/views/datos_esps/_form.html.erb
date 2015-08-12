@@ -16,7 +16,7 @@
 
     <div class="field">
         <%= f.label :nacionalidad, "Nacionalidad del autor *" %>
-        <%= collection_select(:n, "nacionalidad_id", @nacionalidades, "id", "detalle", :include_blank => "Seleccione una nacionalidad...", :selected => selected(@datos_esp.nacionalidad)) %>
+        <%= f.collection_select("nacionalidad_id", @nacionalidades, "id", "detalle", :include_blank => "Seleccione una nacionalidad...") %>
     </div>
     
 	  <div class="field">
