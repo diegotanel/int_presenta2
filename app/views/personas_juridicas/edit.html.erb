@@ -5,13 +5,6 @@
 <h3>Errores datos de la persona jurídica</h3>
 <% if (@formulario.responsable.responsabilidad.valid?) %>
   <p>No hay errores en el formulario datos de la persona jurídica</p>
-<% else %>
-  <p>
-    <b>Cantidad de errores:</b>
-    <%= @formulario.responsable.responsabilidad.errors.count %>
-  </p>
-  <%= @formulario.responsable.responsabilidad.errors.each do |attribute, error| %>
-  <% end %>
 <% end %>
 </br>
 <div class="row">

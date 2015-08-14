@@ -11,7 +11,7 @@ class PersonasFisicasEController < ApplicationController
     if @buscado.nil?
       @buscado = PersonaFisicaN.where(cuil_cuit: params[:numero_cuil_cuit])[0]
       if @buscado.nil?
-        flash[:error] = "No se encontro a ninguna persona con ese cuil o cuit"
+        flash[:error] = "No se encontro a ninguna persona con ese cuil o cuit. Cree una nueva"
         render 'new'
       else
         redirect_to formulario_persona_fisica_e_nue_path(@formulario, @buscado)

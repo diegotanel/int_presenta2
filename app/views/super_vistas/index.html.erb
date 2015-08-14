@@ -4,6 +4,11 @@
 </br>
 <h3>Datos Principales</h3>
 <% if (@formulario.principal) %>
+	<% if (@formulario.principal.valid?) %>
+		<p>No hay errores en el formulario datos principales</p>
+	<% else %>
+		<%= render 'shared/error_messages', :object => @formulario.principal %>
+	<% end %>
 	<p>
 		<b>Provincia:</b>
 		<%= @formulario.principal.provincia.detalle %>
@@ -26,6 +31,11 @@
 <% end %>
 <h3>Datos generales del espectáculo</h3>
 <% if (@formulario.datos_esp) %>
+	<% if (@formulario.datos_esp.valid?) %>
+		<p>No hay errores en el formulario datos del espectáculo</p>
+	<% else %>
+		<%= render 'shared/error_messages', :object => @formulario.datos_esp %>
+	<% end %>
 	<p>
   	<b>Fecha de Estreno:</b>
   	<%= @formulario.datos_esp.fecha_de_estreno %>
@@ -103,6 +113,11 @@
 <% end %>
 <h3>Datos técnicos del espectáculo</h3>
 <% if (@formulario.datos_tec) %>
+	<% if (@formulario.datos_tec.valid?) %>
+		<p>No hay errores en el formulario datos técnicos del espectáculo</p>
+	<% else %>
+		<%= render 'shared/error_messages', :object => @formulario.datos_tec %>
+	<% end %>
 	<p>
   	<b>Duración montaje:</b>
   	<%= @formulario.datos_tec.duracion_montaje %>
@@ -205,6 +220,11 @@
   <% if (@formulario.principal.grupo.codigo == "a" ) %>
 		<h3>Datos del grupo</h3>
 		<% if (@formulario.datos_grupo) %>
+			<% if (@formulario.datos_grupo.valid?) %>
+  			<p>No hay errores en el formulario datos del grupo</p>
+			<% else %>
+				<%= render 'shared/error_messages', :object => @formulario.datos_grupo %>
+			<% end %>
 			<p>
 	  		<b>Nombre del grupo:</b>
 	  		<%= @formulario.datos_grupo.nombre_grupo %>
@@ -224,6 +244,7 @@
 		<% if (@formulario.responsable.responsabilidad_type == "PersonaFisicaEInt") %>
 			<% @id_persona = @formulario.responsable.responsabilidad.integrante_de_elenco_en_gira_id %>
 			<% @persona = IntegranteDeElencoEnGira.find_by_id(@id_persona) %>
+			<h4>Datos persona física</h4>
 			<p>
 			 	<b>Nombre:</b>
 			  <%= @persona.nombre %>
@@ -296,6 +317,12 @@
 		<% end %>
 
 		<% if (@formulario.responsable.responsabilidad_type == "PersonaFisicaN") %>
+			<h4>Datos persona física</h4>
+			<% if (@formulario.responsable.responsabilidad.valid?) %>
+  			<p>No hay errores en el formulario datos de la persona física</p>
+			<% else %>
+				<%= render 'shared/error_messages', :object => @formulario.responsable.responsabilidad %>
+			<% end %>
 			<p>
 			  <b>Nombre:</b>
 			  <%= @formulario.responsable.responsabilidad.nombre %>
@@ -369,6 +396,11 @@
 
 		<% if (@formulario.responsable.responsabilidad_type == "PersonaJuridica") %>
 			<h4>Datos persona juridica</h4>
+			<% if (@formulario.responsable.responsabilidad.valid?) %>
+  			<p>No hay errores en el formulario datos de la persona jurídica</p>
+			<% else %>
+				<%= render 'shared/error_messages', :object => @formulario.responsable.responsabilidad %>
+			<% end %>
 			<p>
 			  <b>Nombre:</b>
 			  <%= @formulario.responsable.responsabilidad.nombre_per_juridica %>
@@ -427,9 +459,9 @@
 			<p>
 			  <b>Email entidad:</b>
 			  <%= @formulario.responsable.responsabilidad.email_entidad %>
-			</p></br>
+			</p>
 
-			<h4>Comisión Directiva</h4>
+			<h3>Comisión Directiva</h3>
 			<h4>Directivos</h4>
 			<% @integrantes = @formulario.responsable.responsabilidad.integrantes_comision_directiva.all %>
 			<table class="table table-striped">
@@ -458,6 +490,7 @@
 		<% if (@formulario.responsable.responsabilidad_type == "PersonaFisicaENue") %>
 			<% @id_persona = @formulario.responsable.responsabilidad.persona_fisica_n_id %>
 			<% @persona = PersonaFisicaN.find_by_id(@id_persona) %>
+			<h4>Datos persona física</h4>
 			<p>
 				<b>Nombre:</b>
 				<%= @persona.nombre %>
@@ -591,9 +624,9 @@
 			<p>
 				<b>Email entidad:</b>
 				<%= @persona_juridica.email_entidad %>
-			</p></br>
+			</p>
 
-			<h4>Comisión Directiva</h4>
+			<h3>Comisión Directiva</h3>
 			<h4>Directivos</h4>
 			<% @integrantes = @persona_juridica.integrantes_comision_directiva.all %>
 			<table class="table table-striped">

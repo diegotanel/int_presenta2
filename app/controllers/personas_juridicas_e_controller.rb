@@ -12,7 +12,7 @@ class PersonasJuridicasEController < ApplicationController
     @buscado = nil
     @buscado = PersonaJuridica.where(num_cuit: params[:numero_cuit])[0]
     if @buscado.nil?
-      flash[:error] = "No se encontro a ninguna persona con ese cuil o cuit"
+      flash[:error] = "No se encontro a ninguna persona con ese cuit. Cree una nueva"
       render 'new'
     else
       flash[:success] = "Se encontro a una persona juridica con ese cuit"
