@@ -65,9 +65,20 @@
     </div>
 
     <p>Se debe completar al menos un teléfono</p>
+
+    <div class="field">
+    <%= f.label :prefijo_tel_part, "Prefijo Teléfono Particular" %>
+    <%= f.text_field :prefijo_tel_part %>
+    </div>
+
     <div class="field">
     <%= f.label :tel_particular, "Teléfono Particular (sin guiones ni puntos)" %>
     <%= f.text_field :tel_particular %>
+    </div>
+
+    <div class="field">
+    <%= f.label :prefijo_tel_cel, "Prefijo Teléfono Celular" %>
+    <%= f.text_field :prefijo_tel_cel %>
     </div>
 
     <div class="field">

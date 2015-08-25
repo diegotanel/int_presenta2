@@ -5,17 +5,20 @@ class CreateIntegrantesDeElencoEnGira < ActiveRecord::Migration
       t.string :apellido, :null => false
       t.string :cuil_cuit, :null => false
       t.date :fecha_de_nacimiento
-      t.references :nacionalidad, index: true, :null => false
+      t.references :nacionalidad_integrante, index: true, :null => false, foreign_key: true
       t.string :calle, :null => false
       t.string :altura_calle, :null => false
       t.string :piso
       t.string :depto
-      t.references :localidad, index: true, :null => false
+      t.references :localidad, index: true, :null => false, foreign_key: true
       t.string :codigo_postal, :null => false
+      t.string :tel_particular
+      t.string :prefijo_tel_part
+      t.string :prefijo_tel_cel
       t.string :tel_particular
       t.string :tel_celular
       t.string :email, :null => false
-      t.references :elenco_en_gira, index: true, :null => false
+      t.references :elenco_en_gira, index: true, :null => false, foreign_key: true
 
       t.timestamps
     end

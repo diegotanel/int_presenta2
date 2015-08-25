@@ -16,6 +16,15 @@
       <%= f.label :rol_artista, "Rol *" %>
       <%= f.text_field :rol_artista %>
 
+      <p>Pertenece al elenco en gira?</p>
+
+      <%= f.label :decision_elenco, 'No', :value => 'No' %>
+      <%= f.radio_button :decision_elenco, 'No', :checked => true %>
+
+      <%= f.label :decision_elenco, 'Si', :value => 'Si' %>
+      <%= f.radio_button :decision_elenco, 'Si' %></br>
+      </br>
+
       <%= f.submit "Salvar Cambios", class: "btn btn-large btn-primary" %>
     <% end %>
   </div>

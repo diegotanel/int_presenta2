@@ -3,7 +3,7 @@ class CreateDatosGrupos < ActiveRecord::Migration
     create_table :datos_grupos do |t|
     	t.text :nombre_grupo, :null => false
     	t.text :historia, :null => false
-    	t.references :formulario, :null => false
+    	t.references :formulario, :null => false, foreign_key: true
 
       t.timestamps
     end

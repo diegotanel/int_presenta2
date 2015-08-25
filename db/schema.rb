@@ -128,6 +128,7 @@ ActiveRecord::Schema.define(version: 20150730191119) do
     t.string   "nombre_artista",   null: false
     t.string   "apellido_artista", null: false
     t.string   "rol_artista",      null: false
+    t.string   "decision_elenco",  null: false
     t.integer  "datos_esp_id",     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -144,6 +145,7 @@ ActiveRecord::Schema.define(version: 20150730191119) do
   create_table "formularios", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "estado"
+    t.integer  "num_tramite"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -189,6 +191,8 @@ ActiveRecord::Schema.define(version: 20150730191119) do
     t.integer  "localidad_id",        null: false
     t.string   "codigo_postal",       null: false
     t.string   "tel_particular"
+    t.string   "prefijo_tel_part"
+    t.string   "prefijo_tel_cel"
     t.string   "tel_celular"
     t.string   "email",               null: false
     t.integer  "persona_juridica_id", null: false
@@ -212,6 +216,8 @@ ActiveRecord::Schema.define(version: 20150730191119) do
     t.integer  "localidad_id",        null: false
     t.string   "codigo_postal",       null: false
     t.string   "tel_particular"
+    t.string   "prefijo_tel_part"
+    t.string   "prefijo_tel_cel"
     t.string   "tel_celular"
     t.string   "email",               null: false
     t.integer  "elenco_en_gira_id",   null: false
@@ -275,6 +281,8 @@ ActiveRecord::Schema.define(version: 20150730191119) do
     t.integer  "localidad_id",        null: false
     t.string   "codigo_postal",       null: false
     t.string   "tel_particular"
+    t.string   "prefijo_tel_part"
+    t.string   "prefijo_tel_cel"
     t.string   "tel_celular"
     t.string   "email",               null: false
     t.datetime "created_at",          null: false
@@ -294,6 +302,7 @@ ActiveRecord::Schema.define(version: 20150730191119) do
     t.integer  "localidad_id",        null: false
     t.string   "codigo_postal",       null: false
     t.string   "tel_entidad"
+    t.string   "prefijo_tel_ent"
     t.string   "email_entidad",       null: false
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false

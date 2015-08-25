@@ -62,7 +62,8 @@ class PersonasFisicasNController < ApplicationController
   private
 
    def persona_fisica_n_params
-    params.require(:persona_fisica_n).permit(:provincia_id, :localidad_id, :nombre, :apellido, :cuil_cuit, "fecha_de_nacimiento(3i)", "fecha_de_nacimiento(2i)", "fecha_de_nacimiento(1i)", :calle, :altura_calle, :piso, :depto, :codigo_postal, :tel_particular, :tel_celular, :email)
+    params.require(:persona_fisica_n).permit(:provincia_id, :localidad_id, :nombre, :apellido, :cuil_cuit, "fecha_de_nacimiento(3i)", "fecha_de_nacimiento(2i)", "fecha_de_nacimiento(1i)", :calle, :altura_calle, :piso, :depto, :codigo_postal, 
+      :tel_particular, :prefijo_tel_part, :prefijo_tel_cel, :tel_celular, :email)
    end
 
   def inicializar_variables

@@ -63,7 +63,7 @@ class PersonasJuridicasController < ApplicationController
 
   def persona_juridica_params
     params.require(:persona_juridica).permit(:nombre_per_juridica, :num_cuit, :num_per_juridica, :calle, 
-       :altura_calle, :localidad_id, :codigo_postal, :email_entidad, :tel_entidad)
+       :altura_calle, :localidad_id, :codigo_postal, :email_entidad, :tel_entidad, :prefijo_tel_ent)
   end
 
   def inicializar_variables

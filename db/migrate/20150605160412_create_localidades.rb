@@ -3,7 +3,7 @@ class CreateLocalidades < ActiveRecord::Migration
     create_table :localidades do |t|
       t.string :codigo, :null => false
       t.string :detalle, :null => false
-      t.references :provincia, :null => false
+      t.references :provincia, :null => false, foreign_key: true
 
       t.timestamps
     end

@@ -1,6 +1,6 @@
 #encoding: utf-8
 <% provide(:title, 'Fichas de Artistas') %>
-<h1>Ficha Artística *</h1>
+<h1>Ficha Artística *</h1></br>
 
 
 <div id="artistas">
@@ -10,6 +10,7 @@
     <th>Nombre</th>
     <th>Apellido</th>
     <th>Rol</th>
+    <th>Pertenece al elenco en gira?</th>
     <th></th>
     <th></th>
     <th></th>
@@ -20,6 +21,7 @@
     <td><%= ficha.nombre_artista %></td>
     <td><%= ficha.apellido_artista %></td>
     <td><%= ficha.rol_artista %></td>
+    <td><%= ficha.decision_elenco %></td>
 
     <td><%= link_to "Ver", formulario_ficha_artistica_path(@formulario, ficha) %></td>
 

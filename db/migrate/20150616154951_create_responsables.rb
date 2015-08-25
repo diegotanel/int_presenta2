@@ -3,7 +3,7 @@ class CreateResponsables < ActiveRecord::Migration
     create_table :responsables do |t|
     	t.integer :responsabilidad_id
     	t.string :responsabilidad_type
-    	t.references :formulario, :null => false
+    	t.references :formulario, :null => false, foreign_key: true
 
       t.timestamps null: false
     end

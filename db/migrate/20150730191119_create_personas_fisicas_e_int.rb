@@ -1,7 +1,7 @@
 class CreatePersonasFisicasEInt < ActiveRecord::Migration
   def change
     create_table :personas_fisicas_e_int do |t|
-    	t.references :integrante_de_elenco_en_gira, :null => false
+    	t.references :integrante_de_elenco_en_gira, :null => false, foreign_key: true
 
       t.timestamps null: false
     end

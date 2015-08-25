@@ -4,7 +4,8 @@ class CreateFichaArtisticas < ActiveRecord::Migration
     	t.string :nombre_artista, :null => false
     	t.string :apellido_artista, :null => false
     	t.string :rol_artista, :null => false
-    	t.references :datos_esp, index: true, :null => false
+    	t.string :decision_elenco, :null => false
+    	t.references :datos_esp, index: true, :null => false, foreign_key: true
 
       t.timestamps
     end

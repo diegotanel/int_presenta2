@@ -1,9 +1,9 @@
 class CreatePrincipals < ActiveRecord::Migration
   def change
     create_table :principals do |t|
-      t.references :formulario, :null => false
-      t.references :localidad, :null => false
-      t.references :grupo, :null => false
+      t.references :formulario, :null => false, foreign_key: true
+      t.references :localidad, :null => false, foreign_key: true
+      t.references :grupo, :null => false, foreign_key: true
       t.string :nombre, :null => false
 
       t.timestamps

@@ -14,7 +14,7 @@ class CreateDatosTecs < ActiveRecord::Migration
     	t.string :peso_total, :null => false
     	t.string :volumen_total, :null => false
     	t.text :otras_necesidades
-    	t.references :formulario, :null => false
+    	t.references :formulario, :null => false, foreign_key: true
 
       t.timestamps
     end

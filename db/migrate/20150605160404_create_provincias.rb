@@ -3,7 +3,7 @@ class CreateProvincias < ActiveRecord::Migration
     create_table :provincias do |t|
       t.string :codigo, :null => false
       t.string :detalle, :null => false
-      t.references :region, :null => false
+      t.references :region, :null => false, foreign_key: true
       t.timestamps
     end
     add_index :provincias, :region_id

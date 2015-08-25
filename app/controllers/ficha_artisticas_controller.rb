@@ -34,9 +34,25 @@ class FichaArtisticasController < ApplicationController
     @ficha = FichaArtistica.new(ficha_artistica_params)
     if @formulario.datos_esp.ficha_artisticas << @ficha
       flash[:success] = "Se ha creado una ficha correctamente"
+      if @ficha.decision_elenco == "Si"
+        @integrante = IntegranteDeElencoEnGira.new
+        @integrante.nombre = @ficha.nombre_artista
+        @integrante.apellido = @ficha.apellido_artista
+        unless @formulario.elenco_en_gira
+          @elenco = @formulario.build_elenco_en_gira
+          @elenco.saltear_validaciones_de_presencia = true
+          @elenco.save!
+        end
+        @integrante.saltear_validaciones_de_presencia = true
+        @integrante.saltear_validaciones_de_telefono = true
+        @integrante.saltear_validaciones_de_email = true
+        @integrante.saltear_validaciones_de_cuil = true
+        if @formulario.elenco_en_gira.integrantes_de_elenco_en_gira << @integrante
+          flash[:success] = "Se ha creado una ficha correctamente y un integrante de elenco en gira"
+        end
+      end
       redirect_to formulario_ficha_artisticas_path
     else
-      inicializar_variables
       render 'new'
     end
   end
@@ -68,6 +84,6 @@ class FichaArtisticasController < ApplicationController
   private
 
   def ficha_artistica_params
-    params.require(:ficha_artistica).permit(:rol_artista, :nombre_artista, :apellido_artista)
+    params.require(:ficha_artistica).permit(:rol_artista, :nombre_artista, :apellido_artista, :decision_elenco)
   end
 end

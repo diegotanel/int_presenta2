@@ -65,7 +65,8 @@ class IntegrantesDeElencoEnGiraController < ApplicationController
   private
 
   def integrante_de_elenco_en_gira_params
-    params.require(:integrante_de_elenco_en_gira).permit(:provincia_id, :localidad_id, :nombre, :apellido, :cuil_cuit, "fecha_de_nacimiento(3i)", "fecha_de_nacimiento(2i)", "fecha_de_nacimiento(1i)", :fecha_de_nacimiento,:calle, :altura_calle, :piso, :depto, :codigo_postal, :tel_particular, :tel_celular, :email, :integrante_rol_ids => [])
+    params.require(:integrante_de_elenco_en_gira).permit(:provincia_id, :localidad_id, :nombre, :apellido, :cuil_cuit, "fecha_de_nacimiento(3i)", "fecha_de_nacimiento(2i)", "fecha_de_nacimiento(1i)", :fecha_de_nacimiento,:calle, :altura_calle, :piso, :depto, :codigo_postal, 
+      :tel_particular, :prefijo_tel_part, :prefijo_tel_cel, :tel_celular, :email, :integrante_rol_ids => [])
   end
 
   def inicializar_variables
