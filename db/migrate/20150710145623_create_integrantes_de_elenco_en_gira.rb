@@ -5,7 +5,7 @@ class CreateIntegrantesDeElencoEnGira < ActiveRecord::Migration
       t.string :apellido, :null => false
       t.string :cuil_cuit, :null => false
       t.date :fecha_de_nacimiento
-      t.references :nacionalidad_integrante, index: true, :null => false, foreign_key: true
+      t.references :nacionalidad_integrante, :null => false, foreign_key: true
       t.string :calle, :null => false
       t.string :altura_calle, :null => false
       t.string :piso
@@ -22,5 +22,6 @@ class CreateIntegrantesDeElencoEnGira < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :integrantes_de_elenco_en_gira, :nacionalidad_integrante_id, name: 'integrante_nacionalidad_integrante_id'
   end
 end

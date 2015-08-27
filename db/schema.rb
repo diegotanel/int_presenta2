@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150730191119) do
+ActiveRecord::Schema.define(version: 20150827122451) do
 
   create_table "datos_esps", force: :cascade do |t|
     t.integer  "formulario_id",                       null: false
@@ -124,6 +124,11 @@ ActiveRecord::Schema.define(version: 20150730191119) do
     t.datetime "updated_at"
   end
 
+  create_table "extranjeros", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "ficha_artisticas", force: :cascade do |t|
     t.string   "nombre_artista",   null: false
     t.string   "apellido_artista", null: false
@@ -204,30 +209,30 @@ ActiveRecord::Schema.define(version: 20150730191119) do
   add_index "integrantes_comision_directiva", ["persona_juridica_id"], name: "index_integrantes_comision_directiva_on_persona_juridica_id"
 
   create_table "integrantes_de_elenco_en_gira", force: :cascade do |t|
-    t.string   "nombre",              null: false
-    t.string   "apellido",            null: false
-    t.string   "cuil_cuit",           null: false
+    t.string   "nombre",                     null: false
+    t.string   "apellido",                   null: false
+    t.string   "cuil_cuit",                  null: false
     t.date     "fecha_de_nacimiento"
-    t.integer  "nacionalidad_id",     null: false
-    t.string   "calle",               null: false
-    t.string   "altura_calle",        null: false
+    t.integer  "nacionalidad_integrante_id", null: false
+    t.string   "calle",                      null: false
+    t.string   "altura_calle",               null: false
     t.string   "piso"
     t.string   "depto"
-    t.integer  "localidad_id",        null: false
-    t.string   "codigo_postal",       null: false
+    t.integer  "localidad_id",               null: false
+    t.string   "codigo_postal",              null: false
     t.string   "tel_particular"
     t.string   "prefijo_tel_part"
     t.string   "prefijo_tel_cel"
     t.string   "tel_celular"
-    t.string   "email",               null: false
-    t.integer  "elenco_en_gira_id",   null: false
+    t.string   "email",                      null: false
+    t.integer  "elenco_en_gira_id",          null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "integrantes_de_elenco_en_gira", ["elenco_en_gira_id"], name: "index_integrantes_de_elenco_en_gira_on_elenco_en_gira_id"
   add_index "integrantes_de_elenco_en_gira", ["localidad_id"], name: "index_integrantes_de_elenco_en_gira_on_localidad_id"
-  add_index "integrantes_de_elenco_en_gira", ["nacionalidad_id"], name: "index_integrantes_de_elenco_en_gira_on_nacionalidad_id"
+  add_index "integrantes_de_elenco_en_gira", ["nacionalidad_integrante_id"], name: "integrante_nacionalidad_integrante"
 
   create_table "localidades", force: :cascade do |t|
     t.string   "codigo",       null: false
@@ -238,6 +243,24 @@ ActiveRecord::Schema.define(version: 20150730191119) do
   end
 
   add_index "localidades", ["provincia_id"], name: "index_localidades_on_provincia_id"
+
+  create_table "nacionales", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "nacionalidad_integrantes", force: :cascade do |t|
+    t.integer  "procedencia_id"
+    t.string   "procedencia_type"
+    t.integer  "nacionalidad_id",                 null: false
+    t.integer  "integrante_de_elenco_en_gira_id", null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+  end
+
+  add_index "nacionalidad_integrantes", ["integrante_de_elenco_en_gira_id"], name: "nacionalidad_integrante_integrante_id"
+  add_index "nacionalidad_integrantes", ["nacionalidad_id"], name: "index_nacionalidad_integrantes_on_nacionalidad_id"
+  add_index "nacionalidad_integrantes", ["procedencia_id", "procedencia_type"], name: "tipo_procedencia"
 
   create_table "nacionalidades", force: :cascade do |t|
     t.string   "detalle",    null: false

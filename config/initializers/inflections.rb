@@ -54,4 +54,7 @@ ActiveSupport::Inflector.inflections do |inflect|
 	inflect.irregular 'nacionalidad', 'nacionalidades'
 	inflect.irregular 'persona_fisica_e_int', 'personas_fisicas_e_int'
 	inflect.irregular 'persona_fisica_e_nue', 'personas_fisicas_e_nue'
+	inflect.irregular 'nacional', 'nacionales'
+	inflect.irregular 'extranjero', 'extranjeros'
+	inflect.irregular 'nacionalidad_integrante', 'nacionalidad_integrantes'
 end

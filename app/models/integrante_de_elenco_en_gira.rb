@@ -18,7 +18,7 @@ class IntegranteDeElencoEnGira < ActiveRecord::Base
 
   belongs_to :localidad
   belongs_to :elenco_en_gira
-  belongs_to :nacionalidad_integrante
+  has_one :nacionalidad_integrante
 
   unless :saltear_validaciones_de_email
     before_save { self.email = email.downcase }
