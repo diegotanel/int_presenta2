@@ -3,7 +3,6 @@ class CreateIntegrantesDeElencoEnGira < ActiveRecord::Migration
     create_table :integrantes_de_elenco_en_gira do |t|
       t.string :nombre, :null => false
       t.string :apellido, :null => false
-      t.string :cuil_cuit, :null => false
       t.date :fecha_de_nacimiento
       t.references :nacionalidad_integrante, :null => false, foreign_key: true
       t.string :calle, :null => false

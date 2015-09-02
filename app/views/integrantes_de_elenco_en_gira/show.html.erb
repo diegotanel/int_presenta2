@@ -14,18 +14,32 @@
 </p>
 
 <p>
-  <b>CUIL / CUIT:</b>
-  <%= @integrante.cuil_cuit %>
+  <b>Nacionalidad del integrante:</b>
+  <%= @integrante.nacionalidad_integrante.nacionalidad.detalle %>
 </p>
+
+<% if (@integrante.nacionalidad_integrante.procedencia_type == "Nacional") %>
+  <p>
+    <b>CUIL / CUIT:</b>
+    <%= @integrante.nacionalidad_integrante.procedencia.cuil_cuit %>
+  </p>
+<% end %>
+
+<% if (@integrante.nacionalidad_integrante.procedencia_type == "Extranjero") %>
+  <p>
+    <b>Tipo de Documento:</b>
+    <%= @integrante.nacionalidad_integrante.procedencia.tipo_doc %>
+  </p>
+
+  <p>
+    <b>Número de Documento:</b>
+    <%= @integrante.nacionalidad_integrante.procedencia.num_doc %>
+  </p>
+<% end %>
 
 <p>
   <b>Fecha de nacimiento:</b>
   <%= I18n.l(@integrante.fecha_de_nacimiento) if @integrante.fecha_de_nacimiento %>
-</p>
-
-<p>
-  <b>Nacionalidad del integrante:</b>
-  <%= @integrante.nacionalidad.detalle %>
 </p>
 
 <p>

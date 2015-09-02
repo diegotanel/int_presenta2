@@ -11,6 +11,7 @@ class IntegrantesDeElencoEnGiraController < ApplicationController
   def new
     @formulario = Formulario.find_by_id(params[:formulario_id])
     @integrante = IntegranteDeElencoEnGira.new
+    @nacionalidad_integrante = NacionalidadIntegrante.new
   end
 
   def edit
@@ -21,6 +22,16 @@ class IntegrantesDeElencoEnGiraController < ApplicationController
   def create
     @formulario = Formulario.find_by_id(params[:formulario_id])
     @integrante = IntegranteDeElencoEnGira.new(integrante_de_elenco_en_gira_params)
+    @nacionalidad_integrante = NacionalidadIntegrante.new(nacionalidad_integrante_params)
+    @nacional = Nacional.new(nacional_params)
+    @extranjero = Extranjero.new(extranjero_params)
+    if @nacional.save
+      @nacionalidad_integrante.saltear_validaciones_de_presencia = true
+      if @nacionalidad_integrante.save
+        @nacionalidad_integrante.procedencia = @nacional
+        @integrante.nacionalidad_integrante = @nacionalidad_integrante
+      end
+    end
     unless @formulario.elenco_en_gira
       @elenco = @formulario.build_elenco_en_gira
       @elenco.saltear_validaciones_de_presencia = true

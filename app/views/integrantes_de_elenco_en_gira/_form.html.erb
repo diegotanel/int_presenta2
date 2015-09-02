@@ -17,8 +17,14 @@
     </div>
 
     <div class="field">
-      <%= f.label :nacionalidad, "Nacionalidad del autor *" %>
-      <%= collection_select(:n, "nacionalidad_id", @nacionalidades, "id", "detalle", :include_blank => "Seleccione una nacionalidad...", :selected => selected(@integrante.nacionalidad)) %>
+      <% f.fields_for :nacionalidad_integrante do |builder| %>
+        <%= builder.label :nacionalidad, "Nacionalidad del autor *" %>
+        <%= collection_select(:n, "nacionalidad_id", @nacionalidades, "id", "detalle", :include_blank => "Seleccione una nacionalidad...", :selected => selected(@integrante.nacionalidad)) %>
+        <% builder.fields_for :procedencia do |builder2| %>
+          <%= builder2.label :cuil_cuit, "Número de cuil / cuit * (sin guiones ni puntos)" %>
+          <%= builder2.text_field :cuil_cuit %>
+        <% end %>
+      <% end %>
     </div>
 
     <div class="field">

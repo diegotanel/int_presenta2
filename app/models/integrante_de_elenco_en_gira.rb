@@ -5,20 +5,16 @@ class IntegranteDeElencoEnGira < ActiveRecord::Base
   unless :saltear_validaciones_de_telefono
     before_save :validacion_tel_particular_tel_celular!
   end
-
-  unless :saltear_validaciones_de_cuil
-    before_save :validacion_digitoverificador_de_cuit_cuil!
-  end
   
   attr_accessor :saltear_validaciones_de_presencia
   attr_accessor :saltear_validaciones_de_telefono
   attr_accessor :saltear_validaciones_de_email
-  attr_accessor :saltear_validaciones_de_cuil
 
 
   belongs_to :localidad
   belongs_to :elenco_en_gira
   has_one :nacionalidad_integrante
+  accepts_nested_attributes_for :nacionalidad_integrante
 
   unless :saltear_validaciones_de_email
     before_save { self.email = email.downcase }
@@ -33,8 +29,6 @@ class IntegranteDeElencoEnGira < ActiveRecord::Base
   validates :nombre, length: {maximum: 70}
   validates :apellido, presence: true, unless: :saltear_validaciones_de_presencia
   validates :apellido, length: {maximum: 70}
-  validates :cuil_cuit, presence: true, unless: :saltear_validaciones_de_presencia
-  validates :cuil_cuit, length: {maximum: 11, minimum: 11}, numericality: { only_integer: true }, unless: :saltear_validaciones_de_cuil
   validates :fecha_de_nacimiento, presence: true, unless: :saltear_validaciones_de_presencia
   validates :calle, presence: true, unless: :saltear_validaciones_de_presencia
   validates :altura_calle, presence: true, unless: :saltear_validaciones_de_presencia
@@ -52,18 +46,6 @@ class IntegranteDeElencoEnGira < ActiveRecord::Base
 
   def es_menor?
     18.years.ago < self.fecha_de_nacimiento
-  end
-
-  def validacion_digitoverificador_de_cuit_cuil!
-    @validador = ValidadorCuitCuil.new
-    if cuil_cuit.presence
-      unless @validador.validardigitoverificador(self.cuil_cuit)
-        errors[:cuil_cuit] << "debe estar formado correctamente"
-        return false
-      else
-        true
-      end
-    end
   end
 
   def validacion_tel_particular_tel_celular!
