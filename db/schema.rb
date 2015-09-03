@@ -125,6 +125,8 @@ ActiveRecord::Schema.define(version: 20150827122451) do
   end
 
   create_table "extranjeros", force: :cascade do |t|
+    t.string   "tipo_doc",   null: false
+    t.string   "num_doc",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -209,30 +211,27 @@ ActiveRecord::Schema.define(version: 20150827122451) do
   add_index "integrantes_comision_directiva", ["persona_juridica_id"], name: "index_integrantes_comision_directiva_on_persona_juridica_id"
 
   create_table "integrantes_de_elenco_en_gira", force: :cascade do |t|
-    t.string   "nombre",                     null: false
-    t.string   "apellido",                   null: false
-    t.string   "cuil_cuit",                  null: false
+    t.string   "nombre",              null: false
+    t.string   "apellido",            null: false
     t.date     "fecha_de_nacimiento"
-    t.integer  "nacionalidad_integrante_id", null: false
-    t.string   "calle",                      null: false
-    t.string   "altura_calle",               null: false
+    t.string   "calle",               null: false
+    t.string   "altura_calle",        null: false
     t.string   "piso"
     t.string   "depto"
-    t.integer  "localidad_id",               null: false
-    t.string   "codigo_postal",              null: false
+    t.integer  "localidad_id",        null: false
+    t.string   "codigo_postal",       null: false
     t.string   "tel_particular"
     t.string   "prefijo_tel_part"
     t.string   "prefijo_tel_cel"
     t.string   "tel_celular"
-    t.string   "email",                      null: false
-    t.integer  "elenco_en_gira_id",          null: false
+    t.string   "email",               null: false
+    t.integer  "elenco_en_gira_id",   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "integrantes_de_elenco_en_gira", ["elenco_en_gira_id"], name: "index_integrantes_de_elenco_en_gira_on_elenco_en_gira_id"
   add_index "integrantes_de_elenco_en_gira", ["localidad_id"], name: "index_integrantes_de_elenco_en_gira_on_localidad_id"
-  add_index "integrantes_de_elenco_en_gira", ["nacionalidad_integrante_id"], name: "integrante_nacionalidad_integrante"
 
   create_table "localidades", force: :cascade do |t|
     t.string   "codigo",       null: false
@@ -245,6 +244,7 @@ ActiveRecord::Schema.define(version: 20150827122451) do
   add_index "localidades", ["provincia_id"], name: "index_localidades_on_provincia_id"
 
   create_table "nacionales", force: :cascade do |t|
+    t.string   "cuil_cuit",  null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -33,12 +33,11 @@ class IntegranteDeElencoEnGira < ActiveRecord::Base
   validates :calle, presence: true, unless: :saltear_validaciones_de_presencia
   validates :altura_calle, presence: true, unless: :saltear_validaciones_de_presencia
   validates :altura_calle, numericality: { only_integer: true }, allow_blank: true
-  validates :localidad, presence: true, allow_blank: true
+  validates :localidad, presence: true, unless: :saltear_validaciones_de_presencia
   validates :codigo_postal, presence: true, unless: :saltear_validaciones_de_presencia
   validates :email, presence: true, unless: :saltear_validaciones_de_presencia
   validates :email, format: {with: VALID_EMAIL_REGEX}, unless: :saltear_validaciones_de_email
-  validates :nacionalidad_integrante, presence: true, allow_blank: true
-  validates :elenco_en_gira, presence: true
+  validates :elenco_en_gira, presence: true, unless: :saltear_validaciones_de_presencia
   validates :integrante_roles, presence: true, unless: :saltear_validaciones_de_presencia
   validates :tel_particular, numericality: { only_integer: true }, allow_blank: true
   #validates :tel_celular, presence: true, unless: :saltear_validaciones_de_presencia
