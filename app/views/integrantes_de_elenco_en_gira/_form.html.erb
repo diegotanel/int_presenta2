@@ -28,11 +28,6 @@
     </div>
 
     <div class="field">
-    <%= f.label :cuil_cuit, "Número de cuil / cuit * (sin guiones ni puntos)" %>
-    <%= f.text_field :cuil_cuit %>
-    </div>
-
-    <div class="field">
     <%= f.label :fecha_de_nacimiento, "Fecha de nacimiento *" %>
     <%= f.date_select :fecha_de_nacimiento, start_year: 1900, end_year: 2014, order: [:day, :month, :year], :include_blank => true %>
     </div>

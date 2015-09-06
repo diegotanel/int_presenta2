@@ -13,7 +13,9 @@
 
     <td><%= integrante.nombre %></td>
     <td><%= integrante.apellido %></td>
-    <td><%= integrante.cuil_cuit %></td>
+    <% if integrante.nacionalidad_integrante %>
+      <td><%= integrante.nacionalidad_integrante.procedencia.cuil_cuit %></td>
+    <% end %>
     <td><%= integrante.email %></td>
     <td><%= I18n.l(integrante.fecha_de_nacimiento) if integrante.fecha_de_nacimiento %></td>
     <td><%= integrante.integrante_roles.map { |e| e.detalle }.join(", ") %></td>

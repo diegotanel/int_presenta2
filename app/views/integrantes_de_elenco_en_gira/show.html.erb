@@ -13,28 +13,30 @@
   <%= @integrante.apellido %>
 </p>
 
-<p>
-  <b>Nacionalidad del integrante:</b>
-  <%= @integrante.nacionalidad_integrante.nacionalidad.detalle %>
-</p>
-
-<% if (@integrante.nacionalidad_integrante.procedencia_type == "Nacional") %>
+<% if (@integrante.nacionalidad_integrante) %>
   <p>
-    <b>CUIL / CUIT:</b>
-    <%= @integrante.nacionalidad_integrante.procedencia.cuil_cuit %>
-  </p>
-<% end %>
-
-<% if (@integrante.nacionalidad_integrante.procedencia_type == "Extranjero") %>
-  <p>
-    <b>Tipo de Documento:</b>
-    <%= @integrante.nacionalidad_integrante.procedencia.tipo_doc %>
+    <b>Nacionalidad del integrante:</b>
+    <%= @integrante.nacionalidad_integrante.nacionalidad.detalle %>
   </p>
 
-  <p>
-    <b>Número de Documento:</b>
-    <%= @integrante.nacionalidad_integrante.procedencia.num_doc %>
-  </p>
+  <% if (@integrante.nacionalidad_integrante.procedencia_type == "Nacional") %>
+    <p>
+      <b>CUIL / CUIT:</b>
+      <%= @integrante.nacionalidad_integrante.procedencia.cuil_cuit %>
+    </p>
+  <% end %>
+
+  <% if (@integrante.nacionalidad_integrante.procedencia_type == "Extranjero") %>
+    <p>
+      <b>Tipo de Documento:</b>
+      <%= @integrante.nacionalidad_integrante.procedencia.tipo_doc %>
+    </p>
+
+    <p>
+      <b>Número de Documento:</b>
+      <%= @integrante.nacionalidad_integrante.procedencia.num_doc %>
+    </p>
+  <% end %>
 <% end %>
 
 <p>
@@ -64,12 +66,12 @@
 
 <p>
   <b>Provincia:</b>
-  <%= @integrante.provincia.detalle %>
+  <%= @integrante.provincia.detalle if @integrante.localidad %>
 </p>
 
 <p>
   <b>Localidad:</b>
-  <%= @integrante.localidad.detalle %>
+  <%= @integrante.localidad.detalle if @integrante.localidad %>
 </p>
 
 <p>
