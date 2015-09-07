@@ -25,11 +25,21 @@ class IntegrantesDeElencoEnGiraController < ApplicationController
     @nacionalidad_integrante = NacionalidadIntegrante.new(nacionalidad_integrante_params)
     @nacional = Nacional.new(nacional_params)
     @extranjero = Extranjero.new(extranjero_params)
-    if @nacional.save
-      @nacionalidad_integrante.saltear_validaciones_de_presencia = true
-      if @nacionalidad_integrante.save
-        @nacionalidad_integrante.procedencia = @nacional
-        @integrante.nacionalidad_integrante = @nacionalidad_integrante
+    if params[:nacionalidad_id] == 8
+      if @nacional.save
+        @nacionalidad_integrante.saltear_validaciones_de_presencia = true
+        if @nacionalidad_integrante.save
+          @nacionalidad_integrante.procedencia = @nacional
+          @integrante.nacionalidad_integrante = @nacionalidad_integrante
+        end
+      end
+    else
+      if @extranjero.save
+        @nacionalidad_integrante.saltear_validaciones_de_presencia = true
+        if @nacionalidad_integrante.save
+          @nacionalidad_integrante.procedencia = @extranjero
+          @integrante.nacionalidad_integrante = @nacionalidad_integrante
+        end
       end
     end
     unless @formulario.elenco_en_gira
