@@ -26,17 +26,18 @@ class IntegrantesDeElencoEnGiraController < ApplicationController
     @nacional = Nacional.new(nacional_params)
     @extranjero = Extranjero.new(extranjero_params)
     if params[:nacionalidad_id] == 8
-      if @nacional.save
+      if @nacional.save!
         @nacionalidad_integrante.saltear_validaciones_de_presencia = true
-        if @nacionalidad_integrante.save
+        if @nacionalidad_integrante.save!
           @nacionalidad_integrante.procedencia = @nacional
           @integrante.nacionalidad_integrante = @nacionalidad_integrante
         end
       end
-    else
-      if @extranjero.save
+    end
+    if params[:nacionalidad_id] != 8 and params[:nacionalidad_id] != nil
+      if @extranjero.save!
         @nacionalidad_integrante.saltear_validaciones_de_presencia = true
-        if @nacionalidad_integrante.save
+        if @nacionalidad_integrante.save!
           @nacionalidad_integrante.procedencia = @extranjero
           @integrante.nacionalidad_integrante = @nacionalidad_integrante
         end
@@ -62,7 +63,7 @@ class IntegrantesDeElencoEnGiraController < ApplicationController
     @integrante = IntegranteDeElencoEnGira.find(params[:id])
     @formulario.elenco_en_gira.saltear_validaciones_de_presencia = true
     @integrante.saltear_validaciones_de_presencia = true
-    if @integrante.update(integrante_de_elenco_en_gira_params)
+    if @integrante.update_attributes(integrante_de_elenco_en_gira_params)
       flash[:success] = "Se ha actualizado un integrante correctamente"
       redirect_to formulario_elencos_en_gira_path
     else
@@ -86,8 +87,20 @@ class IntegrantesDeElencoEnGiraController < ApplicationController
   private
 
   def integrante_de_elenco_en_gira_params
-    params.require(:integrante_de_elenco_en_gira).permit(:provincia_id, :localidad_id, :nombre, :apellido, :cuil_cuit, "fecha_de_nacimiento(3i)", "fecha_de_nacimiento(2i)", "fecha_de_nacimiento(1i)", :fecha_de_nacimiento,:calle, :altura_calle, :piso, :depto, :codigo_postal, 
+    params.require(:integrante_de_elenco_en_gira).permit(:provincia_id, :localidad_id, :nombre, :apellido, "fecha_de_nacimiento(3i)", "fecha_de_nacimiento(2i)", "fecha_de_nacimiento(1i)", :fecha_de_nacimiento,:calle, :altura_calle, :piso, :depto, :codigo_postal, 
       :tel_particular, :prefijo_tel_part, :prefijo_tel_cel, :tel_celular, :email, :integrante_rol_ids => [])
+  end
+
+  def nacionalidad_integrante_params
+    params.require(:nacionalidad_integrante).permit(:nacionalidad_id)
+  end
+
+  def nacional_params
+    params.require(:nacional).permit(:cuil_cuit)
+  end
+
+  def extranjero_params
+    params.require(:extranjero).permit(:tipo_doc, :num_doc)
   end
 
   def inicializar_variables
