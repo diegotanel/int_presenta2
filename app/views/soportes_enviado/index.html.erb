@@ -58,7 +58,6 @@
 	  </tr>
 
 	  <%= content_tag_for(:tr, @p.result) do |formulario| %>
-  		<% cantidad_integrantes = formulario.elenco_en_gira.integrantes_de_elenco_en_gira.count %>
       <td><%= formulario.num_tramite %></td>
     	<td><%= I18n.l(formulario.updated_at) %></td>
     	<td><%= formulario.principal.nombre %></td>
@@ -66,7 +65,7 @@
     	<td><%= formulario.principal.provincia.detalle %></td>
       <td><%= formulario.datos_esp.nacionalidad.detalle %></td>
     	<td><%= formulario.principal.grupo.detalle %></td>
-    	<td><%= formulario.elenco_en_gira.cantidad_integrantes_en_gira %></td>
+    	<td><%= formulario.elenco_en_gira.integrantes_de_elenco_en_gira.count %></td>
     	<td><%= formulario.datos_esp.duracion_espectaculo.to_i %></td>
     	<td><%= I18n.l(formulario.datos_esp.fecha_de_estreno) %></td>
     	<td><%= link_to "Vista previa", formulario_super_vistas_path(formulario) %></td>
