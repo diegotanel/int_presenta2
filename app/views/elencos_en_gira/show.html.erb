@@ -13,14 +13,14 @@
 
     <td><%= integrante.nombre %></td>
     <td><%= integrante.apellido %></td>
-        <% if !integrante.nacionalidad_integrante.nil? %>
-        <% if integrante.nacionalidad_integrante.procedencia_type == "Nacional" %>
-            <td><%= integrante.nacionalidad_integrante.procedencia.cuil_cuit %></td>
-        <% end %>
+    <% if !integrante.nacionalidad_integrante.nil? %>
+      <% if integrante.nacionalidad_integrante.procedencia_type == "Nacional" %>
+          <td><%= integrante.nacionalidad_integrante.procedencia.cuil_cuit %></td>
+      <% end %>
 
-         <% if integrante.nacionalidad_integrante.procedencia_type == "Extranjero" %>
-            <td><%= integrante.nacionalidad_integrante.procedencia.num_doc %></td>
-        <% end %>    
+      <% if integrante.nacionalidad_integrante.procedencia_type == "Extranjero" %>
+          <td><%= integrante.nacionalidad_integrante.procedencia.num_doc %></td>
+      <% end %>    
     <% else %>    
         <td> </td>
     <% end %>

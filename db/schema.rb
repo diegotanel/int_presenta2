@@ -211,21 +211,21 @@ ActiveRecord::Schema.define(version: 20150827122451) do
   add_index "integrantes_comision_directiva", ["persona_juridica_id"], name: "index_integrantes_comision_directiva_on_persona_juridica_id"
 
   create_table "integrantes_de_elenco_en_gira", force: :cascade do |t|
-    t.string   "nombre",              null: false
-    t.string   "apellido",            null: false
+    t.string   "nombre"
+    t.string   "apellido"
     t.date     "fecha_de_nacimiento"
-    t.string   "calle",               null: false
-    t.string   "altura_calle",        null: false
+    t.string   "calle"
+    t.string   "altura_calle"
     t.string   "piso"
     t.string   "depto"
-    t.integer  "localidad_id",        null: false
-    t.string   "codigo_postal",       null: false
+    t.integer  "localidad_id"
+    t.string   "codigo_postal"
     t.string   "tel_particular"
     t.string   "prefijo_tel_part"
     t.string   "prefijo_tel_cel"
     t.string   "tel_celular"
-    t.string   "email",               null: false
-    t.integer  "elenco_en_gira_id",   null: false
+    t.string   "email"
+    t.integer  "elenco_en_gira_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

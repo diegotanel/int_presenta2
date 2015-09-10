@@ -23,7 +23,6 @@
     <td><%= integrante.nombre %></td>
     <td><%= integrante.apellido %></td>
     <td><%= integrante.email %></td>
-
     <% if !integrante.nacionalidad_integrante.nil? %>
         <% if integrante.nacionalidad_integrante.procedencia_type == "Nacional" %>
             <td><%= integrante.nacionalidad_integrante.procedencia.cuil_cuit %></td>
@@ -35,7 +34,6 @@
     <% else %>    
         <td> </td>
     <% end %>
-
     <td><%= I18n.l(integrante.fecha_de_nacimiento) if integrante.fecha_de_nacimiento %></td>
     <td><%= integrante.integrante_roles.map { |e| e.detalle }.join(", ") %></td>
 

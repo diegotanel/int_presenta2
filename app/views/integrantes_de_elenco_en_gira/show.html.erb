@@ -20,14 +20,15 @@
    <% end %>   
 </p>
 
-<% if !@integrante.nacionalidad_integrante.nil?  && @integrante.nacionalidad_integrante.procedencia_type == "Nacional" %>
+
+<% if !@integrante.nacionalidad_integrante.nil? && @integrante.nacionalidad_integrante.procedencia_type == "Nacional" %>
   <p>
     <b>CUIL / CUIT:</b>
     <%= @integrante.nacionalidad_integrante.procedencia.cuil_cuit %>
   </p>
 <% end %>
 
-<% if !@integrante.nacionalidad_integrante.nil?  && @integrante.nacionalidad_integrante.procedencia_type == "Extranjero" %>
+<% if !@integrante.nacionalidad_integrante.nil? && @integrante.nacionalidad_integrante.procedencia_type == "Extranjero" %>
   <p>
     <b>Tipo de Documento:</b>
     <%= @integrante.nacionalidad_integrante.procedencia.tipo_doc %>
@@ -66,12 +67,12 @@
 
 <p>
   <b>Provincia:</b>
-  <%= @integrante.provincia.detalle %>
+  <%= @integrante.provincia.detalle if @integrante.localidad %>
 </p>
 
 <p>
   <b>Localidad:</b>
-  <%= @integrante.localidad.detalle %>
+  <%= @integrante.localidad.detalle if @integrante.localidad %>
 </p>
 
 <p>
@@ -81,12 +82,12 @@
 
 <p>
   <b>Teléfono particular:</b>
-  <%= @integrante.tel_particular %>
+  <%= @integrante.prefijo_tel_part + " " + @integrante.tel_particular %>
 </p>
 
 <p>
   <b>Teléfono celular:</b>
-  <%= @integrante.tel_celular %>
+  <%= @integrante.prefijo_tel_cel + " " + @integrante.tel_celular %>
 </p>
 
 <p>

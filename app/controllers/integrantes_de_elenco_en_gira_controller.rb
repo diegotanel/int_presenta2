@@ -130,7 +130,6 @@ class IntegrantesDeElencoEnGiraController < ApplicationController
   end
 
 
-
   def inicializar_variables
     @provincias = Provincia.all
     @region = Region.all
