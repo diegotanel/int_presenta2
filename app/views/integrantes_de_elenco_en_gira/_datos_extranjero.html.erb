@@ -3,9 +3,9 @@
    	 <%= label_tag :procedencia, "Procedencia:" %>
 	 <%= text_field_tag 'procedencia', "Extranjero",  readonly: true %>
 	
-	<%= label_tag :tipo_doc, "tipo de documento:" %>
+	<%= label_tag :tipo_doc, "Tipo de documento *" %>
 	<%= text_field_tag :tipo_doc, nil, id: 'nacionalidad_integrante_extranjeros_tipo_doc', name: 'nacionalidad_integrante[extranjeros[tipo_doc]]' %></br>
 
-	<%= label_tag :num_doc, "número de documento:" %>
+	<%= label_tag :num_doc, "Número de documento * (sin guiones ni puntos)" %>
 	<%= text_field_tag :num_doc, nil, id: 'nacionalidad_integrante_extranjeros_num_doc', name: 'nacionalidad_integrante[extranjeros[num_doc]]' %>		
   </div> 
