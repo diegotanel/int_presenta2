@@ -42,6 +42,7 @@
 <% if @p.result %>
 	<table class="table table-striped">
 	  <tr>
+      <th><%= sort_link @p, :num_tramite, "Número de tramite" %></th>
 	    <th><%= sort_link @p, :updated_at, "Fecha de finalización" %></th>
 	    <th>Nombre del espectáculo</th>
 	    <th>Región</th>
@@ -58,6 +59,7 @@
 
 	  <%= content_tag_for(:tr, @p.result) do |formulario| %>
   		<% cantidad_integrantes = formulario.elenco_en_gira.integrantes_de_elenco_en_gira.count %>
+      <td><%= formulario.num_tramite %></td>
     	<td><%= I18n.l(formulario.updated_at) %></td>
     	<td><%= formulario.principal.nombre %></td>
     	<td><%= formulario.principal.region.detalle %></td>

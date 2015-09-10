@@ -12,7 +12,6 @@ class IntegrantesDeElencoEnGiraController < ApplicationController
     @formulario = Formulario.find_by_id(params[:formulario_id])
     @integrante = IntegranteDeElencoEnGira.new
     @nacionalidad_integrante = NacionalidadIntegrante.new
-    #@integrante.nacionalidad_integrante = @nacionalidad_integrante
   end
 
   def edit
@@ -31,7 +30,6 @@ class IntegrantesDeElencoEnGiraController < ApplicationController
     end
           
     @integrante.saltear_validaciones_de_presencia = true
-    @formulario.elenco_en_gira.integrantes_de_elenco_en_gira << @integrante          
 
     if @integrante.save
       #Id de la Nacionalidad Argentina
@@ -42,14 +40,12 @@ class IntegrantesDeElencoEnGiraController < ApplicationController
         if es_nacional?(nacional_id, @nacionalidad_id)
           @nacional = Nacional.create!(cuil_cuit: nacionalidad_integrante_params['nacionales']['cuil_cuit'])
           @nacionalidad_integrante = NacionalidadIntegrante.new(integrante_de_elenco_en_gira: @integrante, procedencia: @nacional, nacionalidad_id: @nacionalidad_id)
-          @nacionalidad_integrante.save!
-          @integrante.nacionalidad_integrante = @nacionalidad_integrante
         else
           @extranjero = Extranjero.create!(tipo_doc: nacionalidad_integrante_params['extranjeros']['tipo_doc'] , num_doc: nacionalidad_integrante_params['extranjeros']['num_doc'])      
           @nacionalidad_integrante = NacionalidadIntegrante.new(integrante_de_elenco_en_gira: @integrante, procedencia: @extranjero, nacionalidad_id: @nacionalidad_id)
-          @nacionalidad_integrante.save!
-          @integrante.nacionalidad_integrante = @nacionalidad_integrante
         end
+        @nacionalidad_integrante.save
+        @integrante.nacionalidad_integrante = @nacionalidad_integrante
       end
 
       if @formulario.elenco_en_gira.integrantes_de_elenco_en_gira << @integrante
@@ -74,18 +70,16 @@ class IntegrantesDeElencoEnGiraController < ApplicationController
     #Id de la Nacionalidad Argentina
     nacional_id = 8   
     if !nacionalidad_integrante_params['nacionalidad_id'].blank?
-        @nacionalidad_id = nacionalidad_integrante_params['nacionalidad_id'].to_i
-        if es_nacional?(nacional_id, @nacionalidad_id)
-          @nacional = Nacional.create!(cuil_cuit: nacionalidad_integrante_params['nacionales']['cuil_cuit'])
-          @nacionalidad_integrante = NacionalidadIntegrante.new(integrante_de_elenco_en_gira: @integrante, procedencia: @nacional, nacionalidad_id: @nacionalidad_id)
-          @nacionalidad_integrante.save!
-          @integrante.nacionalidad_integrante = @nacionalidad_integrante
-        else
-          @extranjero = Extranjero.create!(tipo_doc: nacionalidad_integrante_params['extranjeros']['tipo_doc'] , num_doc: nacionalidad_integrante_params['extranjeros']['num_doc'])      
-          @nacionalidad_integrante = NacionalidadIntegrante.new(integrante_de_elenco_en_gira: @integrante, procedencia: @extranjero, nacionalidad_id: @nacionalidad_id)
-          @nacionalidad_integrante.save!
-          @integrante.nacionalidad_integrante = @nacionalidad_integrante
-        end
+      @nacionalidad_id = nacionalidad_integrante_params['nacionalidad_id'].to_i
+      if es_nacional?(nacional_id, @nacionalidad_id)
+        @nacional = Nacional.create!(cuil_cuit: nacionalidad_integrante_params['nacionales']['cuil_cuit'])
+        @nacionalidad_integrante = NacionalidadIntegrante.new(integrante_de_elenco_en_gira: @integrante, procedencia: @nacional, nacionalidad_id: @nacionalidad_id)
+      else
+        @extranjero = Extranjero.create!(tipo_doc: nacionalidad_integrante_params['extranjeros']['tipo_doc'] , num_doc: nacionalidad_integrante_params['extranjeros']['num_doc'])      
+        @nacionalidad_integrante = NacionalidadIntegrante.new(integrante_de_elenco_en_gira: @integrante, procedencia: @extranjero, nacionalidad_id: @nacionalidad_id)
+      end
+      @nacionalidad_integrante.save
+      @integrante.nacionalidad_integrante = @nacionalidad_integrante
     end
 
     if @integrante.update(integrante_de_elenco_en_gira_params)

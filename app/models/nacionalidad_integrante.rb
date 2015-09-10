@@ -8,6 +8,7 @@ class NacionalidadIntegrante < ActiveRecord::Base
 
 	attr_accessor :saltear_validaciones_de_presencia
 
+	#validates_associated :procedencia
 	validates :nacionalidad, presence: true, unless: :saltear_validaciones_de_presencia
 	validates :integrante_de_elenco_en_gira, presence: true
 end

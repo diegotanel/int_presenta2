@@ -4,11 +4,11 @@ class Nacional < ActiveRecord::Base
 
 	attr_accessor :saltear_validaciones_de_cuil
 
-	unless :saltear_validaciones_de_cuil
+	#unless :saltear_validaciones_de_cuil
     before_save :validacion_digitoverificador_de_cuit_cuil!
-  end
+  #end
 
-	# validates :cuil_cuit, presence: true, unless: :saltear_validaciones_de_presencia
+	 #validates :cuil_cuit, presence: true, unless: :saltear_validaciones_de_presencia
   validates :cuil_cuit, length: {maximum: 11, minimum: 11}, numericality: { only_integer: true }, unless: :saltear_validaciones_de_cuil
 
 
