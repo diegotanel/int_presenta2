@@ -15,17 +15,19 @@
 
 <p>
   <b>Nacionalidad del integrante:</b>
-  <%= @integrante.nacionalidad_integrante.nacionalidad.detalle %>
+  <% if !@integrante.nacionalidad_integrante.nil? %>
+    <%= @integrante.nacionalidad_integrante.nacionalidad.detalle %>
+   <% end %>   
 </p>
 
-<% if (@integrante.nacionalidad_integrante.procedencia_type == "Nacional") %>
+<% if !@integrante.nacionalidad_integrante.nil?  && @integrante.nacionalidad_integrante.procedencia_type == "Nacional" %>
   <p>
     <b>CUIL / CUIT:</b>
     <%= @integrante.nacionalidad_integrante.procedencia.cuil_cuit %>
   </p>
 <% end %>
 
-<% if (@integrante.nacionalidad_integrante.procedencia_type == "Extranjero") %>
+<% if !@integrante.nacionalidad_integrante.nil?  && @integrante.nacionalidad_integrante.procedencia_type == "Extranjero" %>
   <p>
     <b>Tipo de Documento:</b>
     <%= @integrante.nacionalidad_integrante.procedencia.tipo_doc %>

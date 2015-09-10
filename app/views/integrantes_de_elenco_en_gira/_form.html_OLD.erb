@@ -2,7 +2,7 @@
 <% types = ['Actor', 'Director', 'Tecnico'] %>
 
   <%= form_for([@formulario, @integrante]) do |f| %>
-   <%= render 'shared/error_messages', :object => f.object %>
+    <%= render 'shared/error_messages', :object => f.object %>
 
     <p>Los campos marcados con * son obligatorios</p>
 
@@ -17,19 +17,19 @@
     </div>
 
     <div class="field">
+      <% f.fields_for :nacionalidad_integrante do |builder| %>
+        <%= builder.label :nacionalidad, "Nacionalidad del autor *" %>
+        <%= collection_select(:n, "nacionalidad_id", @nacionalidades, "id", "detalle", :include_blank => "Seleccione una nacionalidad...", :selected => selected(@integrante.nacionalidad)) %>
+        <% builder.fields_for :procedencia do |builder2| %>
+          <%= builder2.label :cuil_cuit, "Número de cuil / cuit * (sin guiones ni puntos)" %>
+          <%= builder2.text_field :cuil_cuit %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="field">
     <%= f.label :fecha_de_nacimiento, "Fecha de nacimiento *" %>
     <%= f.date_select :fecha_de_nacimiento, start_year: 1900, end_year: 2014, order: [:day, :month, :year], :include_blank => true %>
-    </div>
-
-    <div class="field">
-        <%= label_tag :nacionalidad, "Nacionalidad" %>    
-    </div>
-
-    <div class="field">
-        <%= select_tag "nacionalidad_integrante[nacionalidad_id]", options_from_collection_for_select(@nacionalidades, "id", "detalle", nil),  :include_blank => "Seleccione una nacionalidad..." %>
-    </div> 
-
-    <div id="div_datos_nacionalidad">
     </div>
 
     <div class="field">
@@ -103,6 +103,8 @@
           <td><%= integrante_rol.detalle %></td>
         </tr>
       <% end %>
+
+
     </div>
 
 </br>

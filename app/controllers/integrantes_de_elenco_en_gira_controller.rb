@@ -12,6 +12,7 @@ class IntegrantesDeElencoEnGiraController < ApplicationController
     @formulario = Formulario.find_by_id(params[:formulario_id])
     @integrante = IntegranteDeElencoEnGira.new
     @nacionalidad_integrante = NacionalidadIntegrante.new
+    #@integrante.nacionalidad_integrante = @nacionalidad_integrante
   end
 
   def edit
@@ -22,25 +23,42 @@ class IntegrantesDeElencoEnGiraController < ApplicationController
   def create
     @formulario = Formulario.find_by_id(params[:formulario_id])
     @integrante = IntegranteDeElencoEnGira.new(integrante_de_elenco_en_gira_params)
-    @nacionalidad_integrante = NacionalidadIntegrante.new(nacionalidad_integrante_params)
-    @nacional = Nacional.new(nacional_params)
-    @extranjero = Extranjero.new(extranjero_params)
-    if @nacional.save
-      @nacionalidad_integrante.saltear_validaciones_de_presencia = true
-      if @nacionalidad_integrante.save
-        @nacionalidad_integrante.procedencia = @nacional
-        @integrante.nacionalidad_integrante = @nacionalidad_integrante
-      end
-    end
+
     unless @formulario.elenco_en_gira
       @elenco = @formulario.build_elenco_en_gira
       @elenco.saltear_validaciones_de_presencia = true
       @elenco.save!
     end
+          
     @integrante.saltear_validaciones_de_presencia = true
-    if @formulario.elenco_en_gira.integrantes_de_elenco_en_gira << @integrante
-      flash[:success] = "Se ha creado un integrante correctamente"
-      redirect_to formulario_elencos_en_gira_path
+    @formulario.elenco_en_gira.integrantes_de_elenco_en_gira << @integrante          
+
+    if @integrante.save
+      #Id de la Nacionalidad Argentina
+      nacional_id = 8        
+    
+      if !nacionalidad_integrante_params['nacionalidad_id'].blank?
+        @nacionalidad_id = nacionalidad_integrante_params['nacionalidad_id'].to_i
+        if es_nacional?(nacional_id, @nacionalidad_id)
+          @nacional = Nacional.create!(cuil_cuit: nacionalidad_integrante_params['nacionales']['cuil_cuit'])
+          @nacionalidad_integrante = NacionalidadIntegrante.new(integrante_de_elenco_en_gira: @integrante, procedencia: @nacional, nacionalidad_id: @nacionalidad_id)
+          @nacionalidad_integrante.save!
+          @integrante.nacionalidad_integrante = @nacionalidad_integrante
+        else
+          @extranjero = Extranjero.create!(tipo_doc: nacionalidad_integrante_params['extranjeros']['tipo_doc'] , num_doc: nacionalidad_integrante_params['extranjeros']['num_doc'])      
+          @nacionalidad_integrante = NacionalidadIntegrante.new(integrante_de_elenco_en_gira: @integrante, procedencia: @extranjero, nacionalidad_id: @nacionalidad_id)
+          @nacionalidad_integrante.save!
+          @integrante.nacionalidad_integrante = @nacionalidad_integrante
+        end
+      end
+
+      if @formulario.elenco_en_gira.integrantes_de_elenco_en_gira << @integrante
+        flash[:success] = "Se ha creado un integrante correctamente"
+        redirect_to formulario_elencos_en_gira_path
+      else
+        inicializar_variables
+        render 'new'
+      end
     else
       inicializar_variables
       render 'new'
@@ -52,6 +70,24 @@ class IntegrantesDeElencoEnGiraController < ApplicationController
     @integrante = IntegranteDeElencoEnGira.find(params[:id])
     @formulario.elenco_en_gira.saltear_validaciones_de_presencia = true
     @integrante.saltear_validaciones_de_presencia = true
+
+    #Id de la Nacionalidad Argentina
+    nacional_id = 8   
+    if !nacionalidad_integrante_params['nacionalidad_id'].blank?
+        @nacionalidad_id = nacionalidad_integrante_params['nacionalidad_id'].to_i
+        if es_nacional?(nacional_id, @nacionalidad_id)
+          @nacional = Nacional.create!(cuil_cuit: nacionalidad_integrante_params['nacionales']['cuil_cuit'])
+          @nacionalidad_integrante = NacionalidadIntegrante.new(integrante_de_elenco_en_gira: @integrante, procedencia: @nacional, nacionalidad_id: @nacionalidad_id)
+          @nacionalidad_integrante.save!
+          @integrante.nacionalidad_integrante = @nacionalidad_integrante
+        else
+          @extranjero = Extranjero.create!(tipo_doc: nacionalidad_integrante_params['extranjeros']['tipo_doc'] , num_doc: nacionalidad_integrante_params['extranjeros']['num_doc'])      
+          @nacionalidad_integrante = NacionalidadIntegrante.new(integrante_de_elenco_en_gira: @integrante, procedencia: @extranjero, nacionalidad_id: @nacionalidad_id)
+          @nacionalidad_integrante.save!
+          @integrante.nacionalidad_integrante = @nacionalidad_integrante
+        end
+    end
+
     if @integrante.update(integrante_de_elenco_en_gira_params)
       flash[:success] = "Se ha actualizado un integrante correctamente"
       redirect_to formulario_elencos_en_gira_path
@@ -73,19 +109,38 @@ class IntegrantesDeElencoEnGiraController < ApplicationController
     end
   end
 
+  def pegar_form_parcial_nacionalidad
+        partial = params[:partial_name]
+        render( :partial => partial )                                  
+  end
+
   private
 
-  def integrante_de_elenco_en_gira_params
-    params.require(:integrante_de_elenco_en_gira).permit(:provincia_id, :localidad_id, :nombre, :apellido, :cuil_cuit, "fecha_de_nacimiento(3i)", "fecha_de_nacimiento(2i)", "fecha_de_nacimiento(1i)", :fecha_de_nacimiento,:calle, :altura_calle, :piso, :depto, :codigo_postal, 
-      :tel_particular, :prefijo_tel_part, :prefijo_tel_cel, :tel_celular, :email, :integrante_rol_ids => [])
+  # def integrante_de_elenco_en_gira_params
+  #     params.require(:integrante_de_elenco_en_gira).permit(:provincia_id, :localidad_id, :nombre, :apellido, :cuil_cuit, "fecha_de_nacimiento(3i)", "fecha_de_nacimiento(2i)", "fecha_de_nacimiento(1i)", :fecha_de_nacimiento,:calle, :altura_calle, :piso, :depto, :codigo_postal, :tel_particular, :prefijo_tel_part, :prefijo_tel_cel, :tel_celular, :email, :nacionalidad_integrante , :integrante_rol_ids => [])
+  # end
+
+  def integrante_de_elenco_en_gira_params      
+    #params.require(:transferencia).permit(:fecha, :area_id, :deposito_id)
+    params.require(:integrante_de_elenco_en_gira).permit! 
   end
+
+  def nacionalidad_integrante_params
+    params.require(:nacionalidad_integrante).permit! 
+  end
+
+
 
   def inicializar_variables
     @provincias = Provincia.all
     @region = Region.all
     @localidades = Localidad.all
     @integrante_roles = IntegranteRol.all
-    @nacionalidades = Nacionalidad.all
+    @nacionalidades = Nacionalidad.order(:detalle)
+  end
+
+  def es_nacional?(nacional_id, nacionalidad_id)
+    nacional_id.eql?(nacionalidad_id)
   end
 
 end

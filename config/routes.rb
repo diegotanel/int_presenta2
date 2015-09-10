@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :password_recovers, only: [:new, :create]
   resources :soportes_enviado, only: [:index]
   resources :soportes_borrador, only: [:index]
+  post 'integrantes_de_elenco_en_gira/pegar_form_parcial_nacionalidad', :to => 'integrantes_de_elenco_en_gira#pegar_form_parcial_nacionalidad' 
   resources :formularios, only: [:new, :create, :edit, :update, :index, :destroy] do
     member do
       get :imprimir_remito
@@ -35,7 +36,10 @@ Rails.application.routes.draw do
         get :errores
       end
     end
-    resources :integrantes_de_elenco_en_gira, only: [:new, :create, :show, :edit, :update, :destroy]
+
+
+    resources :integrantes_de_elenco_en_gira, only: [:new, :create, :show, :edit, :update, :destroy]  
+
     resources :responsables, only: [:index, :destroy] do
       member do
         get :errores

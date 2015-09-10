@@ -7,7 +7,6 @@
 <h3>Integrantes de Elenco en Gira</h3><p>(* 1 Integrantante como mínimo)</p>
 <table class="table table-striped">
   <tr>
-
     <th>Nombre</th>
     <th>Apellido</th>
     <th>Email</th>
@@ -24,7 +23,19 @@
     <td><%= integrante.nombre %></td>
     <td><%= integrante.apellido %></td>
     <td><%= integrante.email %></td>
-    <td><%= integrante.cuil_cuit %></td>
+
+    <% if !integrante.nacionalidad_integrante.nil? %>
+        <% if integrante.nacionalidad_integrante.procedencia_type == "Nacional" %>
+            <td><%= integrante.nacionalidad_integrante.procedencia.cuil_cuit %></td>
+        <% end %>
+
+         <% if integrante.nacionalidad_integrante.procedencia_type == "Extranjero" %>
+            <td><%= integrante.nacionalidad_integrante.procedencia.num_doc %></td>
+        <% end %>    
+    <% else %>    
+        <td> </td>
+    <% end %>
+
     <td><%= I18n.l(integrante.fecha_de_nacimiento) if integrante.fecha_de_nacimiento %></td>
     <td><%= integrante.integrante_roles.map { |e| e.detalle }.join(", ") %></td>
 
