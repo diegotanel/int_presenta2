@@ -22,6 +22,7 @@ gem 'rails-i18n'
 gem 'versioncake'
 gem 'tiny_tds'
 gem 'activerecord-sqlserver-adapter'
+gem 'secretary-rails'
 
 group :development, :test do
   gem 'sqlite3',     '1.3.9'

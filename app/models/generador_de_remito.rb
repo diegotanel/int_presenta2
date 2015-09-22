@@ -22,18 +22,31 @@ class GeneradorDeRemito
     @datos_del_responsable = nil
 
     if formulario.responsable
-      if formulario.responsable.persona_fisica_e
-        @responsable = formulario.responsable.persona_fisica_e if formulario.responsable.persona_fisica_e
-        @datos_del_responsable = @responsable.integrante_de_elenco_en_gira.nombre + " " + @responsable.integrante_de_elenco_en_gira.apellido + " - " + "Fecha de nacimiento: " + I18n.l(@responsable.integrante_de_elenco_en_gira.fecha_de_nacimiento, format: :short) + " - " + "CUIT / CUIL: " + @responsable.integrante_de_elenco_en_gira.cuil_cuit
-      end
-
-      if formulario.responsable.persona_fisica_n
-        @responsable = formulario.responsable.persona_fisica_n
+      if (@formulario.responsable.responsabilidad_type == "PersonaFisicaEInt")
+        @id_persona = @formulario.responsable.responsabilidad.integrante_de_elenco_en_gira_id
+        @responsable = IntegranteDeElencoEnGira.find_by_id(@id_persona)
         @datos_del_responsable = @responsable.nombre + " " + @responsable.apellido + " - " + "Fecha de nacimiento: " + I18n.l(@responsable.fecha_de_nacimiento, format: :short) + " - " + "CUIT / CUIL: " + @responsable.cuil_cuit
       end
 
-      if formulario.responsable.persona_juridica
-        @responsable = formulario.responsable.persona_juridica
+      if (@formulario.responsable.responsabilidad_type == "PersonaFisicaN")
+        @responsable = formulario.responsable.responsabilidad
+        @datos_del_responsable = @responsable.nombre + " " + @responsable.apellido + " - " + "Fecha de nacimiento: " + I18n.l(@responsable.fecha_de_nacimiento, format: :short) + " - " + "CUIT / CUIL: " + @responsable.cuil_cuit
+      end
+
+      if (@formulario.responsable.responsabilidad_type == "PersonaJuridica")
+        @responsable = formulario.responsable.responsabilidad
+        @datos_del_responsable = @responsable.nombre_per_juridica + " - " + "CUIT: " + @responsable.num_cuit
+      end
+
+      if (@formulario.responsable.responsabilidad_type == "PersonaFisicaENue")
+        @id_persona = @formulario.responsable.responsabilidad.persona_fisica_n_id
+        @responsable = PersonaFisicaN.find_by_id(@id_persona)
+        @datos_del_responsable = @responsable.nombre + " " + @responsable.apellido + " - " + "Fecha de nacimiento: " + I18n.l(@responsable.fecha_de_nacimiento, format: :short) + " - " + "CUIT / CUIL: " + @responsable.cuil_cuit
+      end
+
+      if (@formulario.responsable.responsabilidad_type == "PersonaJuridicaE")
+        @id_juridica = @formulario.responsable.responsabilidad.persona_juridica_id
+        @responsable = PersonaJuridica.find_by_id(@id_juridica)
         @datos_del_responsable = @responsable.nombre_per_juridica + " - " + "CUIT: " + @responsable.num_cuit
       end
     end
@@ -44,7 +57,7 @@ class GeneradorDeRemito
       r.add_field("NOMBRE_DEL_ESPECTACULO", formulario.principal.nombre)
       r.add_field("PROVINCIA", formulario.principal.provincia.detalle)
       r.add_field("REGION", formulario.principal.provincia.region.detalle)
-      r.add_field("NUMERO_DE_TRAMITE", formulario.id.to_s)
+      r.add_field("NUMERO_DE_TRAMITE", formulario.num_tramite.to_s)
       r.add_field("FECHA_DE_TRAMITE", I18n.l(formulario.created_at, format: :con_seg))
       r.add_field("DATOS_DEL_RESPONSABLE", @datos_del_responsable)
     end

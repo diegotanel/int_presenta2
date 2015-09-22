@@ -1,5 +1,4 @@
 class DatosGrupo < ActiveRecord::Base
-
 	attr_accessor :saltear_validaciones_de_presencia
 	belongs_to :formulario
 
@@ -8,4 +7,5 @@ class DatosGrupo < ActiveRecord::Base
 	validates :historia, presence: true, unless: :saltear_validaciones_de_presencia
 	validates :historia, length: {maximum: 700}
 	validates :formulario, presence: true
+
 end

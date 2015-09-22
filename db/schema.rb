@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150827122451) do
+ActiveRecord::Schema.define(version: 20150921172549) do
 
   create_table "datos_esps", force: :cascade do |t|
     t.integer  "formulario_id",                       null: false
@@ -413,5 +413,20 @@ ActiveRecord::Schema.define(version: 20150827122451) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["remember_token"], name: "index_users_on_remember_token"
+
+  create_table "versions", force: :cascade do |t|
+    t.integer  "version_number"
+    t.string   "versioned_type"
+    t.integer  "versioned_id"
+    t.integer  "user_id"
+    t.text     "description"
+    t.text     "object_changes"
+    t.datetime "created_at"
+  end
+
+  add_index "versions", ["created_at"], name: "index_versions_on_created_at"
+  add_index "versions", ["user_id"], name: "index_versions_on_user_id"
+  add_index "versions", ["version_number"], name: "index_versions_on_version_number"
+  add_index "versions", ["versioned_type", "versioned_id"], name: "index_versions_on_versioned_type_and_versioned_id"
 
 end

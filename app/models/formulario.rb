@@ -1,4 +1,5 @@
 class Formulario < ActiveRecord::Base
+	has_secretary
 	belongs_to :user
 	has_one :principal, dependent: :destroy
 	has_one :elenco_en_gira, dependent: :destroy
@@ -7,6 +8,13 @@ class Formulario < ActiveRecord::Base
 	has_one :datos_tec, dependent: :destroy
 	has_one :responsable, dependent: :destroy
 	has_one :super_vista, dependent: :destroy
+
+	tracks_association :principal
+	tracks_association :elenco_en_gira
+	tracks_association :datos_esp
+	tracks_association :datos_tec
+	tracks_association :responsable
+	tracks_association :datos_grupo
 
 	default_scope -> { order('created_at DESC') }
 	validates :user_id, presence: true
