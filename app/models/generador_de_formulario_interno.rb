@@ -8,23 +8,41 @@ class GeneradorDeFormularioInterno
 	def generar_pdf(formulario)
 		@integrantes = formulario.elenco_en_gira.integrantes_de_elenco_en_gira
 		@integrantes_comision = nil
+		@tipo_responsable = nil
 
 		if formulario.responsable
-			if formulario.responsable.persona_fisica_e
-				@responsable = formulario.responsable.persona_fisica_e.integrante_de_elenco_en_gira if formulario.responsable.persona_fisica_e
+			if (@formulario.responsable.responsabilidad_type == "PersonaFisicaEInt")
+				@id_persona = @formulario.responsable.responsabilidad.integrante_de_elenco_en_gira_id
+				@responsable = IntegranteDeElencoEnGira.find_by_id(@id_persona)
+				@tipo_responsable = "Fisica"
 			end
 
-			if formulario.responsable.persona_fisica_n
-				@responsable = formulario.responsable.persona_fisica_n
+			if (@formulario.responsable.responsabilidad_type == "PersonaFisicaN")
+				@responsable = formulario.responsable.responsabilidad
+				@tipo_responsable = "Fisica"
 			end
 
-			if formulario.responsable.persona_juridica
-				@responsable = formulario.responsable.persona_juridica
-				@integrantes_comision =  formulario.responsable.persona_juridica.integrantes_comision_directiva
+			if (@formulario.responsable.responsabilidad_type == "PersonaJuridica")
+				@responsable = formulario.responsable.responsabilidad
+				@integrantes_comision = @responsable.integrantes_comision_directiva
+				@tipo_responsable = "Juridica"
+			end
+
+			if (@formulario.responsable.responsabilidad_type == "PersonaFisicaENue")
+				@id_persona = @formulario.responsable.responsabilidad.persona_fisica_n_id
+				@responsable = PersonaFisicaN.find_by_id(@id_persona)
+				@tipo_responsable = "Fisica"
+			end
+
+			if (@formulario.responsable.responsabilidad_type == "PersonaJuridicaE")
+				@id_juridica = @formulario.responsable.responsabilidad.persona_juridica_id
+				@responsable = PersonaJuridica.find_by_id(@id_juridica)
+				@integrantes_comision =  @responsable.integrantes_comision_directiva
+				@tipo_responsable = "Juridica"
 			end
 		end
 
-		if formulario.responsable.persona_fisica_e || formulario.responsable.persona_fisica_n
+		if @tipo_responsable == "Fisica"
 			@ruta_plantilla = Rails.root.join("app/plantillas/FORMULARIO_INTERNO_INT_PRESENTA_PF_CONFIRMACION.odt")
 		else
 			@ruta_plantilla = Rails.root.join("app/plantillas/FORMULARIO_INTERNO_INT_PRESENTA_PJ_CONFIRMACION.odt")
@@ -36,7 +54,7 @@ class GeneradorDeFormularioInterno
 			r.add_field("PROVINCIA_PRINCIPAL", formulario.principal.provincia.detalle)
 			r.add_field("FECHA_DE_ESTRENO", I18n.l(formulario.datos_esp.fecha_de_estreno))
 
-			if formulario.responsable.persona_fisica_e || formulario.responsable.persona_fisica_n
+			if @tipo_responsable == "Fisica"
 				llenado_de_persona_fisica(r, @responsable)
 			else
 				llenado_de_persona_juridica(r, @responsable)
@@ -44,7 +62,7 @@ class GeneradorDeFormularioInterno
 
 			r.add_table("TABLA_INT", @integrantes, :header=>true) do |s|
 				s.add_column("INT_NOMBRE_APELLIDO") { |i| i.nombre + " " + i.apellido}
-				s.add_column("INT_ROL", :type)
+				s.add_column("INT_ROL", {|i| i.integrante_roles.map { |e| e.detalle }.join(", ")}
 				s.add_column("INT_FECHA_DE_NACIMIENTO") { |i| I18n.l(i.fecha_de_nacimiento) }
 				s.add_column("INT_CUIL_CUIT", :cuil_cuit)
 				s.add_column("INT_EMAIL", :email)
