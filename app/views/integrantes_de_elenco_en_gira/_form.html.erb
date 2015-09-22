@@ -53,12 +53,12 @@
     </div>
 
     <div class="field">
-      <br/><%= f.label :provincia, "Provincia *" %>
-      <%= collection_select(:ideec, "provincia_id", @provincias, "id", "detalle", :include_blank => "Seleccione una provincia...", :selected => selected(@integrante.localidad)) %>
+      <%= f.label :provincia, "Provincia" %>
+      <%= collection_select(:ideec, "provincia_id", @provincias, "id", "detalle", :include_blank => "Seleccione una provincia...", :selected => selected(@agente.provincia)) %>
     </div>
 
     <div class="field">
-    <%= f.label :localidad, "Localidad *" %>
+    <%= f.label :localidad, "Localidad" %>
     <%= f.grouped_collection_select("localidad_id", @provincias, "localidades", "detalle", "id", "detalle", :include_blank => "Seleccione una localidad...") %>
     </div>
 
