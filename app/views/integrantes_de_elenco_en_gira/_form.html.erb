@@ -54,7 +54,7 @@
 
     <div class="field">
       <%= f.label :provincia, "Provincia" %>
-      <%= collection_select(:ideec, "provincia_id", @provincias, "id", "detalle", :include_blank => "Seleccione una provincia...", :selected => selected(@agente.provincia)) %>
+      <%= collection_select(:ideec, "provincia_id", @provincias, "id", "detalle", :include_blank => "Seleccione una provincia...", :selected => selected(@integrante.localidad)) %>
     </div>
 
     <div class="field">
