@@ -10,8 +10,8 @@ class ElencoEnGira < ActiveRecord::Base
   validates_associated :integrantes_de_elenco_en_gira
   # validate :validacion_minimo_un_interprete, unless: :saltear_validaciones_de_presencia 
   # validate :validacion_maximo_tres_directores, :validacion_maximo_dos_tecnicos, :validacion_combinacion_director_tecnico
-  # scope :integrantes_gteq, ->(amount) { where('cantidad_integrantes_en_gira >= ?', amount) }
-  # scope :integrantes_lteq, ->(amount) { where('cantidad_integrantes_en_gira <= ?', amount) }
+  # # scope :integrantes_gteq, ->(amount) { where('cantidad_integrantes_en_gira >= ?', amount) }
+  # # scope :integrantes_lteq, ->(amount) { where('cantidad_integrantes_en_gira <= ?', amount) }
   
 
   # def validacion_minimo_un_interprete
@@ -23,7 +23,7 @@ class ElencoEnGira < ActiveRecord::Base
   # end
 
   # def minimo_un_interprete
-  #   self.integrantes_de_elenco_en_gira.find_by_type("Actor")
+  #   self.integrantes_de_elenco_en_gira.integrante_roles.find_by_detalle("Actor")
   # end
 
   # def validacion_maximo_tres_directores
@@ -31,7 +31,7 @@ class ElencoEnGira < ActiveRecord::Base
   # end
 
   # def maximo_tres_directores
-  #   self.integrantes_de_elenco_en_gira.where(type: "Director").count < 4
+  #   self.integrantes_de_elenco_en_gira.integrante_roles.where(detalle: "Director").count < 4
   # end
 
   # def validacion_maximo_dos_tecnicos
@@ -39,7 +39,7 @@ class ElencoEnGira < ActiveRecord::Base
   # end
 
   # def maximo_dos_tecnicos
-  #   self.integrantes_de_elenco_en_gira.where(type: "Tecnico").count < 3
+  #   self.integrantes_de_elenco_en_gira.integrante_roles.where(detalle: "Tecnico").count < 3
   # end
 
   # def validacion_combinacion_director_tecnico
@@ -47,8 +47,8 @@ class ElencoEnGira < ActiveRecord::Base
   # end
 
   # def combinacion_director_tecnico
-  #   directores = self.integrantes_de_elenco_en_gira.where(type: "Director").count
-  #   tecnicos = self.integrantes_de_elenco_en_gira.where(type: "Tecnico").count
+  #   directores = self.integrantes_de_elenco_en_gira.integrante_roles.where(detalle: "Director").count
+  #   tecnicos = self.integrantes_de_elenco_en_gira.integrante_roles.where(detalle: "Tecnico").count
   #   directores + tecnicos > 3 ? false : true
   # end
 
