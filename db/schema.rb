@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20150921172549) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "datos_esps", force: :cascade do |t|
     t.integer  "formulario_id",                       null: false
     t.date     "fecha_de_estreno"
@@ -38,36 +41,36 @@ ActiveRecord::Schema.define(version: 20150921172549) do
     t.datetime "imagen_updated_at"
   end
 
-  add_index "datos_esps", ["formulario_id"], name: "index_datos_esps_on_formulario_id"
-  add_index "datos_esps", ["nacionalidad_id"], name: "index_datos_esps_on_nacionalidad_id"
+  add_index "datos_esps", ["formulario_id"], name: "index_datos_esps_on_formulario_id", using: :btree
+  add_index "datos_esps", ["nacionalidad_id"], name: "index_datos_esps_on_nacionalidad_id", using: :btree
 
   create_table "datos_esps_formatos", id: false, force: :cascade do |t|
     t.integer "formato_id",   null: false
     t.integer "datos_esp_id", null: false
   end
 
-  add_index "datos_esps_formatos", ["formato_id", "datos_esp_id"], name: "index_datos_esps_formatos_on_formato_id_and_datos_esp_id"
+  add_index "datos_esps_formatos", ["formato_id", "datos_esp_id"], name: "index_datos_esps_formatos_on_formato_id_and_datos_esp_id", using: :btree
 
   create_table "datos_esps_gen_esps", id: false, force: :cascade do |t|
     t.integer "gen_esp_id",   null: false
     t.integer "datos_esp_id", null: false
   end
 
-  add_index "datos_esps_gen_esps", ["gen_esp_id", "datos_esp_id"], name: "index_datos_esps_gen_esps_on_gen_esp_id_and_datos_esp_id"
+  add_index "datos_esps_gen_esps", ["gen_esp_id", "datos_esp_id"], name: "index_datos_esps_gen_esps_on_gen_esp_id_and_datos_esp_id", using: :btree
 
   create_table "datos_esps_publs_edad", id: false, force: :cascade do |t|
     t.integer "publ_edad_id", null: false
     t.integer "datos_esp_id", null: false
   end
 
-  add_index "datos_esps_publs_edad", ["publ_edad_id", "datos_esp_id"], name: "index_datos_esps_publs_edad_on_publ_edad_id_and_datos_esp_id"
+  add_index "datos_esps_publs_edad", ["publ_edad_id", "datos_esp_id"], name: "index_datos_esps_publs_edad_on_publ_edad_id_and_datos_esp_id", using: :btree
 
   create_table "datos_esps_publs_exp", id: false, force: :cascade do |t|
     t.integer "publ_exp_id",  null: false
     t.integer "datos_esp_id", null: false
   end
 
-  add_index "datos_esps_publs_exp", ["publ_exp_id", "datos_esp_id"], name: "index_datos_esps_publs_exp_on_publ_exp_id_and_datos_esp_id"
+  add_index "datos_esps_publs_exp", ["publ_exp_id", "datos_esp_id"], name: "index_datos_esps_publs_exp_on_publ_exp_id_and_datos_esp_id", using: :btree
 
   create_table "datos_grupos", force: :cascade do |t|
     t.text     "nombre_grupo",  null: false
@@ -77,7 +80,7 @@ ActiveRecord::Schema.define(version: 20150921172549) do
     t.datetime "updated_at"
   end
 
-  add_index "datos_grupos", ["formulario_id"], name: "index_datos_grupos_on_formulario_id"
+  add_index "datos_grupos", ["formulario_id"], name: "index_datos_grupos_on_formulario_id", using: :btree
 
   create_table "datos_tecs", force: :cascade do |t|
     t.string   "duracion_montaje",             null: false
@@ -101,14 +104,14 @@ ActiveRecord::Schema.define(version: 20150921172549) do
     t.datetime "imagen_updated_at"
   end
 
-  add_index "datos_tecs", ["formulario_id"], name: "index_datos_tecs_on_formulario_id"
+  add_index "datos_tecs", ["formulario_id"], name: "index_datos_tecs_on_formulario_id", using: :btree
 
   create_table "datos_tecs_esps_esps", id: false, force: :cascade do |t|
     t.integer "esps_esp_id",  null: false
     t.integer "datos_tec_id", null: false
   end
 
-  add_index "datos_tecs_esps_esps", ["esps_esp_id", "datos_tec_id"], name: "index_datos_tecs_esps_esps_on_esps_esp_id_and_datos_tec_id"
+  add_index "datos_tecs_esps_esps", ["esps_esp_id", "datos_tec_id"], name: "index_datos_tecs_esps_esps_on_esps_esp_id_and_datos_tec_id", using: :btree
 
   create_table "elencos_en_gira", force: :cascade do |t|
     t.integer  "formulario_id", null: false
@@ -116,7 +119,7 @@ ActiveRecord::Schema.define(version: 20150921172549) do
     t.datetime "updated_at"
   end
 
-  add_index "elencos_en_gira", ["formulario_id"], name: "index_elencos_en_gira_on_formulario_id"
+  add_index "elencos_en_gira", ["formulario_id"], name: "index_elencos_en_gira_on_formulario_id", using: :btree
 
   create_table "esps_esps", force: :cascade do |t|
     t.string   "detalle",    null: false
@@ -141,7 +144,7 @@ ActiveRecord::Schema.define(version: 20150921172549) do
     t.datetime "updated_at"
   end
 
-  add_index "ficha_artisticas", ["datos_esp_id"], name: "index_ficha_artisticas_on_datos_esp_id"
+  add_index "ficha_artisticas", ["datos_esp_id"], name: "index_ficha_artisticas_on_datos_esp_id", using: :btree
 
   create_table "formatos", force: :cascade do |t|
     t.string   "detalle",    null: false
@@ -157,7 +160,7 @@ ActiveRecord::Schema.define(version: 20150921172549) do
     t.datetime "updated_at"
   end
 
-  add_index "formularios", ["user_id", "created_at"], name: "index_formularios_on_user_id_and_created_at"
+  add_index "formularios", ["user_id", "created_at"], name: "index_formularios_on_user_id_and_created_at", using: :btree
 
   create_table "gen_esps", force: :cascade do |t|
     t.string   "detalle",    null: false
@@ -183,7 +186,7 @@ ActiveRecord::Schema.define(version: 20150921172549) do
     t.integer "integrante_de_elenco_en_gira_id", null: false
   end
 
-  add_index "integrante_roles_integrantes_de_elenco_en_gira", ["integrante_rol_id", "integrante_de_elenco_en_gira_id"], name: "int_rol_int_elenco_gira"
+  add_index "integrante_roles_integrantes_de_elenco_en_gira", ["integrante_rol_id", "integrante_de_elenco_en_gira_id"], name: "int_rol_int_elenco_gira", using: :btree
 
   create_table "integrantes_comision_directiva", force: :cascade do |t|
     t.string   "cargo",               null: false
@@ -207,8 +210,8 @@ ActiveRecord::Schema.define(version: 20150921172549) do
     t.datetime "updated_at",          null: false
   end
 
-  add_index "integrantes_comision_directiva", ["localidad_id"], name: "index_integrantes_comision_directiva_on_localidad_id"
-  add_index "integrantes_comision_directiva", ["persona_juridica_id"], name: "index_integrantes_comision_directiva_on_persona_juridica_id"
+  add_index "integrantes_comision_directiva", ["localidad_id"], name: "index_integrantes_comision_directiva_on_localidad_id", using: :btree
+  add_index "integrantes_comision_directiva", ["persona_juridica_id"], name: "index_integrantes_comision_directiva_on_persona_juridica_id", using: :btree
 
   create_table "integrantes_de_elenco_en_gira", force: :cascade do |t|
     t.string   "nombre"
@@ -230,8 +233,8 @@ ActiveRecord::Schema.define(version: 20150921172549) do
     t.datetime "updated_at"
   end
 
-  add_index "integrantes_de_elenco_en_gira", ["elenco_en_gira_id"], name: "index_integrantes_de_elenco_en_gira_on_elenco_en_gira_id"
-  add_index "integrantes_de_elenco_en_gira", ["localidad_id"], name: "index_integrantes_de_elenco_en_gira_on_localidad_id"
+  add_index "integrantes_de_elenco_en_gira", ["elenco_en_gira_id"], name: "index_integrantes_de_elenco_en_gira_on_elenco_en_gira_id", using: :btree
+  add_index "integrantes_de_elenco_en_gira", ["localidad_id"], name: "index_integrantes_de_elenco_en_gira_on_localidad_id", using: :btree
 
   create_table "localidades", force: :cascade do |t|
     t.string   "codigo",       null: false
@@ -241,7 +244,7 @@ ActiveRecord::Schema.define(version: 20150921172549) do
     t.datetime "updated_at"
   end
 
-  add_index "localidades", ["provincia_id"], name: "index_localidades_on_provincia_id"
+  add_index "localidades", ["provincia_id"], name: "index_localidades_on_provincia_id", using: :btree
 
   create_table "nacionales", force: :cascade do |t|
     t.string   "cuil_cuit",  null: false
@@ -258,9 +261,9 @@ ActiveRecord::Schema.define(version: 20150921172549) do
     t.datetime "updated_at",                      null: false
   end
 
-  add_index "nacionalidad_integrantes", ["integrante_de_elenco_en_gira_id"], name: "nacionalidad_integrante_integrante_id"
-  add_index "nacionalidad_integrantes", ["nacionalidad_id"], name: "index_nacionalidad_integrantes_on_nacionalidad_id"
-  add_index "nacionalidad_integrantes", ["procedencia_id", "procedencia_type"], name: "tipo_procedencia"
+  add_index "nacionalidad_integrantes", ["integrante_de_elenco_en_gira_id"], name: "nacionalidad_integrante_integrante_id", using: :btree
+  add_index "nacionalidad_integrantes", ["nacionalidad_id"], name: "index_nacionalidad_integrantes_on_nacionalidad_id", using: :btree
+  add_index "nacionalidad_integrantes", ["procedencia_id", "procedencia_type"], name: "tipo_procedencia", using: :btree
 
   create_table "nacionalidades", force: :cascade do |t|
     t.string   "detalle",    null: false
@@ -274,7 +277,7 @@ ActiveRecord::Schema.define(version: 20150921172549) do
     t.datetime "updated_at",                      null: false
   end
 
-  add_index "personas_fisicas_e", ["integrante_de_elenco_en_gira_id"], name: "index_personas_fisicas_e_on_integrante_de_elenco_en_gira_id"
+  add_index "personas_fisicas_e", ["integrante_de_elenco_en_gira_id"], name: "index_personas_fisicas_e_on_integrante_de_elenco_en_gira_id", using: :btree
 
   create_table "personas_fisicas_e_int", force: :cascade do |t|
     t.integer  "integrante_de_elenco_en_gira_id", null: false
@@ -282,7 +285,7 @@ ActiveRecord::Schema.define(version: 20150921172549) do
     t.datetime "updated_at",                      null: false
   end
 
-  add_index "personas_fisicas_e_int", ["integrante_de_elenco_en_gira_id"], name: "per_fis_e_int_elenco_gira"
+  add_index "personas_fisicas_e_int", ["integrante_de_elenco_en_gira_id"], name: "per_fis_e_int_elenco_gira", using: :btree
 
   create_table "personas_fisicas_e_nue", force: :cascade do |t|
     t.integer  "persona_fisica_n_id", null: false
@@ -290,7 +293,7 @@ ActiveRecord::Schema.define(version: 20150921172549) do
     t.datetime "updated_at",          null: false
   end
 
-  add_index "personas_fisicas_e_nue", ["persona_fisica_n_id"], name: "index_personas_fisicas_e_nue_on_persona_fisica_n_id"
+  add_index "personas_fisicas_e_nue", ["persona_fisica_n_id"], name: "index_personas_fisicas_e_nue_on_persona_fisica_n_id", using: :btree
 
   create_table "personas_fisicas_n", force: :cascade do |t|
     t.string   "nombre",              null: false
@@ -312,7 +315,7 @@ ActiveRecord::Schema.define(version: 20150921172549) do
     t.datetime "updated_at",          null: false
   end
 
-  add_index "personas_fisicas_n", ["localidad_id"], name: "index_personas_fisicas_n_on_localidad_id"
+  add_index "personas_fisicas_n", ["localidad_id"], name: "index_personas_fisicas_n_on_localidad_id", using: :btree
 
   create_table "personas_juridicas", force: :cascade do |t|
     t.string   "nombre_per_juridica", null: false
@@ -331,7 +334,7 @@ ActiveRecord::Schema.define(version: 20150921172549) do
     t.datetime "updated_at",          null: false
   end
 
-  add_index "personas_juridicas", ["localidad_id"], name: "index_personas_juridicas_on_localidad_id"
+  add_index "personas_juridicas", ["localidad_id"], name: "index_personas_juridicas_on_localidad_id", using: :btree
 
   create_table "personas_juridicas_e", force: :cascade do |t|
     t.integer  "persona_juridica_id", null: false
@@ -339,7 +342,7 @@ ActiveRecord::Schema.define(version: 20150921172549) do
     t.datetime "updated_at",          null: false
   end
 
-  add_index "personas_juridicas_e", ["persona_juridica_id"], name: "index_personas_juridicas_e_on_persona_juridica_id"
+  add_index "personas_juridicas_e", ["persona_juridica_id"], name: "index_personas_juridicas_e_on_persona_juridica_id", using: :btree
 
   create_table "principals", force: :cascade do |t|
     t.integer  "formulario_id", null: false
@@ -350,9 +353,9 @@ ActiveRecord::Schema.define(version: 20150921172549) do
     t.datetime "updated_at"
   end
 
-  add_index "principals", ["formulario_id"], name: "index_principals_on_formulario_id"
-  add_index "principals", ["grupo_id"], name: "index_principals_on_grupo_id"
-  add_index "principals", ["localidad_id"], name: "index_principals_on_localidad_id"
+  add_index "principals", ["formulario_id"], name: "index_principals_on_formulario_id", using: :btree
+  add_index "principals", ["grupo_id"], name: "index_principals_on_grupo_id", using: :btree
+  add_index "principals", ["localidad_id"], name: "index_principals_on_localidad_id", using: :btree
 
   create_table "provincias", force: :cascade do |t|
     t.string   "codigo",     null: false
@@ -362,7 +365,7 @@ ActiveRecord::Schema.define(version: 20150921172549) do
     t.datetime "updated_at"
   end
 
-  add_index "provincias", ["region_id"], name: "index_provincias_on_region_id"
+  add_index "provincias", ["region_id"], name: "index_provincias_on_region_id", using: :btree
 
   create_table "publs_edad", force: :cascade do |t|
     t.string   "detalle",    null: false
@@ -391,7 +394,7 @@ ActiveRecord::Schema.define(version: 20150921172549) do
     t.datetime "updated_at",           null: false
   end
 
-  add_index "responsables", ["responsabilidad_id", "responsabilidad_type"], name: "tipo_responsable"
+  add_index "responsables", ["responsabilidad_id", "responsabilidad_type"], name: "tipo_responsable", using: :btree
 
   create_table "super_vistas", force: :cascade do |t|
     t.integer  "formulario_id", null: false
@@ -399,7 +402,7 @@ ActiveRecord::Schema.define(version: 20150921172549) do
     t.datetime "updated_at"
   end
 
-  add_index "super_vistas", ["formulario_id"], name: "index_super_vistas_on_formulario_id"
+  add_index "super_vistas", ["formulario_id"], name: "index_super_vistas_on_formulario_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name",           null: false
@@ -411,8 +414,8 @@ ActiveRecord::Schema.define(version: 20150921172549) do
     t.string   "remember_token"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["remember_token"], name: "index_users_on_remember_token"
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
 
   create_table "versions", force: :cascade do |t|
     t.integer  "version_number"
@@ -424,9 +427,9 @@ ActiveRecord::Schema.define(version: 20150921172549) do
     t.datetime "created_at"
   end
 
-  add_index "versions", ["created_at"], name: "index_versions_on_created_at"
-  add_index "versions", ["user_id"], name: "index_versions_on_user_id"
-  add_index "versions", ["version_number"], name: "index_versions_on_version_number"
-  add_index "versions", ["versioned_type", "versioned_id"], name: "index_versions_on_versioned_type_and_versioned_id"
+  add_index "versions", ["created_at"], name: "index_versions_on_created_at", using: :btree
+  add_index "versions", ["user_id"], name: "index_versions_on_user_id", using: :btree
+  add_index "versions", ["version_number"], name: "index_versions_on_version_number", using: :btree
+  add_index "versions", ["versioned_type", "versioned_id"], name: "index_versions_on_versioned_type_and_versioned_id", using: :btree
 
 end
