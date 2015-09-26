@@ -19,7 +19,6 @@ gem 'paperclip'
 gem 'ransack'
 gem 'exception_notification'
 gem 'rails-i18n'
-gem 'versioncake'
 gem 'tiny_tds'
 gem 'activerecord-sqlserver-adapter'
 gem 'secretary-rails'
@@ -30,6 +29,13 @@ group :development, :test do
   gem 'spring',      '1.1.3'
   gem 'rspec-rails', '2.13.1'
   gem 'pdf-reader'
+  gem 'capistrano-rails'
+  gem 'capistrano-ssh-doctor'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rvm'
+  gem 'capistrano-passenger'
+  gem 'capistrano-postgresql'
+  gem 'capistrano-rails-console'
 end
 
 group :test do
