@@ -228,12 +228,14 @@ ActiveRecord::Schema.define(version: 20150921172549) do
     t.string   "prefijo_tel_cel"
     t.string   "tel_celular"
     t.string   "email"
+    t.integer  "integrante_rol_id"
     t.integer  "elenco_en_gira_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "integrantes_de_elenco_en_gira", ["elenco_en_gira_id"], name: "index_integrantes_de_elenco_en_gira_on_elenco_en_gira_id", using: :btree
+  add_index "integrantes_de_elenco_en_gira", ["integrante_rol_id"], name: "index_integrantes_de_elenco_en_gira_on_integrante_rol_id", using: :btree
   add_index "integrantes_de_elenco_en_gira", ["localidad_id"], name: "index_integrantes_de_elenco_en_gira_on_localidad_id", using: :btree
 
   create_table "localidades", force: :cascade do |t|

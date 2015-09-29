@@ -15,7 +15,6 @@ class IntegranteDeElencoEnGira < ActiveRecord::Base
   belongs_to :elenco_en_gira
   has_one :nacionalidad_integrante
   validates_associated :nacionalidad_integrante
-  #accepts_nested_attributes_for :nacionalidad_integrante
 
   unless :saltear_validaciones_de_email
     before_save { self.email = email.downcase }
