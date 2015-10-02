@@ -36,6 +36,7 @@
         <% end %>    
     <% else %>    
         <td> </td>
+        <td> </td>
     <% end %>
     <td><%= I18n.l(integrante.fecha_de_nacimiento) if integrante.fecha_de_nacimiento %></td>
     <td><%= integrante.integrante_roles.map { |e| e.detalle }.join(", ") %></td>

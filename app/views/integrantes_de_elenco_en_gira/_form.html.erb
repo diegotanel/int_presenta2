@@ -26,11 +26,27 @@
     </div>
 
     <div class="field">
-        <%= select_tag "nacionalidad_integrante[nacionalidad_id]", options_from_collection_for_select(@nacionalidades, "id", "detalle", nil),  :include_blank => "Seleccione una nacionalidad..." %>
-    </div> 
+        <%= select_tag "nacionalidad_integrante[nacionalidad_id]", options_from_collection_for_select(@nacionalidades, "id", "detalle", :selected=> obtener_nacionalidad(@integrante)), :include_blank => "Seleccione una nacionalidad..." %> </div>
 
+  <% if @integrante.nacionalidad_integrante.nil? %>        
     <div id="div_datos_nacionalidad">
     </div>
+  <% else %>  
+      <% if @integrante.nacionalidad_integrante.procedencia_type == "Nacional"  %> 
+        <div id="div_datos_nacionalidad">            
+            <%= label_tag :cuil_cuit, "Cuil-Cuit * (sin guiones ni puntos)" %>
+            <%= text_field_tag :cuil_cuit, nil, id: 'nacionalidad_integrante_nacionales_cuil_cuit', name: 'nacionalidad_integrante[nacionales[cuil_cuit]]', :value => @integrante.nacionalidad_integrante.procedencia.cuil_cuit %> 
+        </div>         
+      <% else %>  
+        <div id="div_datos_nacionalidad">                      
+          <%= label_tag :tipo_doc, "Tipo de documento *" %>
+          <%= text_field_tag :tipo_doc, nil, id: 'nacionalidad_integrante_extranjeros_tipo_doc', name: 'nacionalidad_integrante[extranjeros[tipo_doc]]', :value => @integrante.nacionalidad_integrante.procedencia.tipo_doc %></br>
+
+          <%= label_tag :num_doc, "Número de documento * (sin guiones ni puntos)" %>
+          <%= text_field_tag :num_doc, nil, id: 'nacionalidad_integrante_extranjeros_num_doc', name: 'nacionalidad_integrante[extranjeros[num_doc]]',:value => @integrante.nacionalidad_integrante.procedencia.num_doc %>             
+        </div>
+      <% end %>  
+  <% end %>  
 
     <div class="field">
     <%= f.label :calle, "Calle *" %>
@@ -70,24 +86,21 @@
     <p>Se debe completar al menos un teléfono</p>
 
     <div class="field">
-    <%= f.label :prefijo_tel_part, "Prefijo Teléfono Particular" %>
-    <%= f.text_field :prefijo_tel_part %>
+      <%= f.label :tel_particular, "Prefijo - Teléfono Particular (sin guiones ni puntos)" %>
+    </div>
+    <div class="form-inline">              
+      <%= f.text_field :prefijo_tel_part %>
+      <%= f.text_field :tel_particular %>
     </div>
 
     <div class="field">
-    <%= f.label :tel_particular, "Teléfono Particular (sin guiones ni puntos)" %>
-    <%= f.text_field :tel_particular %>
+      <%= f.label :tel_celular, "Prefijo - Teléfono Celular (sin guiones ni puntos)" %>
+    </div>
+    <div class="form-inline">    
+      <%= f.text_field :prefijo_tel_cel %>
+      <%= f.text_field :tel_celular %>
     </div>
 
-    <div class="field">
-    <%= f.label :prefijo_tel_cel, "Prefijo Teléfono Celular" %>
-    <%= f.text_field :prefijo_tel_cel %>
-    </div>
-
-    <div class="field">
-    <%= f.label :tel_celular, "Teléfono Celular (sin guiones ni puntos ni el 15 adelante)" %>
-    <%= f.text_field :tel_celular %>
-    </div>
 
     <div class="field">
     <%= f.label :email, "Email *" %>
