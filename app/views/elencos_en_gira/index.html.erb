@@ -2,10 +2,8 @@
 <% provide(:title, 'Formulario de elenco en gira') %>
 <h1>Elenco en gira</h1>
 
-<% if (@formulario.elenco_en_gira.valid?) %>
-    <p>No hay errores en el formulario elenco en gira</p>
-<% else %>
-    <%= render 'shared/error_messages', :object => @formulario.elenco_en_gira %>
+<% if !(@formulario.elenco_en_gira.valid?) %>
+    <%= render 'shared/error_messages', :object => @formulario.elenco_en_gira %>   
 <% end %>
 
 <div id="integrantes de elenco en gira">
@@ -20,6 +18,7 @@
     <th>Número de Documento</th>
     <th>Fecha de nacimiento</th>
     <th>Roles</th>
+    <th>Valido?</th>
     <th></th>
     <th></th>
     <th></th>
@@ -46,7 +45,11 @@
     <% end %>
     <td><%= I18n.l(integrante.fecha_de_nacimiento) if integrante.fecha_de_nacimiento %></td>
     <td><%= integrante.integrante_roles.map { |e| e.detalle }.join(", ") %></td>
-
+    <% if integrante.valid? %>
+      <td><font color="green">Sí</font></td>
+    <% else %>    
+      <td><font color="red">No</font></td>
+    <% end %>
     <td><%= link_to "Ver", formulario_integrante_de_elenco_en_gira_path(@formulario, integrante) %></td>
 
     <td><%= link_to "Editar", edit_formulario_integrante_de_elenco_en_gira_path(@formulario, integrante) %></td>

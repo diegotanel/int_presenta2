@@ -136,7 +136,4 @@ class IntegrantesDeElencoEnGiraController < ApplicationController
       end
     end
   end
-
-
-
 end

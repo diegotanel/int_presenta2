@@ -5,7 +5,7 @@
 <h3>Datos Principales</h3>
 <% if (@formulario.principal) %>
 	<% if (@formulario.principal.valid?) %>
-		<p>No hay errores en el formulario datos principales</p>
+		<p></p>
 	<% else %>
 		<%= render 'shared/error_messages', :object => @formulario.principal %>
 	<% end %>
@@ -32,7 +32,7 @@
 <h3>Datos generales del espectáculo</h3>
 <% if (@formulario.datos_esp) %>
 	<% if (@formulario.datos_esp.valid?) %>
-		<p>No hay errores en el formulario datos del espectáculo</p>
+		<p></p>
 	<% else %>
 		<%= render 'shared/error_messages', :object => @formulario.datos_esp %>
 	<% end %>
@@ -114,7 +114,7 @@
 <h3>Datos técnicos del espectáculo</h3>
 <% if (@formulario.datos_tec) %>
 	<% if (@formulario.datos_tec.valid?) %>
-		<p>No hay errores en el formulario datos técnicos del espectáculo</p>
+		<p></p>
 	<% else %>
 		<%= render 'shared/error_messages', :object => @formulario.datos_tec %>
 	<% end %>
@@ -193,14 +193,20 @@
 <% if (@formulario.elenco_en_gira) %>
 	<h3>Datos del elenco en gira</h3>
 	<% @elenco = @formulario.elenco_en_gira.integrantes_de_elenco_en_gira.all %>
+	<% if !(@formulario.elenco_en_gira.valid?) %>
+    <%= render 'shared/error_messages', :object => @formulario.elenco_en_gira %>   
+	<% end %>
 	<table class="table table-striped">
   <tr>
 
     <th>Nombre</th>
     <th>Apellido</th>
-    <th>CUIL / CUIT</th>
     <th>Email</th>
-    <th>Fecha de Nacimiento</th>
+    <th>Tipo de Documento</th>
+    <th>Número de Documento</th>
+    <th>Fecha de nacimiento</th>
+    <th>Roles</th>
+    <th>Valido?</th>
     <th></th>
   </tr>
 
@@ -208,11 +214,23 @@
 
     <td><%= integrante.nombre %></td>
     <td><%= integrante.apellido %></td>
-    <% if integrante.nacionalidad_integrante %>
-      <td><%= integrante.nacionalidad_integrante.procedencia.cuil_cuit if integrante.nacionalidad_integrante.procedencia.cuil_cuit %></td>
-    <% end %>
     <td><%= integrante.email %></td>
+    <% if !integrante.nacionalidad_integrante.nil? && integrante.nacionalidad_integrante.procedencia_type == "Nacional" %>
+    	<td>CUIL/CUIT</td>
+	    <td><%= integrante.nacionalidad_integrante.procedencia.cuil_cuit %></td>
+		<% end %>
+
+		<% if !integrante.nacionalidad_integrante.nil? && integrante.nacionalidad_integrante.procedencia_type == "Extranjero" %>
+		  <td><%= integrante.nacionalidad_integrante.procedencia.tipo_doc %></td>
+		  <td><%= integrante.nacionalidad_integrante.procedencia.num_doc %></td>
+		<% end %>
     <td><%= I18n.l(integrante.fecha_de_nacimiento) if integrante.fecha_de_nacimiento %></td>
+    <td><%= integrante.integrante_roles.map { |e| e.detalle }.join(", ") %></td>
+    <% if integrante.valid? %>
+      <td><font color="green">Sí</font></td>
+    <% else %>    
+      <td><font color="red">No</font></td>
+    <% end %>
     <th></th>
   <% end %>
 	</table>
@@ -223,7 +241,7 @@
 		<h3>Datos del grupo</h3>
 		<% if (@formulario.datos_grupo) %>
 			<% if (@formulario.datos_grupo.valid?) %>
-  			<p>No hay errores en el formulario datos del grupo</p>
+  			<p></p>
 			<% else %>
 				<%= render 'shared/error_messages', :object => @formulario.datos_grupo %>
 			<% end %>
@@ -321,7 +339,7 @@
 		<% if (@formulario.responsable.responsabilidad_type == "PersonaFisicaN") %>
 			<h4>Datos persona física</h4>
 			<% if (@formulario.responsable.responsabilidad.valid?) %>
-  			<p>No hay errores en el formulario datos de la persona física</p>
+  			<p></p>
 			<% else %>
 				<%= render 'shared/error_messages', :object => @formulario.responsable.responsabilidad %>
 			<% end %>
@@ -399,7 +417,7 @@
 		<% if (@formulario.responsable.responsabilidad_type == "PersonaJuridica") %>
 			<h4>Datos persona juridica</h4>
 			<% if (@formulario.responsable.responsabilidad.valid?) %>
-  			<p>No hay errores en el formulario datos de la persona jurídica</p>
+  			<p></p>
 			<% else %>
 				<%= render 'shared/error_messages', :object => @formulario.responsable.responsabilidad %>
 			<% end %>

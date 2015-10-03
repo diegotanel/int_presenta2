@@ -2,12 +2,9 @@
 class IntegranteDeElencoEnGira < ActiveRecord::Base
 
   has_and_belongs_to_many :integrante_roles, class_name: 'IntegranteRol'
-  unless :saltear_validaciones_de_telefono
-    before_save :validacion_tel_particular_tel_celular!
-  end
+  before_save :validacion_tel_particular_tel_celular!
   
   attr_accessor :saltear_validaciones_de_presencia
-  attr_accessor :saltear_validaciones_de_telefono
   attr_accessor :saltear_validaciones_de_email
 
 
