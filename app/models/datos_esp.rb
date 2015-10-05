@@ -32,6 +32,7 @@ class DatosEsp < ActiveRecord::Base
 	validates :blog, length: {maximum: 700}
 	validates :youtube, length: {maximum: 700}
 	validates :instagram, length: {maximum: 700}
+	validate :validacion_minimo_un_artista, unless: :saltear_validaciones_de_presencia
 
 	has_attached_file :imagen, styles: { medium: '300x300>', thumb: '48x48>' }
 	validates_attachment :imagen, :content_type => { :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif", 'application/pdf'] },
@@ -63,5 +64,17 @@ class DatosEsp < ActiveRecord::Base
 			fecha_de_estreno <= Date.today
 		end
 	end
+
+	def validacion_minimo_un_artista
+    errors[:base] << "Como mínimo se debe adicionar un artísta a la ficha" unless minimo_un_artista
+  end
+
+  def minimo_un_artista
+    artista = 0
+    for x in self.ficha_artisticas
+      artista += 1
+    end
+    artista < 1 ? false : true
+  end
 
 end

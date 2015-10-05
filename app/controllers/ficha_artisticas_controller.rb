@@ -72,6 +72,7 @@ class FichaArtisticasController < ApplicationController
   def destroy
     @formulario = Formulario.find_by_id(params[:formulario_id])
     @formulario.datos_esp.ficha_artisticas.destroy(params[:id])
+    @formulario.datos_esp.saltear_validaciones_de_presencia = true
     if @formulario.datos_esp.save
       flash[:success] = "Se ha eliminado una ficha correctamente"
       redirect_to formulario_ficha_artisticas_path

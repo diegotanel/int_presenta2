@@ -1,6 +1,9 @@
 #encoding: utf-8
 <% provide(:title, 'Fichas de Artistas') %>
 <h1>Ficha Artística *</h1></br>
+<% if @formulario.datos_esp.ficha_artisticas.count < 1 %>
+  <p><font color="red">ERROR: Al menos tiene que haber un artísta en la ficha</font></p> 
+<% end %>
 
 
 <div id="artistas">
