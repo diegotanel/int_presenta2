@@ -62,7 +62,7 @@ class GeneradorDeFormularioInterno
 
 			r.add_table("TABLA_INT", @integrantes, :header=>true) do |s|
 				s.add_column("INT_NOMBRE_APELLIDO") { |i| i.nombre + " " + i.apellido}
-				s.add_column("INT_ROL", {|i| i.integrante_roles.map { |e| e.detalle }.join(", ")}
+				s.add_column("INT_ROL") {|i| i.integrante_roles.map { |e| e.detalle }.join(", ")}
 				s.add_column("INT_FECHA_DE_NACIMIENTO") { |i| I18n.l(i.fecha_de_nacimiento) }
 				s.add_column("INT_CUIL_CUIT", :cuil_cuit)
 				s.add_column("INT_EMAIL", :email)
