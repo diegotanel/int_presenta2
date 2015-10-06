@@ -2,7 +2,7 @@
 class GeneradorDeFormularioInterno
 
   def initialize
-    @fecha_inicializacion = Time.zone.now.to_formatted_s(:number)
+	@fecha_inicializacion = Time.zone.now.to_formatted_s(:number)
   end
 
 	def generar_pdf(formulario)
@@ -11,31 +11,31 @@ class GeneradorDeFormularioInterno
 		@tipo_responsable = nil
 
 		if formulario.responsable
-			if (@formulario.responsable.responsabilidad_type == "PersonaFisicaEInt")
-				@id_persona = @formulario.responsable.responsabilidad.integrante_de_elenco_en_gira_id
+			if (formulario.responsable.responsabilidad_type == "PersonaFisicaEInt")
+				@id_persona = formulario.responsable.responsabilidad.integrante_de_elenco_en_gira_id
 				@responsable = IntegranteDeElencoEnGira.find_by_id(@id_persona)
 				@tipo_responsable = "Fisica"
 			end
 
-			if (@formulario.responsable.responsabilidad_type == "PersonaFisicaN")
+			if (formulario.responsable.responsabilidad_type == "PersonaFisicaN")
 				@responsable = formulario.responsable.responsabilidad
 				@tipo_responsable = "Fisica"
 			end
 
-			if (@formulario.responsable.responsabilidad_type == "PersonaJuridica")
+			if (formulario.responsable.responsabilidad_type == "PersonaJuridica")
 				@responsable = formulario.responsable.responsabilidad
 				@integrantes_comision = @responsable.integrantes_comision_directiva
 				@tipo_responsable = "Juridica"
 			end
 
-			if (@formulario.responsable.responsabilidad_type == "PersonaFisicaENue")
+			if (formulario.responsable.responsabilidad_type == "PersonaFisicaENue")
 				@id_persona = @formulario.responsable.responsabilidad.persona_fisica_n_id
 				@responsable = PersonaFisicaN.find_by_id(@id_persona)
 				@tipo_responsable = "Fisica"
 			end
 
-			if (@formulario.responsable.responsabilidad_type == "PersonaJuridicaE")
-				@id_juridica = @formulario.responsable.responsabilidad.persona_juridica_id
+			if (formulario.responsable.responsabilidad_type == "PersonaJuridicaE")
+				@id_juridica = formulario.responsable.responsabilidad.persona_juridica_id
 				@responsable = PersonaJuridica.find_by_id(@id_juridica)
 				@integrantes_comision =  @responsable.integrantes_comision_directiva
 				@tipo_responsable = "Juridica"
@@ -64,7 +64,20 @@ class GeneradorDeFormularioInterno
 				s.add_column("INT_NOMBRE_APELLIDO") { |i| i.nombre + " " + i.apellido}
 				s.add_column("INT_ROL") {|i| i.integrante_roles.map { |e| e.detalle }.join(", ")}
 				s.add_column("INT_FECHA_DE_NACIMIENTO") { |i| I18n.l(i.fecha_de_nacimiento) }
-				s.add_column("INT_CUIL_CUIT", :cuil_cuit)
+				s.add_column("INT_TIPO_DE_DOCUMENTO") do |i|
+					if i.nacionalidad_integrante.procedencia_type == "Nacional"
+						i.nacionalidad_integrante.procedencia.cuil_cuit
+					else
+						i.nacionalidad_integrante.procedencia.tipo_doc
+					end
+				end 
+				s.add_column("INT_NUMERO_DE_DOCUMENTO") do |i|
+					if i.nacionalidad_integrante.procedencia_type == "Nacional"
+						i.nacionalidad_integrante.procedencia.cuil_cuit
+					else
+						i.nacionalidad_integrante.procedencia.num_doc
+					end
+				end
 				s.add_column("INT_EMAIL", :email)
 				s.add_column("INT_DOMICILIO") { |i| "#{i.calle } #{i.altura_calle } #{i.piso } #{i.depto }" }
 				s.add_column("INT_LOCALIDAD") { |i| i.localidad.detalle }

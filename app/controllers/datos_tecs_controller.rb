@@ -38,6 +38,7 @@
       flash[:success] = "Datos tecnicos del espectaculo actualizados"
       redirect_to formulario_datos_tec_path(@formulario, @datos_tec)
     else
+      inicializar_variables
       render 'edit'
     end
   end

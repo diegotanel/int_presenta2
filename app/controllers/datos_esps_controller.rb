@@ -38,6 +38,7 @@ class DatosEspsController < ApplicationController
       flash[:success] = "Datos del espectaculo actualizados"
       redirect_to formulario_ficha_artisticas_path
     else
+      inicializar_variables
       render 'edit'
     end
   end

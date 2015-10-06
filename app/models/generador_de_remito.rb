@@ -25,7 +25,7 @@ class GeneradorDeRemito
       if (@formulario.responsable.responsabilidad_type == "PersonaFisicaEInt")
         @id_persona = @formulario.responsable.responsabilidad.integrante_de_elenco_en_gira_id
         @responsable = IntegranteDeElencoEnGira.find_by_id(@id_persona)
-        @datos_del_responsable = @responsable.nombre + " " + @responsable.apellido + " - " + "Fecha de nacimiento: " + I18n.l(@responsable.fecha_de_nacimiento, format: :short) + " - " + "CUIT / CUIL: " + @responsable.cuil_cuit
+        @datos_del_responsable = @responsable.nombre + " " + @responsable.apellido + " - " + "Fecha de nacimiento: " + I18n.l(@responsable.fecha_de_nacimiento, format: :short) + " - " + "CUIT / CUIL: " + @responsable.nacionalidad_integrante.procedencia.cuil_cuit
       end
 
       if (@formulario.responsable.responsabilidad_type == "PersonaFisicaN")

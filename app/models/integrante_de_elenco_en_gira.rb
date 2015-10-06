@@ -2,10 +2,11 @@
 class IntegranteDeElencoEnGira < ActiveRecord::Base
 
   has_and_belongs_to_many :integrante_roles, class_name: 'IntegranteRol'
-  before_save :validacion_tel_particular_tel_celular!
   
   attr_accessor :saltear_validaciones_de_presencia
   attr_accessor :saltear_validaciones_de_email
+  #attr_accessor :saltear_validaciones_de_cuil
+  attr_accessor :saltear_validaciones_de_telefono
 
 
   belongs_to :localidad
@@ -15,6 +16,10 @@ class IntegranteDeElencoEnGira < ActiveRecord::Base
 
   unless :saltear_validaciones_de_email
     before_save { self.email = email.downcase }
+  end
+  
+  unless :saltear_validaciones_de_telefono
+    before_save :validacion_tel_particular_tel_celular!
   end
   
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(?:\.[a-z\d\-]+)*\.[a-z]+\z/i
@@ -55,5 +60,4 @@ class IntegranteDeElencoEnGira < ActiveRecord::Base
       end
     end
   end
-
 end

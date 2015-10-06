@@ -44,9 +44,9 @@ class FichaArtisticasController < ApplicationController
           @elenco.save!
         end
         @integrante.saltear_validaciones_de_presencia = true
-        # @integrante.saltear_validaciones_de_telefono = true
+        @integrante.saltear_validaciones_de_telefono = true
         @integrante.saltear_validaciones_de_email = true
-        # @integrante.saltear_validaciones_de_cuil = true
+        #@integrante.saltear_validaciones_de_cuil = true
         if @formulario.elenco_en_gira.integrantes_de_elenco_en_gira << @integrante
           flash[:success] = "Se ha creado una ficha correctamente y un integrante de elenco en gira"
         end
