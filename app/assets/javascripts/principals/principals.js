@@ -1,3 +1,6 @@
+//USE ESTA
+var ready = function() {
+
 var buscarRegion
 buscarRegion = function() {
   var provincia_id = $("#p_provincia_id").val()
@@ -15,13 +18,6 @@ buscarRegion = function() {
   });
 };
 
-
-
-
-
-
-//USE ESTA
-var ready = function() {
 
   $("#p_provincia_id").change(function() {
     buscarRegion();
