@@ -1,5 +1,37 @@
+var buscarRegion
+buscarRegion = function() {
+  var provincia_id = $("#p_provincia_id").val()
+  $.ajax({
+    url: "/principals/obtener_region.js",
+    dataType: "json",
+    type: "GET",
+    data: { provincia_id: provincia_id },
+    contentType: "application/json",
+    success:function(result){
+      $("#region").val(result.detalle)
+    },
+    error: function(jqXHR, textStatus, errorThrown){
+    }
+  });
+};
+
+
+
+
+
+
 //USE ESTA
 var ready = function() {
+
+  $("#p_provincia_id").change(function() {
+    buscarRegion();
+  });
+
+  if ($("#p_provincia_id").length) {
+    if ($("#p_provincia_id").val() != "") {
+      buscarRegion(); 
+    };
+  };
 
    // p_provincia_id
 
