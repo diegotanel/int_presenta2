@@ -66,7 +66,7 @@ class DatosEsp < ActiveRecord::Base
 	end
 
 	def validacion_minimo_un_artista
-    errors[:base] << "Como mínimo se debe adicionar un artísta a la ficha" unless minimo_un_artista
+    errors[:base] << "Como mínimo se debe adicionar un integrante a la ficha artística" unless minimo_un_artista
   end
 
   def minimo_un_artista

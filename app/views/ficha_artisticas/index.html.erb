@@ -1,10 +1,8 @@
 #encoding: utf-8
 <% provide(:title, 'Fichas de Artistas') %>
-<h1>Ficha Artística *</h1></br>
-<% if @formulario.datos_esp.ficha_artisticas.count < 1 %>
-  <p><font color="red">ERROR: Al menos tiene que haber un artísta en la ficha</font></p> 
-<% end %>
+<h1>Ficha Artística</h1></br>
 
+<p>(Se debe adicionar como mínimo un integrante a la ficha artística)</p> 
 
 <div id="artistas">
 <table class="table table-striped">
@@ -28,14 +26,14 @@
 
     <td><%= link_to "Ver", formulario_ficha_artistica_path(@formulario, ficha) %></td>
 
-    <td><%= link_to "Modificar", edit_formulario_ficha_artistica_path(@formulario, ficha) %></td>
+    <td><%= link_to "Editar", edit_formulario_ficha_artistica_path(@formulario, ficha) %></td>
 
     <td><%= link_to t("scaffoldi18n.destroy"), formulario_ficha_artistica_path(@formulario, ficha), :data => {confirm: t("scaffoldi18n.are_you_sure?")}, method: :delete %></td>
     
   <% end %>
 </table>
-<%= link_to "Nuevo Artista", new_formulario_ficha_artistica_path(@formulario), class: "btn btn-medium btn-primary" %>
-<%= link_to "Finalizar ficha artística", edit_formulario_path(@formulario), class: "btn btn-medium btn-primary" %>
+<%= link_to "Nuevo Integrante", new_formulario_ficha_artistica_path(@formulario), class: "btn btn-medium btn-primary" %>
+<%= link_to "Finalizar Ficha artística", edit_formulario_path(@formulario), class: "btn btn-medium btn-primary" %>
 
 <br />
 </br>

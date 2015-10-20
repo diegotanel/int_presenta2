@@ -29,6 +29,36 @@
     <%= f.text_field :nombre %>
   </div>
 
+  <h3>Datos del Contacto</h3>
+
+  <div class="field">
+    <br/><%= f.label :nombre_contacto, "Nombre del contacto *" %>
+    <%= f.text_field :nombre_contacto %>
+  </div>
+
+  <div class="field">
+    <br/><%= f.label :apellido_contacto, "Apellido del contacto *" %>
+    <%= f.text_field :apellido_contacto %>
+  </div>
+
+  <p>Se debe completar al menos un teléfono</p>
+
+    <div class="field">
+      <%= f.label :tel_particular, "Prefijo - Teléfono Particular del contacto(sin guiones ni puntos)" %>
+    </div>
+    <div class="form-inline">              
+      <%= f.text_field :prefijo_tel_part %>
+      <%= f.text_field :tel_particular %>
+    </div>
+
+    <div class="field">
+      <%= f.label :tel_celular, "Prefijo - Teléfono Celular del contacto (sin guiones ni puntos)" %>
+    </div>
+    <div class="form-inline">    
+      <%= f.text_field :prefijo_tel_cel %>
+      <%= f.text_field :tel_celular %>
+    </div>
+
   <div class="actions">
     <%= f.submit "Guardar Datos", class: "btn btn-large btn-primary" %>
   </div>

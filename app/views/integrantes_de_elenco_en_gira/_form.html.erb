@@ -1,5 +1,5 @@
 #encoding: utf-8
-<% types = ['Actor', 'Director', 'Tecnico'] %>
+<% types = ['Intérprete', 'Director', 'Técnico'] %>
 
   <%= form_for([@formulario, @integrante]) do |f| %>
    <%= render 'shared/error_messages', :object => f.object %>
@@ -22,7 +22,7 @@
     </div>
 
     <div class="field">
-        <%= label_tag :nacionalidad, "Nacionalidad" %>    
+        <%= label_tag :nacionalidad, "Nacionalidad *" %>    
     </div>
 
     <div class="field">

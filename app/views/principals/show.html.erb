@@ -20,6 +20,28 @@
 			<p>
 				<b>Nombre del espectáculo:</b>
 				<%= @principal.nombre %>
+			</p></br>
+
+			<h3>Datos del Contacto</h3></br>
+			
+			<p>
+				<b>Nombre del contacto:</b>
+				<%= @principal.nombre_contacto %>
+			</p>
+
+			<p>
+				<b>Apellido del contacto:</b>
+				<%= @principal.apellido_contacto %>
+			</p>
+
+			<p>
+  			<b>Teléfono particular del contacto:</b>
+  			<%= @principal.prefijo_tel_part + " " + @principal.tel_particular %>
+			</p>
+
+			<p>
+  			<b>Teléfono celular del contacto:</b>
+  			<%= @principal.prefijo_tel_cel + " " + @principal.tel_celular %>
 			</p>
 			</br>
 			
