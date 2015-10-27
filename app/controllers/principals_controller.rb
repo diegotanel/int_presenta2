@@ -34,6 +34,7 @@ class PrincipalsController < ApplicationController
   def update
     @formulario = Formulario.find_by_id(params[:formulario_id])
     @principal = Principal.find(params[:id])
+    @principal.saltear_validaciones_de_presencia = true
     if @principal.update_attributes(principal_params)
       flash[:success] = "Datos principales actualizados"
       redirect_to formulario_principal_path(@formulario, @principal)
@@ -67,7 +68,7 @@ class PrincipalsController < ApplicationController
   private
 
   def principal_params
-    params.require(:principal).permit(:localidad_id, :grupo_id, :nombre)
+    params.require(:principal).permit(:localidad_id, :grupo_id, :nombre, :nombre_contacto, :apellido_contacto, :tel_particular, :prefijo_tel_part, :tel_celular, :prefijo_tel_cel)
   end
 
   def inicializar_variables

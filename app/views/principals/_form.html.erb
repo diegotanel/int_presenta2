@@ -32,7 +32,7 @@
   <h3>Datos del Contacto</h3>
 
   <div class="field">
-    <br/><%= f.label :nombre_contacto, "Nombre del contacto *" %>
+    <%= f.label :nombre_contacto, "Nombre del contacto *" %>
     <%= f.text_field :nombre_contacto %>
   </div>
 
@@ -58,6 +58,7 @@
       <%= f.text_field :prefijo_tel_cel %>
       <%= f.text_field :tel_celular %>
     </div>
+     <br/>
 
   <div class="actions">
     <%= f.submit "Guardar Datos", class: "btn btn-large btn-primary" %>

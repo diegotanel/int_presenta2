@@ -345,10 +345,16 @@ ActiveRecord::Schema.define(version: 20150921172549) do
   add_index "personas_juridicas_e", ["persona_juridica_id"], name: "index_personas_juridicas_e_on_persona_juridica_id", using: :btree
 
   create_table "principals", force: :cascade do |t|
-    t.integer  "formulario_id", null: false
-    t.integer  "localidad_id",  null: false
-    t.integer  "grupo_id",      null: false
-    t.string   "nombre",        null: false
+    t.integer  "formulario_id",     null: false
+    t.integer  "localidad_id",      null: false
+    t.integer  "grupo_id",          null: false
+    t.string   "nombre",            null: false
+    t.string   "nombre_contacto",   null: false
+    t.string   "apellido_contacto", null: false
+    t.string   "prefijo_tel_part"
+    t.string   "prefijo_tel_cel"
+    t.string   "tel_particular"
+    t.string   "tel_celular"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -5,7 +5,7 @@ var ready = function() {
         var urlToSubmit = ""
         var partial_name = ""
         //Habria que traer los tipos de documento            
-        if($(this).val() == 8)     
+        if($(this).val() == 7)     
         {  
           partial_name = "datos_nacional";
         }

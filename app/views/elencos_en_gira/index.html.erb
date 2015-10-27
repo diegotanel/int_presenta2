@@ -2,10 +2,6 @@
 <% provide(:title, 'Formulario de elenco en gira') %>
 <h1>Elenco en gira</h1>
 
-<% if !(@formulario.elenco_en_gira.valid?) %>
-    <%= render 'shared/error_messages', :object => @formulario.elenco_en_gira %>   
-<% end %>
-
 <div id="integrantes de elenco en gira">
 
 <h3>Integrantes de Elenco en Gira</h3>

@@ -105,7 +105,7 @@ class IntegrantesDeElencoEnGiraController < ApplicationController
 
   def es_nacional?(nacionalidad_id)
     #Id de la Nacionalidad Argentina
-    nacional_id = 8
+    nacional_id = 7
     nacional_id.eql?(nacionalidad_id)
   end
 
