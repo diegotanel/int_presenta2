@@ -351,10 +351,10 @@ ActiveRecord::Schema.define(version: 20150921172549) do
     t.string   "nombre",            null: false
     t.string   "nombre_contacto",   null: false
     t.string   "apellido_contacto", null: false
-    t.string   "prefijo_tel_part"
-    t.string   "prefijo_tel_cel"
-    t.string   "tel_particular"
-    t.string   "tel_celular"
+    t.string   "prefijo_tel_part",  null: false
+    t.string   "prefijo_tel_cel",   null: false
+    t.string   "tel_particular",    null: false
+    t.string   "tel_celular",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

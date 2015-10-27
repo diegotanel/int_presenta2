@@ -44,6 +44,7 @@ class IntegranteDeElencoEnGira < ActiveRecord::Base
   validates :tel_particular, numericality: { only_integer: true }, allow_blank: true
   #validates :tel_celular, presence: true, unless: :saltear_validaciones_de_presencia
   validates :tel_celular, numericality: { only_integer: true }, allow_blank: true
+  validates :nacionalidad_integrante, presence: true, unless: :saltear_validaciones_de_presencia
 
   def es_menor?
     18.years.ago < self.fecha_de_nacimiento

@@ -54,15 +54,13 @@
     <%= f.text_field :codigo_postal %>
   </div>
 
-  <div class="field">
-    <%= f.label :prefijo_tel_ent, "Prefijo Teléfono entidad" %>
-    <%= f.text_field :prefijo_tel_ent %>
+    <div class="field">
+      <%= f.label :tel_entidad, "Prefijo - Teléfono de la Entidad(sin guiones ni puntos)" %>
     </div>
-
-  <div class="field">
-    <%= f.label :tel_entidad, "Teléfono de la entidad *" %>
-    <%= f.text_field :tel_entidad %>
-  </div>
+    <div class="form-inline">              
+      <%= f.text_field :prefijo_tel_ent %>
+      <%= f.text_field :tel_entidad %>
+    </div>
 
   <div class="field">
     <%= f.label :email_entidad, "Email de la entidad *" %>

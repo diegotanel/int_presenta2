@@ -112,7 +112,7 @@
       <%= hidden_field_tag "integrante_de_elenco_en_gira[integrante_rol_ids][]", nil %>
       <% IntegranteRol.all.each do |integrante_rol| %>
         <tr>
-          <td><%= check_box_tag "integrante_de_elenco_en_gira[integrante_rol_ids][]", integrante_rol.id, @integrante.integrante_rol_ids.include?(integrante_rol.id), :id => dom_id(integrante_rol) %></td>
+          <td><%= check_box_tag "integrante_de_elenco_en_gira[integrante_rol_ids][]", integrante_rol.id, @integrante.integrante_rol_ids.include?(integrante_rol.id), :id => dom_id(integrante_rol), readonly: true, onclick: "return false" %></td>
           <td><%= integrante_rol.detalle %></td>
         </tr>
       <% end %>

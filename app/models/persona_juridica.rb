@@ -27,7 +27,7 @@ class PersonaJuridica < ActiveRecord::Base
   validates :codigo_postal, presence: true, unless: :saltear_validaciones_de_presencia
   validates :email_entidad, presence: true, unless: :saltear_validaciones_de_presencia
   validates :email_entidad, format: {with: VALID_EMAIL_REGEX}
-  validates :tel_entidad, numericality: { only_integer: true }, allow_blank: true
+  validates :tel_entidad, presence: true, numericality: { only_integer: true }, unless: :saltear_validaciones_de_presencia
 
 
   def validacion_digitoverificador_de_cuit_cuil!

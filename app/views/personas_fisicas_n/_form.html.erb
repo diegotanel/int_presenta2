@@ -59,27 +59,24 @@
     <%= f.text_field :codigo_postal %>
     </div>
 
-    <p>Se debe completar al menos un teléfono</p>
+      <p>Se debe completar al menos un teléfono</p>
 
     <div class="field">
-    <%= f.label :prefijo_tel_part, "Prefijo Teléfono Particular" %>
-    <%= f.text_field :prefijo_tel_part %>
+      <%= f.label :tel_particular, "Prefijo - Teléfono Particular del contacto(sin guiones ni puntos)" %>
+    </div>
+    <div class="form-inline">              
+      <%= f.text_field :prefijo_tel_part %>
+      <%= f.text_field :tel_particular %>
     </div>
 
     <div class="field">
-    <%= f.label :tel_particular, "Teléfono Particular (sin guiones ni puntos)" %>
-    <%= f.text_field :tel_particular %>
+      <%= f.label :tel_celular, "Prefijo - Teléfono Celular del contacto (sin guiones ni puntos)" %>
     </div>
-
-    <div class="field">
-    <%= f.label :prefijo_tel_cel, "Prefijo Teléfono Celular" %>
-    <%= f.text_field :prefijo_tel_cel %>
+    <div class="form-inline">    
+      <%= f.text_field :prefijo_tel_cel %>
+      <%= f.text_field :tel_celular %>
     </div>
-
-    <div class="field">
-    <%= f.label :tel_celular, "Teléfono Celular (sin guiones ni puntos y sin el 15 adelante)" %>
-    <%= f.text_field :tel_celular %>
-    </div>
+     <br/>
 
     <div class="field">
     <%= f.label :email, "Email *" %>

@@ -45,7 +45,7 @@
     <% end %>
     <td><%= I18n.l(integrante.fecha_de_nacimiento) if integrante.fecha_de_nacimiento %></td>
     <td><%= integrante.integrante_roles.map { |e| e.detalle }.join(", ") %></td>
-    <% if integrante.valid? %>
+    <% if integrante.valid? and integrante.nacionalidad_integrante%>
       <td><font color="green">Completo</font></td>
     <% else %>    
       <td><font color="red">Incompleto</font></td>

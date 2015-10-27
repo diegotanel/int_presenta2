@@ -224,6 +224,8 @@
             <% else %>
               <td><font color="green">Campo Completo</font></td>
             <% end %>
+          <% else %>
+            <td><font color="red">Campo Incompleto</font></td>
           <% end %>
         <% else %>
           <% if (@formulario.responsable.responsabilidad.valid?) %>
