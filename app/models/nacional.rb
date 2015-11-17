@@ -1,6 +1,6 @@
 class Nacional < ActiveRecord::Base
 
-	has_one :nacionalidad_integrante, as: :procedencia, dependent: :destroy
+	has_one :nacionalidad_integrante, as: :procedencia
   #validates :cuil_cuit, length: {maximum: 11, minimum: 11}, numericality: { only_integer: true }, presence: true
   validate :validacion_digitoverificador_de_cuit_cuil!
 

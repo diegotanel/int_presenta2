@@ -11,7 +11,7 @@ class IntegranteDeElencoEnGira < ActiveRecord::Base
 
   belongs_to :localidad
   belongs_to :elenco_en_gira
-  has_one :nacionalidad_integrante
+  has_one :nacionalidad_integrante, dependent: :destroy
   validates_associated :nacionalidad_integrante
 
   unless :saltear_validaciones_de_email

@@ -108,7 +108,11 @@ class GeneradorDeFormularioInterno
 	def llenado_de_persona_fisica(report, persona_fisica)
 		report.add_field("APELLIDOS_FISICA", persona_fisica.apellido)
 		report.add_field("NOMBRES_FISICA", persona_fisica.nombre)
-		report.add_field("CUIL_FISICA", persona_fisica.cuil_cuit)
+		if (persona_fisica.class.name == "IntegranteDeElencoEnGira")
+			report.add_field("CUIL_FISICA", persona_fisica.nacionalidad_integrante.procedencia.cuil_cuit)
+		else
+			report.add_field("CUIL_FISICA", persona_fisica.cuil_cuit)
+		end
 		report.add_field("FECHA_DE_NACIMIENTO_FISICA", I18n.l(persona_fisica.fecha_de_nacimiento))
 		report.add_field("DOMICILIO_FISICA", "#{persona_fisica.calle } #{persona_fisica.altura_calle } #{persona_fisica.piso } #{persona_fisica.depto }")
 		report.add_field("PROVINCIA_FISICA", persona_fisica.provincia.detalle)

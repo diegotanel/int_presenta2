@@ -4,7 +4,7 @@ class ElencoEnGira < ActiveRecord::Base
   attr_accessor :saltear_validaciones_de_presencia
   attr_accessor :cantidad_integrantes_en_gira
   belongs_to :formulario
-  has_many :integrantes_de_elenco_en_gira
+  has_many :integrantes_de_elenco_en_gira, dependent: :destroy
 
   validates :formulario, presence: true
   validates_associated :integrantes_de_elenco_en_gira
