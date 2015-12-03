@@ -53,7 +53,9 @@
 
 <p>
   <b>Teléfono entidad:</b>
-  <%= @buscado.tel_entidad if @buscado.tel_entidad%>
+  <%= if @buscado.tel_entidad and @buscado.prefijo_tel_ent%>
+    <%= @buscado.prefijo_tel_ent + " " + @buscado.tel_entidad %>
+  <% end %>
 </p>
 
 <p>

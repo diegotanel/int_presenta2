@@ -58,12 +58,16 @@
 
 <p>
   <b>Teléfono particular:</b>
-  <%= @buscado.tel_particular if @buscado.tel_particular%>
+  <%= if @buscado.tel_particular and @buscado.prefijo_tel_part%>
+    <%= @buscado.prefijo_tel_part + " " + @buscado.tel_particular %>
+  <% end %>
 </p>
 
 <p>
   <b>Teléfono celular:</b>
-  <%= @buscado.tel_celular if @buscado.tel_celular%>
+  <%= if @buscado.tel_celular and @buscado.prefijo_tel_cel%>
+    <%= @buscado.prefijo_tel_cel + " " + @buscado.tel_celular %>
+  <% end %>
 </p>
 
 <p>

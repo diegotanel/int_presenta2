@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'excel_formularios/index'
+
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   resources :password_recovers, only: [:new, :create]

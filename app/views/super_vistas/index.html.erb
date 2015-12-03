@@ -322,12 +322,12 @@
 
 			<p>
 			  <b>Teléfono particular:</b>
-			  <%= @persona.tel_particular %>
+			  <%= @persona.prefijo_tel_part + " " + @persona.tel_particular %>
 			</p>
 
 			<p>
 			 	<b>Teléfono celular:</b>
-			  <%= @persona.tel_celular %>
+			  <%= @persona.prefijo_tel_cel + " " + @persona.tel_celular %>
 			</p>
 
 			<p>
@@ -400,12 +400,12 @@
 
 			<p>
 			  <b>Teléfono particular:</b>
-			  <%= @formulario.responsable.responsabilidad.tel_particular %>
+			  <%= @formulario.responsable.responsabilidad.prefijo_tel_part + " " + @formulario.responsable.responsabilidad.tel_particular %>
 			</p>
 
 			<p>
 			  <b>Teléfono celular:</b>
-			  <%= @formulario.responsable.responsabilidad.tel_celular %>
+			  <%= @formulario.responsable.responsabilidad.prefijo_tel_cel + " " + @formulario.responsable.responsabilidad.tel_celular %>
 			</p>
 
 			<p>
@@ -473,7 +473,7 @@
 
 			<p>
 			  <b>Teléfono entidad:</b>
-			  <%= @formulario.responsable.responsabilidad.tel_entidad %>
+			  <%= @formulario.responsable.responsabilidad.prefijo_tel_ent + " " + @formulario.responsable.responsabilidad.tel_entidad %>
 			</p>
 
 			<p>
@@ -638,7 +638,7 @@
 
 			<p>
 				<b>Teléfono entidad:</b>
-				<%= @persona_juridica.tel_entidad %>
+				<%= @persona_juridica.prefijo_tel_ent + " " + @persona_juridica.tel_entidad %>
 			</p>
 
 			<p>

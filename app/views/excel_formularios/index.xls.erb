@@ -1,0 +1,381 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Principal">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Nombre del espectáculo</Data></Cell>
+        <Cell><Data ss:Type="String">Provincia</Data></Cell>
+        <Cell><Data ss:Type="String">Localidad</Data></Cell>
+        <Cell><Data ss:Type="String">Grupo o Espectáculo Concertado</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String"><%= @formulario.principal.nombre %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= @formulario.principal.provincia.detalle %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= @formulario.principal.localidad.detalle %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= @formulario.principal.grupo.detalle %></Data></Cell>
+      </Row>
+    </Table>
+  </Worksheet>
+  <Worksheet ss:Name="Datos generales del espectáculo">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Fecha de Estreno</Data></Cell>
+        <Cell><Data ss:Type="String">Nombre del autor</Data></Cell>
+        <Cell><Data ss:Type="String">Nacionalidad del autor</Data></Cell>
+        <Cell><Data ss:Type="String">Duración del espectáculo</Data></Cell>
+        <Cell><Data ss:Type="String">Sinopsis del espectáculo</Data></Cell>
+        <Cell><Data ss:Type="String">Géneros del espectáculo</Data></Cell>
+        <Cell><Data ss:Type="String">Públicos por experiencia</Data></Cell>
+        <Cell><Data ss:Type="String">Públicos por edad</Data></Cell>
+        <Cell><Data ss:Type="String">Formatos</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String"><%= I18n.l(@formulario.datos_esp.fecha_de_estreno) %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= @formulario.datos_esp.nombre_autor %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= @formulario.datos_esp.nacionalidad.detalle %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= @formulario.datos_esp.duracion_espectaculo %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= @formulario.datos_esp.sinopsis_obra %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= @formulario.datos_esp.gen_esps.map { |e| e.detalle }.join(", ") %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= @formulario.datos_esp.publs_exp.map { |e| e.detalle }.join(", ") %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= @formulario.datos_esp.publs_edad.map { |e| e.detalle }.join(", ") %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= @formulario.datos_esp.formatos.map { |e| e.detalle }.join(", ") %></Data></Cell>
+      </Row>
+    </Table>
+  </Worksheet>
+  <Worksheet ss:Name="Ficha Artística">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Nombre</Data></Cell>
+        <Cell><Data ss:Type="String">Apellido</Data></Cell>
+        <Cell><Data ss:Type="String">Rol</Data></Cell>
+        <Cell><Data ss:Type="String">Pertenece al elenco en gira?</Data></Cell>
+      </Row>
+      <% @artistas = @formulario.datos_esp.ficha_artisticas.all %>
+      <% @artistas.each do |artista| %>
+        <Row>
+          <Cell><Data ss:Type="String"><%= artista.nombre_artista %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= artista.apellido_artista %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= artista.rol_artista %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= artista.decision_elenco %></Data></Cell>
+        </Row>
+      <% end %>
+    </Table>
+  </Worksheet>
+  <Worksheet ss:Name="Datos técnicos del espectáculo">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Duración montaje</Data></Cell>
+        <Cell><Data ss:Type="String">Duración desmontaje</Data></Cell>
+        <Cell><Data ss:Type="String">Tipo de espacio</Data></Cell>
+        <Cell><Data ss:Type="String">Descripción espacio</Data></Cell>
+        <Cell><Data ss:Type="String">Ancho</Data></Cell>
+        <Cell><Data ss:Type="String">Alto</Data></Cell>
+        <Cell><Data ss:Type="String">Profundidad</Data></Cell>
+        <Cell><Data ss:Type="String">Listado de artefactos lumínicos</Data></Cell>
+        <Cell><Data ss:Type="String">Listado sonido</Data></Cell>
+        <Cell><Data ss:Type="String">Otros equipamientos</Data></Cell>
+        <Cell><Data ss:Type="String">Peso total</Data></Cell>
+        <Cell><Data ss:Type="String">Volumen total</Data></Cell>
+        <Cell><Data ss:Type="String">Otras necesidades</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String"><%= @formulario.datos_tec.duracion_montaje %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= @formulario.datos_tec.duracion_desmontaje %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= @formulario.datos_tec.esps_esps.map { |e| e.detalle }.join(", ") %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= @formulario.datos_tec.descripcion_espacio %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= @formulario.datos_tec.ancho %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= @formulario.datos_tec.alto %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= @formulario.datos_tec.profundidad %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= @formulario.datos_tec.listado_artefactos_luminicos %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= @formulario.datos_tec.listado_sonido %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= @formulario.datos_tec.otros_equipamientos %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= @formulario.datos_tec.peso_total %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= @formulario.datos_tec.volumen_total %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= @formulario.datos_tec.otras_necesidades %></Data></Cell>
+      </Row>
+    </Table>
+  </Worksheet>
+  <Worksheet ss:Name="Datos del elenco en gira">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Nombre</Data></Cell>
+        <Cell><Data ss:Type="String">Apellido</Data></Cell>
+        <Cell><Data ss:Type="String">Tipo de documento</Data></Cell>
+        <Cell><Data ss:Type="String">Número de documento</Data></Cell>
+        <Cell><Data ss:Type="String">Email</Data></Cell>
+        <Cell><Data ss:Type="String">Fecha de Nacimiento</Data></Cell>
+        <Cell><Data ss:Type="String">Roles</Data></Cell>
+      </Row>
+      <% @integrantes = @formulario.elenco_en_gira.integrantes_de_elenco_en_gira.all %>
+      <% @integrantes.each do |integrante| %>
+        <Row>
+          <Cell><Data ss:Type="String"><%= integrante.nombre %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= integrante.apellido %></Data></Cell>
+          <% if integrante.nacionalidad_integrante.procedencia_type == "Nacional" %>
+            <Cell><Data ss:Type="String">CUIL / CUIT</Data></Cell>
+            <Cell><Data ss:Type="String"><%= integrante.nacionalidad_integrante.procedencia.cuil_cuit %></Data></Cell>
+          <% end %>
+          <% if integrante.nacionalidad_integrante.procedencia_type == "Extranjero" %>
+            <Cell><Data ss:Type="String"><%= integrante.nacionalidad_integrante.procedencia.tipo_doc %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= integrante.nacionalidad_integrante.procedencia.num_doc %></Data></Cell>
+          <% end %>    
+          <Cell><Data ss:Type="String"><%= integrante.email %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= I18n.l(integrante.fecha_de_nacimiento) %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= integrante.integrante_roles.map { |e| e.detalle }.join(", ") %></Data></Cell>
+        </Row>
+      <% end %>
+    </Table>
+  </Worksheet>
+  <% if (@formulario.principal.grupo.codigo == "a" ) %>
+    <Worksheet ss:Name="Datos del grupo">
+      <Table>
+        <Row>
+          <Cell><Data ss:Type="String">Nombre del grupo</Data></Cell>
+          <Cell><Data ss:Type="String">>Historia del grupo</Data></Cell>
+        </Row>
+        <Row>
+          <Cell><Data ss:Type="String"><%= @formulario.datos_grupo.nombre_grupo %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @formulario.datos_grupo.historia %></Data></Cell>
+        </Row>
+      </Table>
+    </Worksheet>
+  <% end %>
+  <% if (@formulario.responsable.responsabilidad_type == "PersonaFisicaEInt") %>
+    <% @id_persona = @formulario.responsable.responsabilidad.integrante_de_elenco_en_gira_id %>
+    <% @persona_e = IntegranteDeElencoEnGira.find_by_id(@id_persona) %>
+    <Worksheet ss:Name="Datos del responsable">
+      <Table>
+        <Row>
+          <Cell><Data ss:Type="String">Nombre</Data></Cell>
+          <Cell><Data ss:Type="String">Apellido</Data></Cell>
+          <Cell><Data ss:Type="String">CUIL / CUIT</Data></Cell>
+          <Cell><Data ss:Type="String">Fecha de nacimiento</Data></Cell>
+          <Cell><Data ss:Type="String">Calle</Data></Cell>
+          <Cell><Data ss:Type="String">Número de calle</Data></Cell>
+          <Cell><Data ss:Type="String">Piso</Data></Cell>
+          <Cell><Data ss:Type="String">Departamento</Data></Cell>
+          <Cell><Data ss:Type="String">Provincia</Data></Cell>
+          <Cell><Data ss:Type="String">Localidad</Data></Cell>
+          <Cell><Data ss:Type="String">Código postal</Data></Cell>
+          <Cell><Data ss:Type="String">Teléfono particular</Data></Cell>
+          <Cell><Data ss:Type="String">Teléfono celular</Data></Cell>
+          <Cell><Data ss:Type="String">Email</Data></Cell>
+        </Row>
+        <Row>
+          <Cell><Data ss:Type="String"><%= @persona_e.nombre %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_e.apellido %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_e.cuil_cuit %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= I18n.l(@persona_e.fecha_de_nacimiento) %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_e.calle %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_e.altura_calle %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_e.piso %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_e.depto %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_e.provincia.detalle %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_e.localidad.detalle %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_e.codigo_postal %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_e.prefijo_tel_part + " " + @persona_e.tel_particular %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_e.prefijo_tel_cel + " " + @persona_e.tel_celular %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_e.email %></Data></Cell>
+        </Row>
+      </Table>
+    </Worksheet>
+  <% end %>
+  <% if (@formulario.responsable.responsabilidad_type == "PersonaFisicaENue") %>
+    <% @id_persona = @formulario.responsable.responsabilidad.persona_fisica_n_id %>
+    <% @persona_e = PersonaFisicaN.find_by_id(@id_persona) %>
+    <Worksheet ss:Name="Datos del responsable">
+      <Table>
+        <Row>
+          <Cell><Data ss:Type="String">Nombre</Data></Cell>
+          <Cell><Data ss:Type="String">Apellido</Data></Cell>
+          <Cell><Data ss:Type="String">CUIL / CUIT</Data></Cell>
+          <Cell><Data ss:Type="String">Fecha de nacimiento</Data></Cell>
+          <Cell><Data ss:Type="String">Calle</Data></Cell>
+          <Cell><Data ss:Type="String">Número de calle</Data></Cell>
+          <Cell><Data ss:Type="String">Piso</Data></Cell>
+          <Cell><Data ss:Type="String">Departamento</Data></Cell>
+          <Cell><Data ss:Type="String">Provincia</Data></Cell>
+          <Cell><Data ss:Type="String">Localidad</Data></Cell>
+          <Cell><Data ss:Type="String">Código postal</Data></Cell>
+          <Cell><Data ss:Type="String">Teléfono particular</Data></Cell>
+          <Cell><Data ss:Type="String">Teléfono celular</Data></Cell>
+          <Cell><Data ss:Type="String">Email</Data></Cell>
+        </Row>
+        <Row>
+          <Cell><Data ss:Type="String"><%= @persona_e.nombre %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_e.apellido %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_e.cuil_cuit %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= I18n.l(@persona_e.fecha_de_nacimiento) %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_e.calle %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_e.altura_calle %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_e.piso %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_e.depto %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_e.provincia.detalle %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_e.localidad.detalle %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_e.codigo_postal %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_e.prefijo_tel_part + " " + @persona_e.tel_particular %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_e.prefijo_tel_cel + " " + @persona_e.tel_celular %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_e.email %></Data></Cell>
+        </Row>
+      </Table>
+    </Worksheet>
+  <% end %>
+  <% if (@formulario.responsable.responsabilidad_type == "PersonaFisicaN") %>
+    <Worksheet ss:Name="Datos del responsable">
+      <Table>
+        <Row>
+          <Cell><Data ss:Type="String">Nombre</Data></Cell>
+          <Cell><Data ss:Type="String">Apellido</Data></Cell>
+          <Cell><Data ss:Type="String">CUIL / CUIT</Data></Cell>
+          <Cell><Data ss:Type="String">Fecha de nacimiento</Data></Cell>
+          <Cell><Data ss:Type="String">Calle</Data></Cell>
+          <Cell><Data ss:Type="String">Número de calle</Data></Cell>
+          <Cell><Data ss:Type="String">Piso</Data></Cell>
+          <Cell><Data ss:Type="String">Departamento</Data></Cell>
+          <Cell><Data ss:Type="String">Provincia</Data></Cell>
+          <Cell><Data ss:Type="String">Localidad</Data></Cell>
+          <Cell><Data ss:Type="String">Código postal</Data></Cell>
+          <Cell><Data ss:Type="String">Teléfono particular</Data></Cell>
+          <Cell><Data ss:Type="String">Teléfono celular</Data></Cell>
+          <Cell><Data ss:Type="String">Email</Data></Cell>
+        </Row>
+        <Row>
+          <Cell><Data ss:Type="String"><%= @formulario.responsable.responsabilidad.nombre %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @formulario.responsable.responsabilidad.apellido %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @formulario.responsable.responsabilidad.cuil_cuit %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= I18n.l(@formulario.responsable.responsabilidad.fecha_de_nacimiento) %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @formulario.responsable.responsabilidad.calle %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @formulario.responsable.responsabilidad.altura_calle %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @formulario.responsable.responsabilidad.piso %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @formulario.responsable.responsabilidad.depto %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @formulario.responsable.responsabilidad.provincia.detalle %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @formulario.responsable.responsabilidad.localidad.detalle %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @formulario.responsable.responsabilidad.codigo_postal %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @formulario.responsable.responsabilidad.prefijo_tel_part + " " + @formulario.responsable.responsabilidad.tel_particular %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @formulario.responsable.responsabilidad.prefijo_tel_cel + " " + @formulario.responsable.responsabilidad.tel_celular %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @formulario.responsable.responsabilidad.email %></Data></Cell>      
+        </Row>
+      </Table>
+    </Worksheet>
+  <% end %>
+  <% if (@formulario.responsable.responsabilidad_type == "PersonaJuridica") %>
+    <Worksheet ss:Name="Datos del responsable">
+      <Table>
+        <Row>
+          <Cell><Data ss:Type="String">Nombre</Data></Cell>
+          <Cell><Data ss:Type="String">CUIT</Data></Cell>
+          <Cell><Data ss:Type="String">Numero de  personería jurídica</Data></Cell>
+          <Cell><Data ss:Type="String">Calle</Data></Cell>
+          <Cell><Data ss:Type="String">Numero de calle</Data></Cell>
+          <Cell><Data ss:Type="String">Piso</Data></Cell>
+          <Cell><Data ss:Type="String">Departamento</Data></Cell>
+          <Cell><Data ss:Type="String">Provincia</Data></Cell>
+          <Cell><Data ss:Type="String">Localidad</Data></Cell>
+          <Cell><Data ss:Type="String">Código postal</Data></Cell>
+          <Cell><Data ss:Type="String">Teléfono entidad</Data></Cell>
+          <Cell><Data ss:Type="String">Email entidad</Data></Cell>
+        </Row>
+        <Row>
+          <Cell><Data ss:Type="String"><%= @formulario.responsable.responsabilidad.nombre_per_juridica %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @formulario.responsable.responsabilidad.num_cuit %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @formulario.responsable.responsabilidad.num_per_juridica %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @formulario.responsable.responsabilidad.calle %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @formulario.responsable.responsabilidad.altura_calle %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @formulario.responsable.responsabilidad.piso %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @formulario.responsable.responsabilidad.depto %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @formulario.responsable.responsabilidad.provincia.detalle %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @formulario.responsable.responsabilidad.localidad.detalle %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @formulario.responsable.responsabilidad.codigo_postal %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @formulario.responsable.responsabilidad.prefijo_tel_ent + " " + @formulario.responsable.responsabilidad.tel_entidad %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @formulario.responsable.responsabilidad.email_entidad %></Data></Cell>
+        </Row>
+      </Table>
+    </Worksheet>
+    <Worksheet ss:Name="Comisión Directiva">
+      <Table>
+        <Row>
+          <Cell><Data ss:Type="String">Cargo</Data></Cell>
+          <Cell><Data ss:Type="String">Nombre</Data></Cell>
+          <Cell><Data ss:Type="String">Apellido</Data></Cell>
+          <Cell><Data ss:Type="String">CUIL / CUIT</Data></Cell>
+          <Cell><Data ss:Type="String">Email</Data></Cell>
+          <Cell><Data ss:Type="String">Fecha de Nacimiento</Data></Cell>
+        </Row>
+        <% @integrantes_comision = @formulario.responsable.responsabilidad.integrantes_comision_directiva.all %>
+        <% @integrantes_comision.each do |integrante_comision| %>
+          <Row>
+            <Cell><Data ss:Type="String"><%= integrante_comision.cargo %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= integrante_comision.nombre %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= integrante_comision.apellido %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= integrante_comision.cuil_cuit %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= integrante_comision.email %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= I18n.l(integrante_comision.fecha_de_nacimiento) %></Data></Cell>
+          </Row>
+        <% end %>
+      </Table>
+    </Worksheet>
+  <% end %>
+  <% if (@formulario.responsable.responsabilidad_type == "PersonaJuridicaE") %>
+    <% @id_juridica = @formulario.responsable.responsabilidad.persona_juridica_id %>
+    <% @persona_juridica = PersonaJuridica.find_by_id(@id_juridica) %>
+    <Worksheet ss:Name="Datos del responsable">
+      <Table>
+        <Row>
+          <Cell><Data ss:Type="String">Nombre</Data></Cell>
+          <Cell><Data ss:Type="String">CUIT</Data></Cell>
+          <Cell><Data ss:Type="String">Numero de  personería jurídica</Data></Cell>
+          <Cell><Data ss:Type="String">Calle</Data></Cell>
+          <Cell><Data ss:Type="String">Numero de calle</Data></Cell>
+          <Cell><Data ss:Type="String">Piso</Data></Cell>
+          <Cell><Data ss:Type="String">Departamento</Data></Cell>
+          <Cell><Data ss:Type="String">Provincia</Data></Cell>
+          <Cell><Data ss:Type="String">Localidad</Data></Cell>
+          <Cell><Data ss:Type="String">Código postal</Data></Cell>
+          <Cell><Data ss:Type="String">Teléfono entidad</Data></Cell>
+          <Cell><Data ss:Type="String">Email entidad</Data></Cell>
+        </Row>
+        <Row>
+          <Cell><Data ss:Type="String"><%= @persona_juridica.nombre_per_juridica %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_juridica.num_cuit %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_juridica.num_per_juridica %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_juridica.calle %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_juridica.altura_calle %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_juridica.piso %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_juridica.depto %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_juridica.provincia.detalle %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_juridica.localidad.detalle %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_juridica.codigo_postal %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_juridica.prefijo_tel_ent + " " + @persona_juridica.tel_entidad %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_juridica.email_entidad %></Data></Cell>
+        </Row>
+      </Table>
+    </Worksheet>
+    <Worksheet ss:Name="Comisión Directiva">
+      <Table>
+        <Row>
+          <Cell><Data ss:Type="String">Cargo</Data></Cell>
+          <Cell><Data ss:Type="String">Nombre</Data></Cell>
+          <Cell><Data ss:Type="String">Apellido</Data></Cell>
+          <Cell><Data ss:Type="String">CUIL / CUIT</Data></Cell>
+          <Cell><Data ss:Type="String">Email</Data></Cell>
+          <Cell><Data ss:Type="String">Fecha de Nacimiento</Data></Cell>
+        </Row>
+        <% @integrantes_comision = @persona_juridica.integrantes_comision_directiva.all %>
+        <% @integrantes_comision.each do |integrante_comision| %>
+          <Row>
+            <Cell><Data ss:Type="String"><%= integrante_comision.cargo %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= integrante_comision.nombre %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= integrante_comision.apellido %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= integrante_comision.cuil_cuit %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= integrante_comision.email %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= I18n.l(integrante_comision.fecha_de_nacimiento) %></Data></Cell>
+          </Row>
+        <% end %>
+      </Table>
+    </Worksheet>
+  <% end %>
+</Workbook>

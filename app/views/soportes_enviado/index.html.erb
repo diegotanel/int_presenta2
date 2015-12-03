@@ -70,6 +70,7 @@
     	<td><%= I18n.l(formulario.datos_esp.fecha_de_estreno) %></td>
     	<td><%= link_to "Vista previa", formulario_super_vistas_path(formulario) %></td>
       <td><%= link_to "Imprimir formulario interno", imprimir_formulario_interno_formulario_path(formulario) %></td>
+      <td><%= link_to "Excel", formulario_excel_formularios_path(formulario, format: 'xls') %></td>
 	  <% end %>
 
 	</table>
