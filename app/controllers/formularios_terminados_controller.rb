@@ -7,7 +7,7 @@ class FormulariosTerminadosController < ApplicationController
     @coincidencia2 = provincia_repetida(@coincidencia1, params[:formulario_id])
     @coincidencia3 = localidad_repetida(@coincidencia2, params[:formulario_id])
     @coincidencia4 = responsable_repetido(@coincidencia3, params[:formulario_id])
-    #@coincidencia5 = director_repetido(@coincidencia3, params[:formulario_id])
+    @coincidencia5 = director_repetido(@coincidencia3, params[:formulario_id])
     if @coincidencia4.empty?
       @formulario.estado = Formulario::ESTADOS[:enviado]
     	@formulario.created_at = Time.now
@@ -68,30 +68,15 @@ class FormulariosTerminadosController < ApplicationController
           @formularios_con_mismo_responsable_localidad_provincia_y_nombre << form
         end
       end
-      if (form.responsable.responsabilidad_type == "PersonaJuridicaE") and (@formulario.responsable.responsabilidad_type == "PersonaJuridicaE")
-        if form.responsable.responsabilidad.persona_juridica_id == @formulario.responsable.responsabilidad.persona_juridica_id
-          @formularios_con_mismo_responsable_localidad_provincia_y_nombre << form
-        end
-      end
-      if (form.responsable.responsabilidad_type == "PersonaFisicaENue") and (@formulario.responsable.responsabilidad_type == "PersonaFisicaENue")
-        if form.responsable.responsabilidad.persona_fisica_n_id == @formulario.responsable.responsabilidad.persona_fisica_n_id
-          @formularios_con_mismo_responsable_localidad_provincia_y_nombre << form
-        end
-      end
-      if (form.responsable.responsabilidad_type == "PersonaFisicaEInt") and (@formulario.responsable.responsabilidad_type == "PersonaFisicaEInt")
-        if form.responsable.responsabilidad.integrante_de_elenco_en_gira_id == @formulario.responsable.responsabilidad.integrante_de_elenco_en_gira_id
-          @formularios_con_mismo_responsable_localidad_provincia_y_nombre << form
-        end
-      end
-      if (form.responsable.responsabilidad_type == "PersonaFisicaN") and (@formulario.responsable.responsabilidad_type == "PersonaFisicaN")
-        if form.responsable.responsabilidad.cuil_cuit == @formulario.responsable.responsablidad.cuil_cuit
-          @formularios_con_mismo_responsable_localidad_provincia_y_nombre << form
-        end
-      end
       if (form.responsable.responsabilidad_type == "PersonaJuridica") and (@formulario.responsable.responsabilidad_type == "PersonaJuridicaE")
         @id_juridica = @formulario.responsable.responsabilidad.persona_juridica_id
         @persona_juridica_e = PersonaJuridica.find_by_id(@id_juridica)
         if form.responsable.responsabilidad.num_cuit == @persona_juridica_e.num_cuit
+          @formularios_con_mismo_responsable_localidad_provincia_y_nombre << form
+        end
+      end
+      if (form.responsable.responsabilidad_type == "PersonaJuridicaE") and (@formulario.responsable.responsabilidad_type == "PersonaJuridicaE")
+        if form.responsable.responsabilidad.persona_juridica_id == @formulario.responsable.responsabilidad.persona_juridica_id
           @formularios_con_mismo_responsable_localidad_provincia_y_nombre << form
         end
       end
@@ -109,24 +94,29 @@ class FormulariosTerminadosController < ApplicationController
           @formularios_con_mismo_responsable_localidad_provincia_y_nombre << form
         end
       end
-      if (form.responsable.responsabilidad_type == "PersonaFisicaN") and (@formulario.responsable.responsabilidad_type == "PersonaFisicaENue")
-        @id_persona_fisica = @formulario.responsable.responsabilidad.persona_fisica_n_id
+      if (form.responsable.responsabilidad_type == "PersonaFisicaENue") and (@formulario.responsable.responsabilidad_type == "PersonaFisicaEInt")
+        @id_persona_fisica = form.responsable.responsabilidad.persona_fisica_n_id
         @persona_fisica_e_nue = PersonaFisicaN.find_by_id(@id_persona_fisica)
-        if form.responsable.responsabilidad.cuil_cuit == @persona_fisica_e_nue.cuil_cuit
-          @formularios_con_mismo_responsable_localidad_provincia_y_nombre << form
-        end
-      end
-      if form.responsable.responsabilidad_type == "PersonaFisicaEInt" and @formulario.responsable.responsabilidad_type == "PersonaFisicaN"
-        @id_integrante = form.responsable.responsabilidad.integrante_de_elenco_en_gira_id
-        @persona_fisica_e_int = IntegranteDeElencoEnGira.find_by_id(@id_integrante)
-        if @persona_fisica_e_int.cuil_cuit == @formulario.responsable.responsabilidad.cuil_cuit
-          @formularios_con_mismo_responsable_localidad_provincia_y_nombre << form
-        end
-      end
-      if (form.responsable.responsabilidad_type == "PersonaFisicaN") and (@formulario.responsable.responsabilidad_type == "PersonaFisicaEInt")
         @id_integrante = @formulario.responsable.responsabilidad.integrante_de_elenco_en_gira_id
         @persona_fisica_e_int = IntegranteDeElencoEnGira.find_by_id(@id_integrante)
-        if form.responsable.responsabilidad.cuil_cuit == @persona_fisica_e_int.cuil_cuit
+        if @persona_fisica_e_nue.cuil_cuit == @persona_fisica_e_int.nacionalidad_integrante.procedencia.cuil_cuit
+          @formularios_con_mismo_responsable_localidad_provincia_y_nombre << form
+        end
+      end
+      if (form.responsable.responsabilidad_type == "PersonaFisicaENue") and (@formulario.responsable.responsabilidad_type == "PersonaFisicaENue")
+        if form.responsable.responsabilidad.persona_fisica_n_id == @formulario.responsable.responsabilidad.persona_fisica_n_id
+          @formularios_con_mismo_responsable_localidad_provincia_y_nombre << form
+        end
+      end
+      if (form.responsable.responsabilidad_type == "PersonaFisicaEInt") and (@formulario.responsable.responsabilidad_type == "PersonaFisicaEInt")
+        if form.responsable.responsabilidad.integrante_de_elenco_en_gira_id == @formulario.responsable.responsabilidad.integrante_de_elenco_en_gira_id
+          @formularios_con_mismo_responsable_localidad_provincia_y_nombre << form
+        end
+      end
+      if (form.responsable.responsabilidad_type == "PersonaFisicaEInt") and (@formulario.responsable.responsabilidad_type == "PersonaFisicaN")
+        @id_integrante = form.responsable.responsabilidad.integrante_de_elenco_en_gira_id
+        @persona_fisica_e_int = IntegranteDeElencoEnGira.find_by_id(@id_integrante)
+        if @persona_fisica_e_int.nacionalidad_integrante.procedencia.cuil_cuit == @formulario.responsable.responsabilidad.cuil_cuit
           @formularios_con_mismo_responsable_localidad_provincia_y_nombre << form
         end
       end
@@ -135,16 +125,26 @@ class FormulariosTerminadosController < ApplicationController
         @persona_fisica_e_int = IntegranteDeElencoEnGira.find_by_id(@id_integrante)
         @id_persona_fisica = @formulario.responsable.responsabilidad.persona_fisica_n_id
         @persona_fisica_e_nue = PersonaFisicaN.find_by_id(@id_persona_fisica)
-        if @persona_fisica_e_int.cuil_cuit == @persona_fisica_e_nue.cuil_cuit
+        if @persona_fisica_e_int.nacionalidad_integrante.procedencia.cuil_cuit == @persona_fisica_e_nue.cuil_cuit
           @formularios_con_mismo_responsable_localidad_provincia_y_nombre << form
         end
       end
-      if (form.responsable.responsabilidad_type == "PersonaFisicaENue") and (@formulario.responsable.responsabilidad_type == "PersonaFisicaEInt")
-        @id_persona_fisica = form.responsable.responsabilidad.persona_fisica_n_id
+      if (form.responsable.responsabilidad_type == "PersonaFisicaN") and (@formulario.responsable.responsabilidad_type == "PersonaFisicaN")
+        if form.responsable.responsabilidad.cuil_cuit == @formulario.responsable.responsablidad.cuil_cuit
+          @formularios_con_mismo_responsable_localidad_provincia_y_nombre << form
+        end
+      end
+      if (form.responsable.responsabilidad_type == "PersonaFisicaN") and (@formulario.responsable.responsabilidad_type == "PersonaFisicaENue")
+        @id_persona_fisica = @formulario.responsable.responsabilidad.persona_fisica_n_id
         @persona_fisica_e_nue = PersonaFisicaN.find_by_id(@id_persona_fisica)
+        if form.responsable.responsabilidad.cuil_cuit == @persona_fisica_e_nue.cuil_cuit
+          @formularios_con_mismo_responsable_localidad_provincia_y_nombre << form
+        end
+      end
+      if (form.responsable.responsabilidad_type == "PersonaFisicaN") and (@formulario.responsable.responsabilidad_type == "PersonaFisicaEInt")
         @id_integrante = @formulario.responsable.responsabilidad.integrante_de_elenco_en_gira_id
         @persona_fisica_e_int = IntegranteDeElencoEnGira.find_by_id(@id_integrante)
-        if @persona_fisica_e_nue.cuil_cuit == @persona_fisica_e_int.cuil_cuit
+        if form.responsable.responsabilidad.cuil_cuit == @persona_fisica_e_int.nacionalidad_integrante.procedencia.cuil_cuit
           @formularios_con_mismo_responsable_localidad_provincia_y_nombre << form
         end
       end
@@ -152,35 +152,35 @@ class FormulariosTerminadosController < ApplicationController
     return @formularios_con_mismo_responsable_localidad_provincia_y_nombre
   end
 
-  # def director_repetido(formularios, formulario_id)
-  #   @directores = []
-  #   @directores_formulario = []
-  #   @coincidencia = 0
-  #   @formulario = Formulario.find_by_id(formulario_id)
-  #   for integrante_formulario in @formulario.elenco_en_gira.integrantes_de_elenco_en_gira
-  #     if integrante_formulario.integrante_roles.ids.include?(2)
-  #       @directores_formulario << integrante_formulario
-  #     end
-  #   end
-  #   for form in formularios
-  #     for integrante in form.elenco_en_gira.integrantes_de_elenco_en_gira
-  #       if integrante.integrante_roles.ids.include?(2)
-  #         @directores << integrante
-  #       end
-  #     end
-  #   end
-  #   for director in @directores
-  #     for director_formulario in @directores_formulario
-  #       if director.nacionalidad_integrante.procedencia_type == director_formulario.nacionalidad_integrante.procedencia_type
-  #         if director.nacionalidad_integrante.procedencia_type == "Nacional" and (director.nacionalidad_integrante.procedencia.cuil_cuit == director_formulario.nacionalidad_integrante.procedencia.cuil_cuit)
-  #           @coincidencia = 1
-  #         end
-  #         if director.nacionalidad_integrante.procedencia_type == "Extranjero" and (director.nacionalidad_integrante.procedencia.num_doc == director_formulario.nacionalidad_integrante.procedencia.num_doc)
-  #           @coincidencia = 1
-  #         end
-  #       end
-  #     end
-  #   end
-  #   return @coincidencia
-  # end
+  def director_repetido(formularios, formulario_id)
+    @directores = []
+    @directores_formulario = []
+    @coincidencia = 0
+    @formulario = Formulario.find_by_id(formulario_id)
+    for integrante_formulario in @formulario.elenco_en_gira.integrantes_de_elenco_en_gira
+      if integrante_formulario.integrante_roles.ids.include?(2)
+        @directores_formulario << integrante_formulario
+      end
+    end
+    for form in formularios
+      for integrante in form.elenco_en_gira.integrantes_de_elenco_en_gira
+        if integrante.integrante_roles.ids.include?(2)
+          @directores << integrante
+        end
+      end
+    end
+    for director in @directores
+      for director_formulario in @directores_formulario
+        if director.nacionalidad_integrante.procedencia_type == director_formulario.nacionalidad_integrante.procedencia_type
+          if director.nacionalidad_integrante.procedencia_type == "Nacional" and (director.nacionalidad_integrante.procedencia.cuil_cuit == director_formulario.nacionalidad_integrante.procedencia.cuil_cuit)
+            @coincidencia = 1
+          end
+          if director.nacionalidad_integrante.procedencia_type == "Extranjero" and (director.nacionalidad_integrante.procedencia.num_doc == director_formulario.nacionalidad_integrante.procedencia.num_doc)
+            @coincidencia = 1
+          end
+        end
+      end
+    end
+    return @coincidencia
+  end
 end
