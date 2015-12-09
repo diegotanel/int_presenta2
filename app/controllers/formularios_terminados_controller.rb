@@ -7,8 +7,8 @@ class FormulariosTerminadosController < ApplicationController
     @coincidencia2 = provincia_repetida(@coincidencia1, params[:formulario_id])
     @coincidencia3 = localidad_repetida(@coincidencia2, params[:formulario_id])
     @coincidencia4 = responsable_repetido(@coincidencia3, params[:formulario_id])
-    @coincidencia5 = director_repetido(@coincidencia3, params[:formulario_id])
-    if @coincidencia4.empty?
+    @coincidencia5 = director_repetido(@coincidencia4, params[:formulario_id])
+    if @coincidencia5 == 0
       @formulario.estado = Formulario::ESTADOS[:enviado]
     	@formulario.created_at = Time.now
     	@formulario.updated_at = Time.now
@@ -20,7 +20,7 @@ class FormulariosTerminadosController < ApplicationController
     	end
      	@formulario.save!
     else
-      flash[:success] = "Datos tecnicos del espectaculo correctamente creados4"
+      flash[:success] = "Ya existe otro formulario con los mismos datos enviado"
       redirect_to edit_formulario_path(@formulario) 
     end
   end
