@@ -43,7 +43,7 @@ class ElencoEnGira < ActiveRecord::Base
         directores += 1
       end
     end
-    directores > 3 ? false : true
+    directores > 2 ? false : true
   end
 
   def validacion_maximo_dos_tecnicos
@@ -57,7 +57,7 @@ class ElencoEnGira < ActiveRecord::Base
         tecnicos += 1
       end
     end
-    tecnicos > 2 ? false : true
+    tecnicos > 1 ? false : true
   end
 
   def validacion_combinacion_director_tecnico
@@ -75,7 +75,7 @@ class ElencoEnGira < ActiveRecord::Base
         directores += 1
       end
     end
-    directores + tecnicos > 3 ? false : true
+    directores + tecnicos > 2 ? false : true
   end
 
   # private

@@ -10,12 +10,18 @@ class IntegrantesDeElencoEnGiraController < ApplicationController
 
   def new
     @formulario = Formulario.find_by_id(params[:formulario_id])
+    @val_max_2_tecnicos = @formulario.elenco_en_gira.maximo_dos_tecnicos
+    @val_max_3_directores = @formulario.elenco_en_gira.maximo_tres_directores
+    @val_max_3_entre_los_dos = @formulario.elenco_en_gira.combinacion_director_tecnico
     @integrante = IntegranteDeElencoEnGira.new
     @nacionalidad_integrante = NacionalidadIntegrante.new
   end
 
   def edit
     @formulario = Formulario.find_by_id(params[:formulario_id])
+    @val_max_2_tecnicos = @formulario.elenco_en_gira.maximo_dos_tecnicos
+    @val_max_3_directores = @formulario.elenco_en_gira.maximo_tres_directores
+    @val_max_3_entre_los_dos = @formulario.elenco_en_gira.combinacion_director_tecnico
     @integrante = IntegranteDeElencoEnGira.find(params[:id])
   end
 

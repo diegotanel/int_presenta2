@@ -1,6 +1,5 @@
 //USE ESTA
 var ready = function() {
-
    $('#nacionalidad_integrante_nacionalidad_id').change(function() {
         var urlToSubmit = ""
         var partial_name = ""
@@ -23,14 +22,10 @@ var ready = function() {
         success:function(result) 
             {  $("#div_datos_nacionalidad").html(result) }
         });                        
-                    
     });   
 
    // ideec_provincia_id
-
    //  integrante_de_elenco_en_gira_localidad_id
-
-
       (function() {
         jQuery(function() {
           var localidades, llenarLocalidades; 
@@ -53,8 +48,64 @@ var ready = function() {
           });
         }); 
       }).call(this);
+
+      /*integrante_rol_1
+      integrante_rol_2
+      integrante_rol_3*/
+      function setear_roles_integrantes()
+      {
+
+         if($('#integrante_de_elenco_en_gira_id').val() == "")
+         {
+            if($('#val_max_3_entre_los_dos').val() == "false" )
+            {
+               $('#integrante_rol_2').prop('disabled', true); 
+               $('#integrante_rol_3').prop('disabled', true);   
+            }
+            else
+            {            
+               if($('#val_max_3_directores').val() == "false")
+                  { $('#integrante_rol_2').prop('disabled', true); }
+               else
+                  { $('#integrante_rol_2').prop('disabled', false); }
+
+               if($('#val_max_2_tecnicos').val() == "false" )
+                  { $('#integrante_rol_3').prop('disabled', true ); }
+               else
+                  { $('#integrante_rol_3').prop('disabled', false ); }
+            }
+         }
+         else
+         {
+            if($('#val_max_3_entre_los_dos').val() == "false" )
+            {
+               if($('#integrante_rol_2').attr('checked') != "checked")
+               {$('#integrante_rol_2').prop('disabled', true);}
+                  
+               if($('#integrante_rol_3').attr('checked') != "checked")
+               {$('#integrante_rol_3').prop('disabled', true);}  
+            }
+            else
+            {          
+               if($('#val_max_3_directores').val() == "false" && $('#integrante_rol_2').attr('checked') != "checked" )
+                  { $('#integrante_rol_2').prop('disabled', true); }
+               else
+                  { $('#integrante_rol_2').prop('disabled', false); }
+
+               if($('#val_max_2_tecnicos').val() == "false" && $('#integrante_rol_3').attr('checked') != "checked")
+                  { $('#integrante_rol_3').prop('disabled', true ); }
+               else
+                  { $('#integrante_rol_3').prop('disabled', false ); }
+            }
+         } 
+
+      }
+      setear_roles_integrantes();
 };
 
 $(document).ready(ready);
 $(document).on('page:load', ready);
+
+
+
 
