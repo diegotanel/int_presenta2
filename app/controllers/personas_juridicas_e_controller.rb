@@ -14,6 +14,9 @@ class PersonasJuridicasEController < ApplicationController
     if @buscado.nil?
       flash[:error] = "No se encontro a ninguna persona con ese cuit. Cree una nueva"
       render 'new'
+    elsif not @buscado.valid?
+      flash[:error] = "La persona que esta buscando no esta completa. Completela antes de continuar"
+      render 'new'
     else
       flash[:success] = "Se encontro a una persona juridica con ese cuit"
       redirect_to formulario_persona_juridica_e_path(@formulario, @buscado)

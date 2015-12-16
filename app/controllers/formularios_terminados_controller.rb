@@ -20,7 +20,7 @@ class FormulariosTerminadosController < ApplicationController
     	end
      	@formulario.save!
     else
-      flash[:success] = "Ya existe otro formulario con los mismos datos enviado"
+      flash[:error] = "Ya existe otro formulario con los mismos datos enviado"
       redirect_to edit_formulario_path(@formulario) 
     end
   end

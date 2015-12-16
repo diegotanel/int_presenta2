@@ -10,7 +10,9 @@ class PersonasFisicasEController < ApplicationController
     @nacional = Nacional.where(cuil_cuit: params[:numero_cuil_cuit])[0]
     @buscado = nil
     if @nacional
-      @buscado = @nacional.nacionalidad_integrante.integrante_de_elenco_en_gira
+      if @nacional.nacionalidad_integrante
+        @buscado = @nacional.nacionalidad_integrante.integrante_de_elenco_en_gira
+      end
     end
     if @buscado.nil?
       @buscado = PersonaFisicaN.where(cuil_cuit: params[:numero_cuil_cuit])[0]
@@ -23,6 +25,9 @@ class PersonasFisicasEController < ApplicationController
     else
       if @buscado.es_menor?
         flash[:error] = "No es posible seleccionar el integrante por ser menor"
+        render 'new'
+      elsif not @buscado.valid?
+        flash[:error] = "La persona que esta buscando no esta completa. Completela antes de continuar"
         render 'new'
       else
         flash[:success] = "Se encontro a un integrante con ese cuil/cuit"
