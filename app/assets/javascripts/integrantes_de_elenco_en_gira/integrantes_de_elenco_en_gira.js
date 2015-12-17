@@ -52,7 +52,7 @@ var ready = function() {
       /*integrante_rol_1
       integrante_rol_2
       integrante_rol_3*/
-      function setear_roles_integrantes()
+      function setear_checks_roles_integrantes()
       {
 
          if($('#integrante_de_elenco_en_gira_id').val() == "")
@@ -100,7 +100,7 @@ var ready = function() {
          } 
 
       }
-      setear_roles_integrantes();
+      setear_checks_roles_integrantes();
 };
 
 $(document).ready(ready);

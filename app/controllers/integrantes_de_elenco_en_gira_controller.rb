@@ -13,6 +13,7 @@ class IntegrantesDeElencoEnGiraController < ApplicationController
     @val_max_2_tecnicos = @formulario.elenco_en_gira.maximo_dos_tecnicos
     @val_max_3_directores = @formulario.elenco_en_gira.maximo_tres_directores
     @val_max_3_entre_los_dos = @formulario.elenco_en_gira.combinacion_director_tecnico
+    el_cupo_de_integrantes_esta_lleno(@val_max_3_entre_los_dos, @val_max_2_tecnicos, @val_max_3_directores)
     @integrante = IntegranteDeElencoEnGira.new
     @nacionalidad_integrante = NacionalidadIntegrante.new
   end
@@ -22,6 +23,7 @@ class IntegrantesDeElencoEnGiraController < ApplicationController
     @val_max_2_tecnicos = @formulario.elenco_en_gira.maximo_dos_tecnicos
     @val_max_3_directores = @formulario.elenco_en_gira.maximo_tres_directores
     @val_max_3_entre_los_dos = @formulario.elenco_en_gira.combinacion_director_tecnico
+    el_cupo_de_integrantes_esta_lleno(@val_max_3_entre_los_dos, @val_max_2_tecnicos, @val_max_3_directores)
     @integrante = IntegranteDeElencoEnGira.find(params[:id])
   end
 
@@ -123,6 +125,13 @@ class IntegrantesDeElencoEnGiraController < ApplicationController
       end
     end
   end
+
+  def el_cupo_de_integrantes_esta_lleno(val_max_3_entre_los_dos, val_max_2_tecnicos, val_max_3_directores)    
+    if !val_max_3_entre_los_dos || !val_max_2_tecnicos || !val_max_3_directores
+      @msg_cupo_lleno = "El cupo está lleno"
+    end
+  end
+
 
   def nacionalidad_selecionada?(nacionalidad_integrante_params)
     !nacionalidad_integrante_params['nacionalidad_id'].blank?

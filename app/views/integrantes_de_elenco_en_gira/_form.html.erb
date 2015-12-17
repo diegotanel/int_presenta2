@@ -121,6 +121,7 @@
     <%= f.text_field :email %>
     </div>
 
+
     <div class="field">
       <br/><%= label_tag :integrante_rol, "Roles del Integrante *" %><p>(Tildar al menos uno)</p>
       <%= hidden_field_tag "integrante_de_elenco_en_gira[integrante_rol_ids][]", nil %>
@@ -131,6 +132,12 @@
         </tr>
       <% end %>
     </div>
+    </br>
+    <% if !@msg_cupo_lleno.blank? %>
+      <div class="alert alert-danger" >
+        <%= @msg_cupo_lleno %>
+      </div>
+    <% end %>
 
 </br>
   <div class="actions">
