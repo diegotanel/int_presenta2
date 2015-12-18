@@ -11,6 +11,7 @@ class CreatePrincipals < ActiveRecord::Migration
       t.string :prefijo_tel_cel, :null => false
       t.string :tel_particular, :null => false
       t.string :tel_celular, :null => false
+      t.string :email_contacto, :null => false
 
       t.timestamps
     end

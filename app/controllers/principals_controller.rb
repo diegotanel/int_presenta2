@@ -68,7 +68,7 @@ class PrincipalsController < ApplicationController
   private
 
   def principal_params
-    params.require(:principal).permit(:localidad_id, :grupo_id, :nombre, :nombre_contacto, :apellido_contacto, :tel_particular, :prefijo_tel_part, :tel_celular, :prefijo_tel_cel)
+    params.require(:principal).permit(:localidad_id, :grupo_id, :nombre, :nombre_contacto, :apellido_contacto, :email_contacto, :tel_particular, :prefijo_tel_part, :tel_celular, :prefijo_tel_cel)
   end
 
   def inicializar_variables

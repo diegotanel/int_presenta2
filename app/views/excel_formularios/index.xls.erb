@@ -168,7 +168,7 @@
         <Row>
           <Cell><Data ss:Type="String"><%= @persona_e.nombre %></Data></Cell>
           <Cell><Data ss:Type="String"><%= @persona_e.apellido %></Data></Cell>
-          <Cell><Data ss:Type="String"><%= @persona_e.cuil_cuit %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @persona_e.nacionalidad_integrante.procedencia.cuil_cuit %></Data></Cell>
           <Cell><Data ss:Type="String"><%= I18n.l(@persona_e.fecha_de_nacimiento) %></Data></Cell>
           <Cell><Data ss:Type="String"><%= @persona_e.calle %></Data></Cell>
           <Cell><Data ss:Type="String"><%= @persona_e.altura_calle %></Data></Cell>

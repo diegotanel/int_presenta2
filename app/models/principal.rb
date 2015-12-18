@@ -4,9 +4,14 @@ class Principal < ActiveRecord::Base
   belongs_to :formulario
 
   attr_accessor :saltear_validaciones_de_presencia
+  attr_accessor :saltear_validaciones_de_email
 
+  unless :saltear_validaciones_de_email
+    before_save { self.email = email.downcase }
+  end
 
   before_save :validacion_tel_particular_tel_celular!
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(?:\.[a-z\d\-]+)*\.[a-z]+\z/i
 
 
   delegate :provincia, to: :localidad
@@ -22,6 +27,8 @@ class Principal < ActiveRecord::Base
   validates :apellido_contacto, presence: true, length: {maximum: 70}, unless: :saltear_validaciones_de_presencia
   validates :tel_particular, numericality: { only_integer: true }, allow_blank: true
   validates :tel_celular, numericality: { only_integer: true }, allow_blank: true
+  validates :email_contacto, presence: true, unless: :saltear_validaciones_de_presencia
+  validates :email_contacto, format: {with: VALID_EMAIL_REGEX}, unless: :saltear_validaciones_de_email
 
   def validacion_tel_particular_tel_celular!
     @es_valido = nil

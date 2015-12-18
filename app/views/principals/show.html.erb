@@ -44,6 +44,11 @@
   			<b>Teléfono celular del contacto:</b>
   			<%= @principal.prefijo_tel_cel + " " + @principal.tel_celular %>
 			</p>
+
+			<p>
+  			<b>Email del contacto:</b>
+  			<%= @principal.email_contacto %>
+			</p>
 			</br>
 			
 			<%= link_to t('Volver a campos de datos'), edit_formulario_path(@formulario) %>

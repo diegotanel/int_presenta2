@@ -43,9 +43,9 @@ class GeneradorDeFormularioInterno
 		end
 
 		if @tipo_responsable == "Fisica"
-			@ruta_plantilla = Rails.root.join("app/plantillas/FORMULARIO_INTERNO_INT_PRESENTA_PF_CONFIRMACION.odt")
+			@ruta_plantilla = Rails.root.join("app/plantillas/FORMULARIO_INTERNO_INT_PRESENTA_PF.odt")
 		else
-			@ruta_plantilla = Rails.root.join("app/plantillas/FORMULARIO_INTERNO_INT_PRESENTA_PJ_CONFIRMACION.odt")
+			@ruta_plantilla = Rails.root.join("app/plantillas/FORMULARIO_INTERNO_INT_PRESENTA_PJ.odt")
 		end
 
 		report = ODFReport::Report.new(@ruta_plantilla) do |r|
@@ -53,6 +53,10 @@ class GeneradorDeFormularioInterno
 			r.add_field("NOMBRE_DEL_AUTOR", formulario.datos_esp.nombre_autor)
 			r.add_field("PROVINCIA_PRINCIPAL", formulario.principal.provincia.detalle)
 			r.add_field("FECHA_DE_ESTRENO", I18n.l(formulario.datos_esp.fecha_de_estreno))
+			r.add_field("NOMBRE_CONTACTO"), formulario.principal.nombre_contacto)
+			r.add_field("APELLIDO_CONTACTO"), formulario.principal.apellido_contacto)
+			r.add_field("TELEFONOS_CONTACTO"), formulario.principal.prefijo_tel_part + " " + formulario.principal.tel_particular + "/ " + formulario.principal.prefijo_tel_cel + " " + formulario.principal.tel_celular)
+			r.add_field("EMAIL_CONTACTO"), formulario.principal.email_contacto)
 
 			if @tipo_responsable == "Fisica"
 				llenado_de_persona_fisica(r, @responsable)
@@ -64,19 +68,12 @@ class GeneradorDeFormularioInterno
 				s.add_column("INT_NOMBRE_APELLIDO") { |i| i.nombre + " " + i.apellido}
 				s.add_column("INT_ROL") {|i| i.integrante_roles.map { |e| e.detalle }.join(", ")}
 				s.add_column("INT_FECHA_DE_NACIMIENTO") { |i| I18n.l(i.fecha_de_nacimiento) }
-				s.add_column("INT_TIPO_DE_DOCUMENTO") do |i|
-					if i.nacionalidad_integrante.procedencia_type == "Nacional"
-						i.nacionalidad_integrante.procedencia.cuil_cuit
-					else
-						i.nacionalidad_integrante.procedencia.tipo_doc
-					end
-				end 
-				s.add_column("INT_NUMERO_DE_DOCUMENTO") do |i|
-					if i.nacionalidad_integrante.procedencia_type == "Nacional"
-						i.nacionalidad_integrante.procedencia.cuil_cuit
-					else
-						i.nacionalidad_integrante.procedencia.num_doc
-					end
+				if i.nacionalidad_integrante.procedencia_type == "Nacional"
+					s.add_column("INT_TIPO_DE_DOCUMENTO") {|i| i.nacionalidad_integrante.procedencia.cuil_cuit}
+					s.add_column("INT_NUMERO_DE_DOCUMENTO") {|i| i.nacionalidad_integrante.procedencia.cuil_cuit}
+				else
+					s.add_column("INT_TIPO_DE_DOCUMENTO") {|i| i.nacionalidad_integrante.procedencia.tipo_doc}
+					s.add_column("INT_NUMERO_DE_DOCUMENTO") {|i| i.nacionalidad_integrante.procedencia.num_doc}
 				end
 				s.add_column("INT_EMAIL", :email)
 				s.add_column("INT_DOMICILIO") { |i| "#{i.calle } #{i.altura_calle } #{i.piso } #{i.depto }" }
@@ -118,7 +115,7 @@ class GeneradorDeFormularioInterno
 		report.add_field("PROVINCIA_FISICA", persona_fisica.provincia.detalle)
 		report.add_field("LOCALIDAD_FISICA", persona_fisica.localidad.detalle)
 		report.add_field("CODIGO_POSTAL_FISICA", persona_fisica.codigo_postal)
-		report.add_field("TELEFONOS_FISICA", "#{persona_fisica.tel_particular } / #{persona_fisica.tel_celular }")
+		report.add_field("TELEFONOS_FISICA", "#{persona_fisica.prefijo_tel_part } #{persona_fisica.tel_particular } / #{persona_fisica.prefijo_tel_cel } #{persona_fisica.tel_celular }")
 		report.add_field("CORREO_ELECTRONICO_FISICA", persona_fisica.email)
 	end
 
