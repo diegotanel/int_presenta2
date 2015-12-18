@@ -52,7 +52,7 @@ class GeneradorDeRemito
     end
 
 
-    report = ODFReport::Report.new(Rails.root.join("app/plantillas/REMITO_INT_PRESENTA_CONFIRMACION.odt")) do |r|
+    report = ODFReport::Report.new(Rails.root.join("app/plantillas/REMITO_INT_PRESENTA_INSCRIPCION.odt")) do |r|
       r.add_field("FECHA_DE_IMPRESION_DEL_REMITO", I18n.l(Time.zone.now, format: :con_seg))
       r.add_field("NOMBRE_DEL_ESPECTACULO", formulario.principal.nombre)
       r.add_field("PROVINCIA", formulario.principal.provincia.detalle)
