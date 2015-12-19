@@ -16,19 +16,22 @@
   <tr>
     <td>Datos Principales</td>
 
-      <% unless (@formulario.principal) %>
+    <% unless (@formulario.principal) %>
+      <td><font color="red">Campo Incompleto</font></td>
+      <% @principal_valides = 0 %>
+    <% end %>
+
+    <% if (@formulario.principal) %>
+      <% unless (@formulario.principal.valid?) %>
         <td><font color="red">Campo Incompleto</font></td>
+        <% @principal_valides = 0 %>
       <% end %>
+    <% end %>
 
-      <% if (@formulario.principal) %>
-        <% unless (@formulario.principal.valid?) %>
-          <td><%= link_to 'Campo Incompleto', errores_formulario_principal_path(@formulario, @formulario.principal), style: 'color:#FF0000'  %></td>
-        <% end %>
-      <% end %>
-
-       <% if (@formulario.principal) && (@formulario.principal.valid?) %>
-        <td><font color="green">Campo Completo</font></td>
-      <% end %>
+    <% if (@formulario.principal) && (@formulario.principal.valid?) %>
+      <td><font color="green">Campo Completo</font></td>
+      <% @principal_valides = 1 %>
+    <% end %>
 
     <% if (@formulario.principal) %>
 
@@ -45,32 +48,36 @@
   <tr>
     <td>Datos generales del espectáculo</td>
 
-      <% unless (@formulario.datos_esp) %>
+    <% unless (@formulario.datos_esp) %>
+      <td><font color="red">Campo Incompleto</font></td>
+      <% @datos_esp_valides = 0 %>
+    <% end %>
+
+    <% if (@formulario.datos_esp) %>
+      <% unless (@formulario.datos_esp.valid?) %>
         <td><font color="red">Campo Incompleto</font></td>
+        <% @datos_esp_valides = 0 %>
       <% end %>
+    <% end %>
 
-      <% if (@formulario.datos_esp) %>
-        <% unless (@formulario.datos_esp.valid?) %>
-          <td><%= link_to 'Campo Incompleto', errores_formulario_datos_esp_path(@formulario, @formulario.datos_esp), style: 'color:#FF0000'  %></td>
-        <% end %>
-      <% end %>
-
-      <% if (@formulario.datos_esp) && (@formulario.datos_esp.valid?) %>
-        <% if (@formulario.datos_esp.ficha_artisticas.count > 0) %>
-          <% @formulario.datos_esp.ficha_artisticas.each do |ficha| %>
-              <%  unless ficha.valid? %>
-                <% @es_invali = true 
+    <% if (@formulario.datos_esp) && (@formulario.datos_esp.valid?) %>
+      <% if (@formulario.datos_esp.ficha_artisticas.count > 0) %>
+        <% @formulario.datos_esp.ficha_artisticas.each do |ficha| %>
+          <%  unless ficha.valid? %>
+            <% @es_invali = true 
                   break %>
-              <% end %>
-            <% end %>
-        <% else %>
-          <% @es_invali = true %>
+          <% end %>
         <% end %>
+      <% else %>
+        <% @es_invali = true %>
+      <% end %>
 
         <% if (@es_invali) %>
-          <td><%= link_to 'Campo Incompleto', errores_formulario_datos_esp_path(@formulario, @formulario.datos_esp), style: 'color:#FF0000'  %></td>
+          <td><font color="red">Campo Incompleto</font></td>
+          <% @datos_esp_valides = 0 %>
         <% else %>
           <td><font color="green">Campo Completo</font></td>
+          <% @datos_esp_valides = 1 %>
         <% end %>
       <% end %>
 
@@ -91,16 +98,19 @@
 
       <% unless (@formulario.datos_tec) %>
         <td><font color="red">Campo Incompleto</font></td>
+        <% @datos_tec_valides = 0 %>
       <% end %>
 
       <% if (@formulario.datos_tec) %>
         <% unless (@formulario.datos_tec.valid?) %>
-          <td><%= link_to 'Campo Incompleto', errores_formulario_datos_tec_path(@formulario, @formulario.datos_tec), style: 'color:#FF0000'  %></td>
+          <td><font color="red">Campo Incompleto</font></td>
+          <% @datos_tec_valides = 0 %>
         <% end %>
       <% end %>
 
        <% if (@formulario.datos_tec) && (@formulario.datos_tec.valid?) %>
         <td><font color="green">Campo Completo</font></td>
+        <% @datos_tec_valides = 1 %>
       <% end %>
 
     <% if (@formulario.datos_tec) %>
@@ -121,14 +131,28 @@
 
     <% unless (@formulario.elenco_en_gira) %>
       <td><font color="red">Campo Incompleto</font></td>
+      <% @elenco_valides = 0 %>
     <% end %>
 
     <% if (@formulario.elenco_en_gira) %>
       <% if (@formulario.elenco_en_gira.integrantes_de_elenco_en_gira.count < 1) %>
-        <td><font color="red">Campo Incompleto</font></td>
+        <% @es_invalido = true %>
       <% else %>
-        <td><font color="green">Campo Completo</font></td>
+        <% @formulario.elenco_en_gira.integrantes_de_elenco_en_gira.each do |integrante| %>
+          <%  unless integrante.valid? %>
+            <% @es_invalido = true 
+                  break %>
+          <% end %>
+        <% end %>
       <% end %>
+    <% end %>
+
+    <% if (@es_invalido) %>
+      <td><font color="red">Campo Incompleto</font></td>
+      <% @elenco_valides = 0 %>
+    <% else %>
+      <td><font color="green">Campo Completo</font></td>
+      <% @elenco_valides = 1 %>
     <% end %>
 
   <% if (@formulario.elenco_en_gira) %>
@@ -148,16 +172,19 @@
 
       <% unless (@formulario.datos_grupo) %>
         <td><font color="red">Campo Incompleto</font></td>
+        <% @datos_grupo_valides = 0 %>
       <% end %>
 
         <% if (@formulario.datos_grupo) %>
           <% unless (@formulario.datos_grupo.valid?) %>
-            <td><%= link_to 'Campo Incompleto', errores_formulario_datos_grupo_path(@formulario, @formulario.datos_grupo), style: 'color:#FF0000'  %></td>
+            <td><font color="red">Campo Incompleto</font></td>
+            <% @datos_grupo_valides = 0 %>
           <% end %>
         <% end %>
 
         <% if (@formulario.datos_grupo) && (@formulario.datos_grupo.valid?) %>
           <td><font color="green">Campo Completo</font></td>
+          <% @datos_grupo_valides = 1 %>
         <% end %>
 
         <% if (@formulario.datos_grupo) %>
@@ -178,10 +205,12 @@
     <td>Datos del responsable</td>
     <% unless (@formulario.responsable) %>
       <td><font color="red">Campo Incompleto</font></td>
+      <% @datos_responsable_valides = 0 %>
     <% end %>
     <% if (@formulario.responsable) %>
       <% unless (@formulario.responsable.valid?) %>
         <td><font color="red">Campo Incompleto</font></td>
+        <% @datos_responsable_valides = 0 %>
       <% end %>
     <% end %>
     <% if (@formulario.responsable) %>
@@ -189,21 +218,17 @@
         <% if (@formulario.responsable.responsabilidad_type == "PersonaFisicaN") %>
           <% if (@formulario.responsable.responsabilidad.valid?) %>
             <td><font color="green">Campo Completo</font></td>
+            <% @datos_responsable_valides = 1 %>
           <% else %>
             <td><font color="red">Campo Incompleto</font></td>
+            <% @datos_responsable_valides = 0 %>
           <% end %>
         <% elsif (@formulario.responsable.responsabilidad_type == "PersonaFisicaEInt") %>
-          <% if (@formulario.responsable.responsabilidad.valid?) %>
-            <td><font color="green">Campo Completo</font></td>
-          <% else %>
-            <td><font color="red">Campo Incompleto</font></td>
-          <% end %>
+          <td><font color="green">Campo Completo</font></td>
+          <% @datos_responsable_valides = 1 %>
         <% elsif (@formulario.responsable.responsabilidad_type == "PersonaFisicaENue") %>
-          <% if (@formulario.responsable.responsabilidad.valid?) %>
-            <td><font color="green">Campo Completo</font></td>
-          <% else %>
-            <td><font color="red">Campo Incompleto</font></td>
-          <% end %>
+          <td><font color="green">Campo Completo</font></td>
+          <% @datos_responsable_valides = 1 %>
         <% elsif (@formulario.responsable.responsabilidad_type == "PersonaJuridica") %>
           <% if (@formulario.responsable.responsabilidad.valid?) %>
             <% @es_invalid = nil %>
@@ -221,33 +246,18 @@
 
             <% if (@es_invalid) %>
               <td><font color="red">Campo Incompleto</font></td>
+              <% @datos_responsable_valides = 0 %>
             <% else %>
               <td><font color="green">Campo Completo</font></td>
+              <% @datos_responsable_valides = 1 %>
             <% end %>
           <% else %>
             <td><font color="red">Campo Incompleto</font></td>
+            <% @datos_responsable_valides = 0 %>
           <% end %>
         <% else %>
-          <% if (@formulario.responsable.responsabilidad.valid?) %>
-            <% @es_invalid = nil %>
-            <% @persona_juridica = PersonaJuridica.find_by_id(@formulario.responsable.responsabilidad.persona_juridica_id) %>
-            <% if (@persona_juridica.integrantes_comision_directiva.count > 0) %>
-                <% @persona_juridica.integrantes_comision_directiva.each do |integrant| %>
-                  <%  unless integrant.valid? %>
-                    <% @es_invalid = true 
-                      break %>
-                  <% end %>
-                <% end %>
-            <% else %>
-              <% @es_invalid = true %>
-            <% end %>
-
-            <% if (@es_invalid) %>
-              <td><font color="red">Campo Incompleto</font></td>
-            <% else %>
-              <td><font color="green">Campo Completo</font></td>
-            <% end %>
-          <% end %>
+          <td><font color="red">Campo Completo</font></td>
+          <% @datos_responsable_valides = 1 %>
         <% end %>
       <% end %>
     <% end %>
@@ -283,41 +293,14 @@
 </table>
 
 
-<% @completo = false %>
-
-<% if (@formulario.principal) && (@formulario.principal.valid?) %>
-  <% @completo = true %>
-<% end %>
-
-<% if @completo && (@formulario.datos_esp) && (@formulario.datos_esp.valid?) %>
-  <% @completo = true %>
-<% else %>
-  <% @completo = false %>
-<% end %>
-
-<% if @completo && (@formulario.datos_tec) && (@formulario.datos_tec.valid?) %>
-  <% @completo = true %>
-<% else %>
-  <% @completo = false %>
-<% end %>
-
-<% if @completo && (@formulario.elenco_en_gira) && (@formulario.elenco_en_gira.valid?) %>
-  <% @completo = true %>
-<% else %>
-  <% @completo = false %>
-<% end %>
-
-<% if @completo && @formulario.principal && @formulario.principal.grupo.codigo == 'a' %>
-  <% if (@formulario.datos_grupo) && (@formulario.datos_grupo.valid?) %>
-    <% @completo = true %>
-  <% else %>
-    <% @completo = false %>
+<% if @principal_valides == 1 and @datos_esp_valides == 1 and @datos_tec_valides == 1 and @elenco_valides == 1 and @datos_reponsable_valides == 1 %>
+  <% if @formulario.principal.grupo.codigo == 'a' and @datos_grupo_valides == 1 %>
+    <%= link_to "Enviar Formulario", formulario_formularios_terminados_path(@formulario), :data => {confirm: t("scaffoldi18n.are_you_sure?")}, class: "btn btn-medium btn-primary" %>
+  <% elsif not @formulario.principal.grupo.codigo == 'a' %>
+    <%= link_to "Enviar Formulario", formulario_formularios_terminados_path(@formulario), :data => {confirm: t("scaffoldi18n.are_you_sure?")}, class: "btn btn-medium btn-primary" %>
   <% end %>
 <% end %>
 
-  <% if @completo %>
-   <%= link_to "Enviar Formulario", formulario_formularios_terminados_path(@formulario), :data => {confirm: t("scaffoldi18n.are_you_sure?")}, class: "btn btn-medium btn-primary" %>
-  <% end %></br>
-  </br>
+</br>
 
 <%= link_to "Volver a los formularios", formularios_path %>

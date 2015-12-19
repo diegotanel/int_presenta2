@@ -25,7 +25,9 @@ class Principal < ActiveRecord::Base
   validates :formulario, presence: true
   validates :nombre_contacto, presence: true, length: {maximum: 70}, unless: :saltear_validaciones_de_presencia
   validates :apellido_contacto, presence: true, length: {maximum: 70}, unless: :saltear_validaciones_de_presencia
+  validates :prefijo_tel_part, numericality: { only_integer: true }, length: {maximum: 6}, allow_blank: true
   validates :tel_particular, numericality: { only_integer: true }, allow_blank: true
+  validates :prefijo_tel_cel, numericality: { only_integer: true }, length: {maximum: 6}, allow_blank: true
   validates :tel_celular, numericality: { only_integer: true }, allow_blank: true
   validates :email_contacto, presence: true, unless: :saltear_validaciones_de_presencia
   validates :email_contacto, format: {with: VALID_EMAIL_REGEX}, unless: :saltear_validaciones_de_email

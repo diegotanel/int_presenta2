@@ -33,6 +33,8 @@ class IntegranteComisionDirectiva < ActiveRecord::Base
   validates :persona_juridica, presence: true
   validates :tel_particular, numericality: { only_integer: true }, allow_blank: true
   validates :tel_celular, numericality: { only_integer: true }, allow_blank: true
+  validates :prefijo_tel_part, numericality: { only_integer: true }, length: {maximum: 6}, allow_blank: true
+  validates :prefijo_tel_cel, numericality: { only_integer: true }, length: {maximum: 6}, allow_blank: true
 
   def validacion_digitoverificador_de_cuit_cuil!
     @validador = ValidadorCuitCuil.new

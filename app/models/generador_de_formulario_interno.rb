@@ -53,10 +53,10 @@ class GeneradorDeFormularioInterno
 			r.add_field("NOMBRE_DEL_AUTOR", formulario.datos_esp.nombre_autor)
 			r.add_field("PROVINCIA_PRINCIPAL", formulario.principal.provincia.detalle)
 			r.add_field("FECHA_DE_ESTRENO", I18n.l(formulario.datos_esp.fecha_de_estreno))
-			r.add_field("NOMBRE_CONTACTO"), formulario.principal.nombre_contacto)
-			r.add_field("APELLIDO_CONTACTO"), formulario.principal.apellido_contacto)
-			r.add_field("TELEFONOS_CONTACTO"), formulario.principal.prefijo_tel_part + " " + formulario.principal.tel_particular + "/ " + formulario.principal.prefijo_tel_cel + " " + formulario.principal.tel_celular)
-			r.add_field("EMAIL_CONTACTO"), formulario.principal.email_contacto)
+			r.add_field("NOMBRE_CONTACTO", formulario.principal.nombre_contacto)
+			r.add_field("APELLIDO_CONTACTO", formulario.principal.apellido_contacto)
+			r.add_field("TELEFONOS_CONTACTO", formulario.principal.prefijo_tel_part + " " + formulario.principal.tel_particular + "/ " + formulario.principal.prefijo_tel_cel + " " + formulario.principal.tel_celular)
+			r.add_field("EMAIL_CONTACTO", formulario.principal.email_contacto)
 
 			if @tipo_responsable == "Fisica"
 				llenado_de_persona_fisica(r, @responsable)
@@ -68,7 +68,7 @@ class GeneradorDeFormularioInterno
 				s.add_column("INT_NOMBRE_APELLIDO") { |i| i.nombre + " " + i.apellido}
 				s.add_column("INT_ROL") {|i| i.integrante_roles.map { |e| e.detalle }.join(", ")}
 				s.add_column("INT_FECHA_DE_NACIMIENTO") { |i| I18n.l(i.fecha_de_nacimiento) }
-				if i.nacionalidad_integrante.procedencia_type == "Nacional"
+				if {|i| i.nacionalidad_integrante.procedencia_type == "Nacional"}
 					s.add_column("INT_TIPO_DE_DOCUMENTO") {|i| i.nacionalidad_integrante.procedencia.cuil_cuit}
 					s.add_column("INT_NUMERO_DE_DOCUMENTO") {|i| i.nacionalidad_integrante.procedencia.cuil_cuit}
 				else

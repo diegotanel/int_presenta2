@@ -28,6 +28,31 @@
 		<b>Nombre del espectáculo:</b>
 		<%= @formulario.principal.nombre %>
 	</p>
+
+	<p>
+		<b>Nombre del contacto:</b>
+		<%= @formulario.principal.nombre_contacto %>
+	</p>
+
+	<p>
+		<b>Apellido del contacto:</b>
+		<%= @formulario.principal.apellido_contacto %>
+	</p>
+
+	<p>
+		<b>Email del contacto:</b>
+		<%= @formulario.principal.email_contacto %>
+	</p>
+
+	<p>
+		<b>Teléfono particular del contacto:</b>
+		<%= @formulario.principal.prefijo_tel_part + " " + @formulario.principal.tel_particular %>
+	</p>
+
+	<p>
+		<b>Teléfono celular del contacto:</b>
+		<%= @formulario.principal.prefijo_tel_cel + " " + @formulario.principal.tel_celular %>
+	</p>
 <% end %>
 <h3>Datos generales del espectáculo</h3>
 <% if (@formulario.datos_esp) %>

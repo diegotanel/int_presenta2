@@ -28,7 +28,7 @@ class PersonaJuridica < ActiveRecord::Base
   validates :email_entidad, presence: true, unless: :saltear_validaciones_de_presencia
   validates :email_entidad, format: {with: VALID_EMAIL_REGEX}
   validates :tel_entidad, presence: true, numericality: { only_integer: true }, unless: :saltear_validaciones_de_presencia
-
+  validates :prefijo_tel_ent, numericality: { only_integer: true }, length: {maximum: 6}, allow_blank: true
 
   def validacion_digitoverificador_de_cuit_cuil!
     @validador = ValidadorCuitCuil.new
