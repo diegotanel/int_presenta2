@@ -7,6 +7,7 @@ class PersonaJuridica < ActiveRecord::Base
 
   belongs_to :localidad
   has_many :integrantes_comision_directiva
+  validates_associated :integrantes_comision_directiva
 
   before_save { self.email_entidad = email_entidad.downcase }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(?:\.[a-z\d\-]+)*\.[a-z]+\z/i
@@ -29,6 +30,7 @@ class PersonaJuridica < ActiveRecord::Base
   validates :email_entidad, format: {with: VALID_EMAIL_REGEX}
   validates :tel_entidad, presence: true, numericality: { only_integer: true }, unless: :saltear_validaciones_de_presencia
   validates :prefijo_tel_ent, numericality: { only_integer: true }, length: {maximum: 6}, allow_blank: true
+  validates :integrantes_comision_directiva, presence: true, unless: :saltear_validaciones_de_presencia
 
   def validacion_digitoverificador_de_cuit_cuil!
     @validador = ValidadorCuitCuil.new
