@@ -218,9 +218,6 @@
 <% if (@formulario.elenco_en_gira) %>
 	<h3>Datos del elenco en gira</h3>
 	<% @elenco = @formulario.elenco_en_gira.integrantes_de_elenco_en_gira.all %>
-	<% if !(@formulario.elenco_en_gira.valid?) %>
-    <%= render 'shared/error_messages', :object => @formulario.elenco_en_gira %>   
-	<% end %>
 	<table class="table table-striped">
   <tr>
 
