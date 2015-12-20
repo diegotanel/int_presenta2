@@ -64,17 +64,13 @@ class GeneradorDeFormularioInterno
 				llenado_de_persona_juridica(r, @responsable)
 			end
 
-			r.add_table("TABLA_INT", @integrantes, :header=>true) do |s|
+
+ 		r.add_table("TABLA_INT", @integrantes, :header=>true) do |s|
 				s.add_column("INT_NOMBRE_APELLIDO") { |i| i.nombre + " " + i.apellido}
 				s.add_column("INT_ROL") {|i| i.integrante_roles.map { |e| e.detalle }.join(", ")}
 				s.add_column("INT_FECHA_DE_NACIMIENTO") { |i| I18n.l(i.fecha_de_nacimiento) }
-				if {|i| i.nacionalidad_integrante.procedencia_type == "Nacional"}
-					s.add_column("INT_TIPO_DE_DOCUMENTO") {|i| i.nacionalidad_integrante.procedencia.cuil_cuit}
-					s.add_column("INT_NUMERO_DE_DOCUMENTO") {|i| i.nacionalidad_integrante.procedencia.cuil_cuit}
-				else
-					s.add_column("INT_TIPO_DE_DOCUMENTO") {|i| i.nacionalidad_integrante.procedencia.tipo_doc}
-					s.add_column("INT_NUMERO_DE_DOCUMENTO") {|i| i.nacionalidad_integrante.procedencia.num_doc}
-				end
+				s.add_column("INT_TIPO_DE_DOCUMENTO") {|i| i.nacionalidad_integrante.tipo_documento}
+				s.add_column("INT_NUMERO_DE_DOCUMENTO") {|i| i.nacionalidad_integrante.numero_documento}
 				s.add_column("INT_EMAIL", :email)
 				s.add_column("INT_DOMICILIO") { |i| "#{i.calle } #{i.altura_calle } #{i.piso } #{i.depto }" }
 				s.add_column("INT_LOCALIDAD") { |i| i.localidad.detalle }

@@ -12,4 +12,22 @@ class NacionalidadIntegrante < ActiveRecord::Base
 	validates :nacionalidad, presence: true
 	validates :procedencia, presence: true
 	validates :integrante_de_elenco_en_gira, presence: true
+
+	def tipo_documento
+    if procedencia_type == "Nacional"
+    	"CUIL / CUIT"
+    else
+    	procedencia.tipo_doc
+    end
+  end
+
+  def numero_documento
+  	if procedencia_type == "Nacional"
+    	procedencia.cuil_cuit
+    else
+    	procedencia.num_doc
+    end
+  end
+
+
 end
