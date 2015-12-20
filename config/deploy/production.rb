@@ -7,7 +7,8 @@
 # server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 
-
+set :stage, :production
+server '190.210.48.145', user: 'deploy', roles: %w{web app}, my_property: :my_value
 
 # role-based syntax
 # ==================
@@ -31,7 +32,7 @@
 # http://capistranorb.com/documentation/getting-started/configuration/
 # Feel free to add new variables to customise your setup.
 
-
+set :deploy_to, '/home/deploy/int_presenta2'
 
 # Custom SSH Options
 # ==================
